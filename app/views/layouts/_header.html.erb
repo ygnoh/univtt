@@ -1,0 +1,10 @@
+<ul>
+	<li><%= link_to "home", "/" %></li>
+	<li><%= link_to "시간표 생성하기", "/" %></li>
+	<% if !current_user %>
+		<li><%= link_to "로그인", "/users/sign_in" %></li>
+		<li><%= link_to "회원가입", "/users/sign_up" %></li>
+	<% else %>
+		<li><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
+	<% end %>
+</ul>
