@@ -1,7 +1,16 @@
 <h1>Timetable#new</h1>
 
 <div id="lecture-container">
-	This field is for lecture list
+	<ul>
+		<% @samples.each_with_index do |s,index| %>
+			<li data-index="<%= index %>" class="lecture" onclick="clicked(<%= index %>)">
+				<span id="lecture_<%= index %>" data-value="<%= s[:lecture_name] %>"><%= s[:lecture_name] %></span>
+				<span id="prof_<%= index %>" data-value="<%= s[:prof_name] %>"><%= s[:prof_name] %></span>
+				<span id="day_<%= index %>" data-value="<%= s[:day] %>"><%= s[:day].first %></span>
+				<span id="time_<%= index %>" data-value="<%= s[:time] %>"><%= s[:time].first %>~<%= s[:time].second %></span>
+			</li>
+		<% end %>
+	</ul>
 </div>
 
 <div id="timetable">
@@ -38,3 +47,25 @@
 		</div>
 	</div>
 </div>
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+	$(document).ready(function(){
+	});
+
+	function clicked(i) {
+		alert("CLICKED!");
+		var days = ['월','화','수','목','금','토'];
+		var time = <%= @samples[0][:time] %>;
+		var prof = "<%= @samples[0][:prof_name] %>";
+		var name = "<%= @samples[0][:lecture_name] %>";
+		// days.find_index(day) => 월=0,..토=5 출력
+		// ruby 함수를 javascript 안에서 사용하려면 
+		// ajax or json 공부하여 적용필요할듯
+		var day = "<%= raw @samples[0][:day].first %>";
+		// 0.44 is the pixel of table's height (44px)
+		var duration = (parseFloat(time[1])-parseFloat(time[0])) * 0.44;
+		var starttime = (parseFloat(time[0])-800) * 0.44;
+		$('#table-grid').append("<div style=\'background-color: yellow; position: absolute; width: 90px; height: " + duration + "px; top: " + starttime + "px; left: " + 60 + "px;\'>"+ name + '<br>' + prof + '<br>' + day + '<br>' + time + "</div>");
+	};
+</script>
