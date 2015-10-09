@@ -1,2 +1,40 @@
 <h1>Timetable#new</h1>
-<p>Find me in app/views/timetable/new.html.erb</p>
+
+<div id="lecture-container">
+	This field is for lecture list
+</div>
+
+<div id="timetable">
+	<div id="table-wrap">
+		<div id="colheaders">
+			<% for day in ["월","화","수","목","금","토"] %>
+				<div class="colhead">
+					<span><%= day %></span>
+				</div>
+			<% end %>
+		</div>
+		<div id="table-body">
+			<div id="rowheaders">
+				<% for i in 8..11 %>
+					<div class="rowhead">
+						<span>오전 <%= i %>시</span>
+					</div>
+				<% end %>
+				<div class="rowhead">
+					<span>오후 12시</span>
+				</div>
+				<% for i in 1..9 %>
+					<div class="rowhead">
+						<span>오후 <%= i %>시</span>
+					</div>
+				<% end %>
+			</div>
+			<div id="table-grid">
+				<div id="example">
+					<p>MP2<br>최미선교수님</p>
+				</div>
+				This field must be filled with grid.
+			</div>
+		</div>
+	</div>
+</div>

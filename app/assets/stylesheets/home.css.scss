@@ -1,0 +1,58 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#lecture-container {
+	float: left;
+	width: 300px;
+	height: 300px;
+	border: 1px solid;
+}
+
+#timetable {
+	float: left;
+	width: 600px;
+}
+
+#table-wrap {
+	border: 1px solid;
+}
+
+#colheaders {
+	padding-left: 70px;
+}
+
+#colheaders .colhead {
+	display: inline-block;
+	margin: 0px 30px;
+}
+
+#table-body {
+	border: 1px solid;
+}
+
+#rowheaders {
+	width: 65px;
+	border: 1px solid;
+	float: left;
+	background-color: lightgreen;
+}
+
+#rowheaders .rowhead {
+	border-bottom: 1px solid;
+}
+
+#table-grid {
+	background-color: lightblue;
+	float: left;
+	position: relative;
+	div {
+		background-color: yellow;
+		width: 90px;
+		height: 100px;
+		position: absolute;
+		top: 60px;
+		left: 80px;
+	};
+}
