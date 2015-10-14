@@ -53,8 +53,11 @@
 	$(document).ready(function(){
 	});
 
+	function removeThis(){
+		$(event.currentTarget).remove(); // is this the best way?
+	};
+
 	function clicked(i) {
-		alert("CLICKED!");
 		var days = ['월','화','수','목','금','토'];
 		var time = <%= @samples[0][:time] %>;
 		var prof = "<%= @samples[0][:prof_name] %>";
@@ -66,6 +69,6 @@
 		// 0.44 is the pixel of table's height (44px)
 		var duration = (parseFloat(time[1])-parseFloat(time[0])) * 0.44;
 		var starttime = (parseFloat(time[0])-800) * 0.44;
-		$('#table-grid').append("<div style=\'background-color: yellow; position: absolute; width: 90px; height: " + duration + "px; top: " + starttime + "px; left: " + 60 + "px;\'>"+ name + '<br>' + prof + '<br>' + day + '<br>' + time + "</div>");
+		$('#table-grid').append("<div onclick='removeThis()' style='background-color: yellow; position: absolute; width: 90px; height: " + duration + "px; top: " + starttime + "px; left: " + 60 + "px;'>"+ name + '<br>' + prof + '<br>' + day + '<br>' + time + "</div>");
 	};
 </script>
