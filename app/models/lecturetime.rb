@@ -5,7 +5,7 @@ class Lecturetime < ActiveRecord::Base
 
 	### Validations
 	validates :lecture, presence: true
-	validates :classroom, presence: true
+	#validates :classroom, presence: true
 	validates :day, presence: true, inclusion: { in: 0..6 }
 	validates :starttime, presence: true
 	validates :endtime, presence: true
