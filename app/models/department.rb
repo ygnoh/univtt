@@ -3,6 +3,7 @@ class Department < ActiveRecord::Base
 	belongs_to :school
 
 	has_many :professors
+	has_many :lectures
 
 	### Validations
 	validates :school, presence: true
