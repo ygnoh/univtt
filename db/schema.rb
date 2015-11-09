@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108065949) do
+ActiveRecord::Schema.define(version: 20151109085800) do
 
   create_table "buildings", force: :cascade do |t|
     t.integer  "school_id"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20151108065949) do
   end
 
   add_index "classifications", ["school_id"], name: "index_classifications_on_school_id"
+
+  create_table "classrooms", force: :cascade do |t|
+    t.integer  "building_id"
+    t.string   "classroom_name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "classrooms", ["building_id"], name: "index_classrooms_on_building_id"
 
   create_table "departments", force: :cascade do |t|
     t.integer  "school_id"
@@ -62,6 +71,19 @@ ActiveRecord::Schema.define(version: 20151108065949) do
   add_index "lectures", ["classification_id"], name: "index_lectures_on_classification_id"
   add_index "lectures", ["department_id"], name: "index_lectures_on_department_id"
   add_index "lectures", ["professor_id"], name: "index_lectures_on_professor_id"
+
+  create_table "lecturetimes", force: :cascade do |t|
+    t.integer  "lecture_id"
+    t.integer  "classroom_id"
+    t.integer  "day"
+    t.integer  "starttime"
+    t.integer  "endtime"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id"
+  add_index "lecturetimes", ["lecture_id"], name: "index_lecturetimes_on_lecture_id"
 
   create_table "professors", force: :cascade do |t|
     t.integer  "department_id"
