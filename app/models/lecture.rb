@@ -4,6 +4,8 @@ class Lecture < ActiveRecord::Base
 	belongs_to :professor
 	belongs_to :classification
 
+	has_many :lecturetimes
+
 	### Validations
 	validates :department, presence: true
 	validates :classification, presence: true
