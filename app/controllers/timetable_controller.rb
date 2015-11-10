@@ -3,7 +3,10 @@ class TimetableController < ApplicationController
   end
 
   def new
-		@lectures = Lecture.all
+		#@lectures = Lecture.all
+		@lectures = Lecture.first(10)
+		@schools = School.all
+		@departments = Department.all
   end
 
   def create
