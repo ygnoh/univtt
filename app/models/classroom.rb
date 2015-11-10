@@ -2,7 +2,7 @@ class Classroom < ActiveRecord::Base
 	### Associations
 	belongs_to :building
 
-	has_many :lecture_times
+	has_many :lecturetimes
 
 	### Validations
 	validates :building, presence: true
