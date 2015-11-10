@@ -20,4 +20,17 @@ class TimetableController < ApplicationController
 
   def destroy
   end
+
+	# Department filter changed automatically
+	def update_departments
+		if params[:school].to_i == 0
+			@departments = School.find_by(school_name: params[:school]).departments
+		else
+			@departments = School.find(params[:school]).departments
+		end
+
+		respond_to do |format|
+			format.js
+		end
+	end
 end

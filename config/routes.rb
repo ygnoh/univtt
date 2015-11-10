@@ -2,11 +2,12 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-	root to: 'home#index'
+	root 'home#index'
 	
   get 'timetable/index'
 
   get 'timetable/new'
+	get 'timetable/update_departments'
 
   get 'timetable/create'
 
