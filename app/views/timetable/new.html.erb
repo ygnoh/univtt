@@ -2,12 +2,29 @@
 
 <div id="lecture-container">
 	<ul>
-		<% @samples.each_with_index do |s,index| %>
+		<% @lectures.each_with_index do |lecture,index| %>
 			<li id="lecture_li_<%= index %>" class="lecture" onclick="clicked(<%= index %>)">
-				<span><%= s[:lecture_name] %></span>
-				<span><%= s[:prof_name] %></span>
-				<span><%= s[:day].first %></span>
-				<span><%= s[:time].first %>~<%= s[:time].second %></span>
+				<span><%= lecture.lecture_name%></span>
+				<span><%= lecture.professor %></span>
+				<% lecture.lecturetimes.each do |t|  %>
+					<% case t.day %>
+					<% when 1 %>
+						<span>월</span>
+					<% when 2 %>
+						<span>화</span>
+					<% when 3 %>
+						<span>수</span>
+					<% when 4 %>
+						<span>목</span>
+					<% when 5 %>
+						<span>금</span>
+					<% when 6 %>
+						<span>토</span>
+					<% else %>
+						<span>일</span>
+					<% end %>
+					<span><%= t.starttime %>~<%= t.endtime %></span>
+				<% end %>
 			</li>
 		<% end %>
 	</ul>
@@ -39,41 +56,8 @@
 				<% end %>
 			</div>
 			<div id="table-grid">
-				<div id="example">
-					<p>MP2<br>최미선교수님</p>
-				</div>
 				This field must be filled with grid.
 			</div>
 		</div>
 	</div>
 </div>
-
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script>
-	$(document).ready(function(){
-	});
-
-	function clicked(i) {
-		var colors = ['aqua', 'antiquewhite', 'cornsilk', 'cornflowerblue', 'darkkhaki', 'greenyellow'];
-		var rand = Math.floor(Math.random()*colors.length);
-		var days = ['월','화','수','목','금','토'];
-		var time = <%= @samples[0][:time] %>;
-		var prof = "<%= @samples[0][:prof_name] %>";
-		var name = "<%= @samples[0][:lecture_name] %>";
-		// days.find_index(day) => 월=0,..토=5 출력
-		// ruby 함수를 javascript 안에서 사용하려면 
-		// ajax or json 공부하여 적용필요할듯
-		var day = "<%= raw @samples[0][:day].first %>";
-		// 0.44 is the pixel of table's height (44px)
-		var duration = (parseFloat(time[1])-parseFloat(time[0])) * 0.44;
-		var starttime = (parseFloat(time[0])-800) * 0.44;
-
-		$('#lecture_li_'+i).css('background-color', colors[rand]);
-		$('#table-grid').append("<div id='lectures_" + i + "' onclick='removeThis(" + i + ")' style='background-color:"+ colors[rand] + "; position: absolute; width: 90px; height: " + duration + "px; top: " + starttime + "px; left: " + 60 + "px;'>"+ name + '<br>' + prof + '<br>' + day + '<br>' + time + "</div>");
-	};
-
-	function removeThis(i){
-		$('#lecture_li_'+i).css('background-color', '');
-		$('#lectures_'+i).remove(); // is this the best way?
-	};
-</script>

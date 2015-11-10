@@ -3,6 +3,7 @@ class TimetableController < ApplicationController
   end
 
   def new
+		@lectures = Lecture.all
   end
 
   def create
