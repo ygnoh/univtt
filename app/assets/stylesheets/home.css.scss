@@ -3,11 +3,13 @@
 	padding: 0;
 }
 
+.left-field {
+	width: 200px;
+	float: left;
+}
+
 #lecture-container {
 	float: left;
-	width: 300px;
-	height: 300px;
-	border: 1px solid;
 }
 
 #timetable {
@@ -57,10 +59,10 @@
 }
 
 #example {
-		background-color: yellow;
-		position: absolute;
-		width: 90px; // fixed value
-		height: 88px; // 2 hours ( 44*2 )
-		top: 44px; // time: 9:00~ ( 44*1 )
-		left: 240px; // day: wed ( 60 + 90*3 )
+	background-color: yellow;
+	position: absolute;
+	width: 90px; // fixed value
+	height: 88px; // 2 hours ( 44*2 )
+	top: 44px; // time: 9:00~ ( 44*1 )
+	left: 240px; // day: wed ( 60 + 90*3 )
 }

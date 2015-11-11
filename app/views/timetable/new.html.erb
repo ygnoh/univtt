@@ -1,6 +1,6 @@
 <h1>Timetable#new</h1>
 
-<div>
+<div class="left-field">
 	<div><%= label_tag :school, "학과 선택" %></div>
 	<div>
 		<div>
@@ -10,36 +10,10 @@
 			<%= select_tag :department, options_for_select(@departments.collect{ |d| [d.department_name, d.id]}, nil), { id: "department_select" } %>
 		</div>
 	</div>
-</div>
-
-<div id="lecture-container">
-	<ul>
-		<% @lectures.each_with_index do |lecture,index| %>
-			<li id="lecture_li_<%= index %>" class="lecture" onclick="clicked(<%= index %>)">
-				<span><%= lecture.lecture_name%></span>
-				<span><%= lecture.professor %></span>
-				<% lecture.lecturetimes.each do |t|  %>
-					<% case t.day %>
-					<% when 1 %>
-						<span>월</span>
-					<% when 2 %>
-						<span>화</span>
-					<% when 3 %>
-						<span>수</span>
-					<% when 4 %>
-						<span>목</span>
-					<% when 5 %>
-						<span>금</span>
-					<% when 6 %>
-						<span>토</span>
-					<% else %>
-						<span>일</span>
-					<% end %>
-					<span><%= t.starttime %>~<%= t.endtime %></span>
-				<% end %>
-			</li>
-		<% end %>
-	</ul>
+	<div id="lecture-container">
+		<ul id="lecture-container-body">
+		</ul>
+	</div>
 </div>
 
 <div id="timetable">
@@ -68,7 +42,6 @@
 				<% end %>
 			</div>
 			<div id="table-grid">
-				This field must be filled with grid.
 			</div>
 		</div>
 	</div>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'timetable/new'
 	get 'timetable/update_departments'
+	get 'timetable/update_lectures'
 
   get 'timetable/create'
 
