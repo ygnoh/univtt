@@ -1,14 +1,17 @@
 <h1>Timetable#new</h1>
 
 <div class="left-field">
-	<div><%= label_tag :school, "학과 선택" %></div>
 	<div>
 		<div>
 			<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
 		</div>
 		<div>
-			<%= select_tag :department, options_for_select(@departments.collect{ |d| [d.department_name, d.id]}, nil), { id: "department_select" } %>
+			<%= select_tag :department, nil, { id: "department_select" } %>
 		</div>
+	</div>
+	<div id="classification-container">
+		<ul id="classification-container-body">
+		</ul>
 	</div>
 	<div id="lecture-container">
 		<ul id="lecture-container-body">

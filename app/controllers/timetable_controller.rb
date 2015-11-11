@@ -4,7 +4,6 @@ class TimetableController < ApplicationController
 
   def new
 		@schools = School.all
-		@departments = Department.all
   end
 
   def create
@@ -19,7 +18,8 @@ class TimetableController < ApplicationController
   def destroy
   end
 
-	# Department filter changed automatically
+
+	# Below actions are related with filter change automatically
 	def update_departments
 		if params[:school].to_i == 0
 			@departments = School.find_by(school_name: params[:school]).departments
@@ -29,6 +29,18 @@ class TimetableController < ApplicationController
 
 		respond_to do |format|
 			format.js
+		end
+	end
+
+	def update_classifications
+		if params[:school].to_i == 0
+			@classifications = School.find_by(school_name: params[:school]).classifications
+		else
+			@classifications = School.find(params[:school]).classifications
+		end
+
+		respond_to do |format|
+			format.json { render :json => @classifications.to_json }
 		end
 	end
 
