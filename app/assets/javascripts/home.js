@@ -16,7 +16,7 @@ $(document).on('ready page:load', function() {
 				for(var i = 0; i< data.length; i++ ){
 					// below input codes must be changed to Ruby
 					str += '<li>'
-						+ '<input type="checkbox" value=' + data[i].id + ' id="classification_' + data[i].id + '">'
+						+ '<input type="checkbox" value=' + data[i].id +  ' name="classification" class="classification_select">'
 						+ '</input>'
 						+ '<label for="classification_'+ data[i].id + '">' + data[i].classification_name
 						+ '</label>'
@@ -37,6 +37,23 @@ $(document).on('ready page:load', function() {
 				for(var i = 0; i < data.length; i++) {
 					str += '<li>'  
 						+ '<span>'+data[i].lecture_name+'<span>' 
+						+ '</li>';
+				}
+				$('#lecture-container-body').html(str);
+			}
+		});
+	});
+
+	$("#classification-container-body").on('change', '.classification_select', function() {
+		$.ajax({
+			url: window.location.origin + '/timetable/update_lectures',
+			dataType: "json",
+			data: $(".classification_select").serialize(),
+			success: function(data){
+				var str = '';
+				for(var i = 0; i < data.length; i++) {
+					str += '<li>'
+						+ '<span>'+data[i].lecture_name+'</span>'
 						+ '</li>';
 				}
 				$('#lecture-container-body').html(str);
