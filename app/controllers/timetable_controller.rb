@@ -57,10 +57,18 @@ class TimetableController < ApplicationController
 	end
 
 	def update_lectures_by_classification
-		if params[:classification].to_i == 0
-			@lectures = Classification.find_by(classification_name: params[:classification]).lectures
+		if params[:department].to_i % 10**8 == 0
+			@lectures = []
+			Classification.where(id: params['classification'].values).each do |c|
+				@lectures += c.lectures
+			end
 		else
-			@lectures = Classification.find(params[:classification]).lectures
+			foo = Department.find(params[:department]).lectures
+			bar = []
+			Classification.where(id: params['classification'].values).each do |c|
+				bar += c.lectures
+			end
+			@lectures = foo & bar
 		end
 
 		respond_to do |format|

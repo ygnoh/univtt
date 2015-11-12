@@ -30,6 +30,7 @@ $(document).on('ready page:load', function() {
 	});
 
 	$("#department_select").change( function() {
+		$('#lecture-container-body').empty();
 		$.ajax({
 			url: window.location.origin + '/timetable/update_lectures_by_department',
 			dataType: "json",
@@ -47,11 +48,22 @@ $(document).on('ready page:load', function() {
 	});
 
 	$("#classification-container-body").on('change', '.classification_select', function() {
+		var URL;
+		var DATA = $("#department_select").serialize();
+
+		if ($(".classification_select").serialize() == "") {
+			URL = '/timetable/update_lectures_by_department';
+		} else {
+			URL = '/timetable/update_lectures_by_classification';
+			DATA += "&" + $(".classification_select").serialize();
+		}
+
 		$.ajax({
-			url: window.location.origin + '/timetable/update_lectures_by_classification',
+			url: window.location.origin + URL,
 			dataType: "json",
-			data: $(".classification_select").serialize(),
+			data: DATA,
 			success: function(data){
+				//console.log(data);
 				var str = '';
 				for(var i = 0; i < data.length; i++) {
 					str += '<li>'
