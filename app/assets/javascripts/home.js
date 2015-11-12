@@ -16,8 +16,10 @@ $(document).on('ready page:load', function() {
 				for(var i = 0; i< data.length; i++ ){
 					// below input codes must be changed to Ruby
 					str += '<li>'
-						+ '<input type="checkbox" value=' + data[i].id +  ' name="classification" class="classification_select">'
-						+ '</input>'
+						+ '<input type="checkbox" value=' + data[i].id 
+						+ ' name="classification[' + data[i].id + ']"'
+						+ ' id="classification_' + data[i].id 
+						+ '" class="classification_select"/>'
 						+ '<label for="classification_'+ data[i].id + '">' + data[i].classification_name
 						+ '</label>'
 						+ '</li>';
@@ -29,7 +31,7 @@ $(document).on('ready page:load', function() {
 
 	$("#department_select").change( function() {
 		$.ajax({
-			url: window.location.origin + '/timetable/update_lectures',
+			url: window.location.origin + '/timetable/update_lectures_by_department',
 			dataType: "json",
 			data: $("#department_select").serialize(),
 			success: function(data){
@@ -46,7 +48,7 @@ $(document).on('ready page:load', function() {
 
 	$("#classification-container-body").on('change', '.classification_select', function() {
 		$.ajax({
-			url: window.location.origin + '/timetable/update_lectures',
+			url: window.location.origin + '/timetable/update_lectures_by_classification',
 			dataType: "json",
 			data: $(".classification_select").serialize(),
 			success: function(data){

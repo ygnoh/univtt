@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 	get 'timetable/destroy'
 
 	get 'timetable/update_departments'
-	get 'timetable/update_lectures'
+	get 'timetable/update_lectures_by_department'
+	get 'timetable/update_lectures_by_classification'
 	get 'timetable/update_classifications'
 
   # The priority is based upon order of creation: first created -> highest priority.

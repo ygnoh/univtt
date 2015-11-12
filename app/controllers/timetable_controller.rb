@@ -44,27 +44,27 @@ class TimetableController < ApplicationController
 		end
 	end
 
-	def update_lectures
-		if params.has_key?(:department)
-			if params[:department].to_i == 0
-				@lectures = Department.find_by(department_name: params[:department]).lectures
-			else
-				@lectures = Department.find(params[:department]).lectures
-			end
-
-			respond_to do |format|
-				format.json { render :json => @lectures.to_json }
-			end
+	def update_lectures_by_department
+		if params[:department].to_i == 0
+			@lectures = Department.find_by(department_name: params[:department]).lectures
 		else
-			if params[:classification].to_i == 0
-				@lectures = Classification.find_by(classification_name: params[:classification]).lectures
-			else
-				@lectures = Classification.find(params[:classification]).lectures
-			end
+			@lectures = Department.find(params[:department]).lectures
+		end
 
-			respond_to do |format|
-				format.json { render :json => @lectures.to_json }
-			end
+		respond_to do |format|
+			format.json { render :json => @lectures.to_json }
+		end
+	end
+
+	def update_lectures_by_classification
+		if params[:classification].to_i == 0
+			@lectures = Classification.find_by(classification_name: params[:classification]).lectures
+		else
+			@lectures = Classification.find(params[:classification]).lectures
+		end
+
+		respond_to do |format|
+			format.json { render :json => @lectures.to_json }
 		end
 	end
 end
