@@ -38,7 +38,8 @@ $(document).on('ready page:load', function() {
 			success: function(data){
 				var str = '';
 				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '">' 
+					str += '<li class="lecture_select" id="' + data[i].id + '"' 
+						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>' 
 						+ '</li>';
 				}
@@ -63,10 +64,10 @@ $(document).on('ready page:load', function() {
 			dataType: "json",
 			data: DATA,
 			success: function(data){
-				//console.log(data);
 				var str = '';
 				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '">'
+					str += '<li class="lecture_select" id="' + data[i].id + '"'
+						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>'
 						+ '</li>';
 				}
@@ -76,18 +77,27 @@ $(document).on('ready page:load', function() {
 	});
 
 	$("#lecture-container-body").on('click', '.lecture_select', function() {
-		$.ajax({
-			url: window.location.origin + '/timetable/update_timetable',
-			dataType: "script",
-			data: {
-				lecture_id: $(this).prop('id')
-			}
-		});
+		if ($(this).data('checked') == '0') {
+			$(this).data('checked','1');
+			$.ajax({
+				url: window.location.origin + '/timetable/update_timetable',
+				dataType: "script",
+				data: {
+					lecture_id: $(this).prop('id')
+				}
+			});
+		} else {
+			$(this).data('checked','0');
+			$(this).css('background-color','');
+			$('.'+$(this).prop('id')).remove();
+		}
 	});
 });
 
 function removeOnTimetable() {
 	// is this the best way?
-	$('.' + $(event.currentTarget).prop('class')).remove();
-	$('#' + $(event.currentTarget).prop('class')).css('background-color','');
+	var lecture_id = $(event.currentTarget).prop('class');
+	$('#' + lecture_id).data('checked','0');
+	$('.' + lecture_id).remove();
+	$('#' + lecture_id).css('background-color','');
 }
