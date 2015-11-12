@@ -85,3 +85,8 @@ $(document).on('ready page:load', function() {
 		});
 	});
 });
+
+function removeThis() {
+	// is this the best way?
+	$('.' + $(event.currentTarget).prop('class')).remove();
+}
