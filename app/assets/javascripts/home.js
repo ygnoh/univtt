@@ -38,8 +38,8 @@ $(document).on('ready page:load', function() {
 			success: function(data){
 				var str = '';
 				for(var i = 0; i < data.length; i++) {
-					str += '<li>'  
-						+ '<span>'+data[i].lecture_name+'<span>' 
+					str += '<li class="lecture_select" id="' + data[i].id + '">' 
+						+ '<span>' + data[i].lecture_name+'</span>' 
 						+ '</li>';
 				}
 				$('#lecture-container-body').html(str);
@@ -66,11 +66,21 @@ $(document).on('ready page:load', function() {
 				//console.log(data);
 				var str = '';
 				for(var i = 0; i < data.length; i++) {
-					str += '<li>'
-						+ '<span>'+data[i].lecture_name+'</span>'
+					str += '<li class="lecture_select" id="' + data[i].id + '">'
+						+ '<span>' + data[i].lecture_name+'</span>'
 						+ '</li>';
 				}
 				$('#lecture-container-body').html(str);
+			}
+		});
+	});
+
+	$("#lecture-container-body").on('click', '.lecture_select', function() {
+		$.ajax({
+			url: window.location.origin + '/timetable/update_timetable',
+			dataType: "script",
+			data: {
+				lecture_id: $(this).prop('id')
 			}
 		});
 	});

@@ -75,4 +75,23 @@ class TimetableController < ApplicationController
 			format.json { render :json => @lectures.to_json }
 		end
 	end
+
+	def update_timetable
+		@lecture = Lecture.find(params[:lecture_id])
+		lecture_time = @lecture.lecturetimes
+
+		@days = lecture_time.collect{ |x| x[:day] }
+			#when 1 ; "월" when 2 ; "화" when 3 ; "수" when 4 ; "목"
+			#when 5 ; "금" when 6 ; "토" else "일" end }
+
+		@times = []
+		lecture_time.each do |t|
+			@times << [t.starttime/100 * 100 + t.starttime%100 * 100/60,
+				t.endtime/100 * 100 + t.endtime%100 * 100/60]
+		end
+		
+		respond_to do |format|
+			format.js
+		end
+	end
 end

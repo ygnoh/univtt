@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 	get 'timetable/update_lectures_by_department'
 	get 'timetable/update_lectures_by_classification'
 	get 'timetable/update_classifications'
+	get 'timetable/update_timetable'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

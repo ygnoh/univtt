@@ -1,0 +1,12 @@
+var days = <%= @days %>;
+var times = <%= @times %>;
+
+for ( x in days ) {
+	$('#table-grid').append("<div style='background-color: yellow;"
+		+ " position: absolute; width: 90px; height: "
+		+ (times[x][1] - times[x][0]) * 0.44 +"px; top: " 
+		+ (times[x][0] - 800) * 0.44 + "px;" + " left: "
+		+ (60 + (days[x]-1) * 90) + "px;'>"
+		+ "<%= @lecture.lecture_name %>"
+		+ "</div>");
+}
