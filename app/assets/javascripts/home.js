@@ -86,7 +86,8 @@ $(document).on('ready page:load', function() {
 	});
 });
 
-function removeThis() {
+function removeOnTimetable() {
 	// is this the best way?
 	$('.' + $(event.currentTarget).prop('class')).remove();
+	$('#' + $(event.currentTarget).prop('class')).css('background-color','');
 }
