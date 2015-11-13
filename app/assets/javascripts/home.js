@@ -1,9 +1,11 @@
+// Variables for checking overlap
 var lectureSaver = [];
 var daySaver = [];
 var timeSaver = [];
 
 $(document).on('ready page:load', function() {
 	$("#school_select").change( function() {
+		// Update department by school
 		$.ajax({
 			url: window.location.origin + '/timetable/update_departments',
 			dataType: "script",
@@ -11,6 +13,7 @@ $(document).on('ready page:load', function() {
 		});
 		$('#lecture-container-body').empty();
 	
+		// Update classification by school
 		$.ajax({
 			url: window.location.origin + '/timetable/update_classifications',
 			dataType: "json",
@@ -18,7 +21,7 @@ $(document).on('ready page:load', function() {
 			success: function(data){
 				var str = '';
 				for(var i = 0; i< data.length; i++ ){
-					// below input codes must be changed to Ruby
+					//////////// below input codes must be changed to Ruby
 					str += '<li>'
 						+ '<input type="checkbox" value=' + data[i].id 
 						+ ' name="classification[' + data[i].id + ']"'
@@ -33,6 +36,7 @@ $(document).on('ready page:load', function() {
 		});
 	});
 
+	// Update lectures by department
 	$("#department_select").change( function() {
 		$('#lecture-container-body').empty();
 		$.ajax({
@@ -52,12 +56,16 @@ $(document).on('ready page:load', function() {
 		});
 	});
 
+	// Update lectures by classification
 	$("#classification-container-body").on('change', '.classification_select', function() {
 		var URL;
 		var DATA = $("#department_select").serialize();
 
+		// When unclick for the last classification
 		if ($(".classification_select").serialize() == "") {
 			URL = '/timetable/update_lectures_by_department';
+
+			// When click or unclick for classifications
 		} else {
 			URL = '/timetable/update_lectures_by_classification';
 			DATA += "&" + $(".classification_select").serialize();
@@ -80,9 +88,10 @@ $(document).on('ready page:load', function() {
 		});
 	});
 
+	// Make timetable contents
 	$("#lecture-container-body").on('click', '.lecture_select', function() {
+		// Check if lectures has been clicked
 		if ($(this).data('checked') == '0') {
-			$(this).data('checked','1');
 			$.ajax({
 				url: window.location.origin + '/timetable/update_timetable',
 				dataType: "script",
@@ -91,7 +100,12 @@ $(document).on('ready page:load', function() {
 				}
 			});
 		} else {
-			//console.log(jQuery.inArray(parseInt($(this).prop('id')),lectureSaver));
+			var lecture_id = parseInt($(this).prop('id'));
+			var lectureIndex = jQuery.inArray(lecture_id,lectureSaver);
+			lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
+			daySaver.splice(lectureIndex,1);
+			timeSaver.splice(lectureIndex,1);
+
 			$(this).data('checked','0');
 			$(this).css('background-color','');
 			$('.'+$(this).prop('id')).remove();
@@ -99,11 +113,51 @@ $(document).on('ready page:load', function() {
 	});
 });
 
+// When click for removing lectures on the timetable sheet
 function removeOnTimetable() {
-	// is this the best way?
+	//////////////////////////// is this the best way?
 	var lecture_id = parseInt($(event.currentTarget).prop('class'));
-	//console.log(jQuery.inArray(lecture_id,lectureSaver));
+	var lectureIndex = jQuery.inArray(lecture_id,lectureSaver);
+
+	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
+	daySaver.splice(lectureIndex,1);
+	timeSaver.splice(lectureIndex,1);
+
 	$('#' + lecture_id).data('checked','0');
 	$('.' + lecture_id).remove();
 	$('#' + lecture_id).css('background-color','');
+}
+
+// For checking overlap
+function checkOverlap(dayValue,timeValue) {
+	var aim = findArrayIndex(dayValue,daySaver); // For check only about same days
+	for ( x in aim ) {
+		var from = timeSaver[ aim[x][0] ][ aim[x][1] ][ 0 ];
+		var to = timeSaver[ aim[x][0] ][ aim[x][1] ][ 1 ];
+		var timeValueFrom = timeValue[ aim[x][2] ][ 0 ];
+		var timeValueTo = timeValue[ aim[x][2] ][ 1 ];
+
+		if ( ( from < timeValueFrom && timeValueFrom < to ) // crossing
+			|| ( from < timeValueTo && timeValueTo < to ) // crossing
+			|| ( timeValueFrom <= from && to <= timeValueTo ) ) { // including
+			return false; 
+		}
+	}
+	return true;
+}
+
+// Only be applicable for 2 dimension array 'saver'
+function findArrayIndex(target, saver) {
+	var result = [];
+	for ( x in target ) {
+		for (var i = 0; i < saver.length; i++) {
+			for (var j = 0; j < saver[i].length; j++) {
+				if (saver[i][j] == target[x]) {
+					result.push([i,j,x]);
+				}
+			}
+		}
+	} 
+	// return target's position formed like [[saverPosition,targetDay],...]
+	return result;
 }
