@@ -1,3 +1,7 @@
+var lectureSaver = [];
+var daySaver = [];
+var timeSaver = [];
+
 $(document).on('ready page:load', function() {
 	$("#school_select").change( function() {
 		$.ajax({
@@ -87,6 +91,7 @@ $(document).on('ready page:load', function() {
 				}
 			});
 		} else {
+			//console.log(jQuery.inArray(parseInt($(this).prop('id')),lectureSaver));
 			$(this).data('checked','0');
 			$(this).css('background-color','');
 			$('.'+$(this).prop('id')).remove();
@@ -96,7 +101,8 @@ $(document).on('ready page:load', function() {
 
 function removeOnTimetable() {
 	// is this the best way?
-	var lecture_id = $(event.currentTarget).prop('class');
+	var lecture_id = parseInt($(event.currentTarget).prop('class'));
+	//console.log(jQuery.inArray(lecture_id,lectureSaver));
 	$('#' + lecture_id).data('checked','0');
 	$('.' + lecture_id).remove();
 	$('#' + lecture_id).css('background-color','');

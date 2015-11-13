@@ -3,6 +3,10 @@ var times = <%= @times %>;
 var colors = ['blue', 'yellow', 'green', 'red'];
 var rand = Math.floor(Math.random()*colors.length);
 
+lectureSaver.push(<%= @lecture.id.to_i %>);
+daySaver.push(days);
+timeSaver.push(times);
+
 for ( x in days ) {
 	$('#table-grid').append("<div class='" + "<%= @lecture.id %>" + "'"
 		+ " style='position: absolute; width: 90px;"
