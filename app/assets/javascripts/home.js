@@ -140,6 +140,7 @@ function checkOverlap(dayValue,timeValue) {
 		if ( ( from < timeValueFrom && timeValueFrom < to ) // crossing
 			|| ( from < timeValueTo && timeValueTo < to ) // crossing
 			|| ( timeValueFrom <= from && to <= timeValueTo ) ) { // including
+			alert("'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
 			return false; 
 		}
 	}
