@@ -1,2 +1,27 @@
 <h1>Classroom#index</h1>
-<p>Find me in app/views/classroom/index.html.erb</p>
+
+<div class="left-field">
+	<div class="form-field">
+		<%= form_tag '', onsubmit: 'return searchClassroom();' do %>
+			<div>
+				<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
+			</div>
+			<div>
+				<%= select_tag :building, options_for_select(@buildings.collect{ |b| [b.building_name, b.id] }, nil), { id: "building_select" } %>
+			</div>
+			<div>
+				<label for="start_time">시간오후</label><br>
+				<%= select_tag :day, options_for_select([["오늘", -1], ["월", 1], ["화", 2], ["수", 3], ["목", 4], ["금", 5], ["토", 6], ["일", 0]]), { id: "day_select" } %>
+				<%= time_field_tag "start_time" %> ~ 
+				<%= time_field_tag "end_time" %>
+				<label for="now">바로 지금!</label>
+				<%= check_box_tag "now" %>
+			</div>
+			<%= submit_tag "검색!" %>
+		<% end %>
+	</div>
+</div>
+
+<div id="classroom">
+	
+</div>

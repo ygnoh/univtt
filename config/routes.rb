@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 	get 'timetable/update_timetable'
 
   get 'classroom/index'
+	get 'classroom/update_classroom'
   get 'classroom/new'
   get 'classroom/create'
   get 'classroom/edit'
