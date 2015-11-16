@@ -48,19 +48,14 @@ class ClassroomController < ApplicationController
 				end
 			end
 
-			if c.id == 1007015
-				byebug
-			end
-
-			catch(:foo) do
+			if (@endtime - timebox[endIndex][1]) >= 30 # 이렇게 하면 안됨.
+				@classrooms << c
+			else
 				for i in startIndex..(endIndex-1)
 					if (timebox[i+1][0] - timebox[i][1]) >= 30
 						@classrooms << c
-						throw(:foo) # escape loop
+						break
 					end
-				end
-				if (@endtime - timebox[endIndex][1]) >= 30 
-					@classrooms << c
 				end
 			end
 		end

@@ -6,8 +6,8 @@ function searchClassroom() {
 		if (!$('#now').prop('checked')) {
 			DATA["day"] = $('#day_select').val();
 			if (!($('#start_time').val() == "" || $('#end_time').val() == "")) {
-				DATA["starttime"] = parseInt($('#start_time').val().replace(":",""));
-				DATA["endtime"] = parseInt($('#end_time').val().replace(":",""));
+				DATA["starttime"] = $('#start_time').val().replace(":","");
+				DATA["endtime"] = $('#end_time').val().replace(":","");
 			}
 		}
 	}
