@@ -1,0 +1,48 @@
+<h1>Timetable#new</h1>
+
+<div class="left-field">
+	<div>
+		<div>
+			<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
+		</div>
+		<div>
+			<%= select_tag :department, nil, { id: "department_select" } %>
+		</div>
+	</div>
+	<div id="classification-container">
+		<ul id="classification-container-body"></ul>
+	</div>
+	<div id="lecture-container">
+		<ul id="lecture-container-body"></ul>
+	</div>
+</div>
+
+<div id="timetable">
+	<div id="table-wrap">
+		<div id="colheaders">
+			<% for day in ["월","화","수","목","금","토"] %>
+				<div class="colhead">
+					<span><%= day %></span>
+				</div>
+			<% end %>
+		</div>
+		<div id="table-body">
+			<div id="rowheaders">
+				<% for i in 8..11 %>
+					<div class="rowhead">
+						<span>오전 <%= i %>시</span>
+					</div>
+				<% end %>
+				<div class="rowhead">
+					<span>오후 12시</span>
+				</div>
+				<% for i in 1..9 %>
+					<div class="rowhead">
+						<span>오후 <%= i %>시</span>
+					</div>
+				<% end %>
+			</div>
+			<div id="table-grid"></div>
+		</div>
+	</div>
+</div>

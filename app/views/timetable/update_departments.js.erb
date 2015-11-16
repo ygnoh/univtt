@@ -1,0 +1,3 @@
+$("#department_select").html("<%=
+	j(options_for_select(@departments.collect{ |d| [d.department_name, d.id] }, nil))
+%>")
