@@ -9,6 +9,7 @@ class ClassroomController < ApplicationController
 		@endtime = 2400
 		@classrooms = []
 		@building_id = params[:building_id].to_i
+		duration = 30 # length of empty lecture time(mins)
 		time = Time.new.getlocal
 		
 		if params.has_key?(:now)
@@ -31,31 +32,64 @@ class ClassroomController < ApplicationController
 			c.lecturetimes.where(day: @day).each do |t|
 				timebox << [ t.starttime, t.endtime, t.lecture_id ]
 			end
-			if timebox.length <= 1 ## length = 1일 때 시간 가능한지 체크해야함
+
+			timeboxLength = timebox.length
+			if timeboxLength == 0
 				@classrooms << c
 				next
 			end
-			timebox.sort!
-
-			startIndex = 0
-			endIndex = timebox.length - 1
-			timebox.each_with_index do |t, i|
-				if @starttime >= t[0]
-					startIndex = i
+			if timeboxLength == 1
+				if ( timebox.first[0]/100*60+timebox.first[0]%100 
+						- (@starttime/100*60+@starttime%100) >= duration ) ||
+					( @endtime/100*60+@endtime%100
+						- (timebox.first[1]/100*60+timebox.first[1]%100) >= duration )
+					@classrooms << c
 				end
-				if @endtime >= t[1]
-					endIndex = i
-				end
+				next
 			end
 
-			if (@endtime - timebox[endIndex][1]) >= 30 # 이렇게 하면 안됨.
+			timebox.sort! # order by start time
+
+			indexbox = []
+			included = false
+			timebox.each_with_index do |t,i|
+				if t[0] <= @starttime && @endtime <= t[1] # included case
+					included = true
+					break
+				end
+				if t[0].between?(@starttime,@endtime) 
+					indexbox << i
+					next
+				end
+				if t[1].between?(@starttime,@endtime)
+					indexbox << i
+					next
+				end
+			end
+			if included
+				next
+			end
+
+			if indexbox.empty?
 				@classrooms << c
-			else
-				for i in startIndex..(endIndex-1)
-					if (timebox[i+1][0] - timebox[i][1]) >= 30
-						@classrooms << c
-						break
-					end
+				next
+			end
+
+			startIndex = indexbox.min
+			endIndex = indexbox.max
+			
+			if ( timebox[startIndex][0]/100*60+timebox[startIndex][0]%100
+					- (@starttime/100*60+@starttime%100) >= duration ) ||
+				( @endtime/100*60+@endtime%100
+					- (timebox[endIndex][1]/100*60+timebox[endIndex][1]%100) >= duration )
+				@classrooms << c
+				next
+			end
+
+			for i in startIndex..(endIndex-1)
+				if timebox[i+1][0]/100*60+timebox[i+1][0]%100 - (timebox[i][1]/100*60+timebox[i][1]%100) >= duration
+					@classrooms << c
+					break
 				end
 			end
 		end
