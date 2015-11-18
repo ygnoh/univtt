@@ -12,13 +12,10 @@
 	float: left;
 }
 
-#timetable {
+#timetable, #classroom {
 	float: left;
 	width: 600px;
 	padding: 0px 10px;
-}
-
-#table-wrap {
 }
 
 #colheaders {
@@ -31,7 +28,7 @@
 	text-align: center;
 }
 
-#table-body {
+#table-body, #classroom-body {
 	clear: both;
 	border: 1px solid;
 	position: relative;
@@ -51,7 +48,7 @@
 	text-align: right;
 }
 
-#table-grid {
+#table-grid, #classroom-grid{
 	background-color: lightblue;
 	//position: absolute;
 	//top: 0;
