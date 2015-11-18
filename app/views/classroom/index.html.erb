@@ -23,5 +23,23 @@
 </div>
 
 <div id="classroom">
-	
+	<div id="classroom-wrap">
+		<div id="colheaders">
+			<% for day in [1,2,3,4] %>
+				<div class="colhead">
+					<span><%= day %></span>
+				</div>
+			<% end %>
+		</div>
+		<div id="classroom-body">
+			<div id="rowheaders">
+				<% for i in 1..3 %>
+					<div class="rowhead">
+						<span><%= i %>!!!</span>
+					</div>
+				<% end %>
+			</div>
+			<div id="classroom-grid"></div>
+		</div>
+	</div>
 </div>
