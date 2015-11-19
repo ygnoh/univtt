@@ -12,9 +12,14 @@
 	float: left;
 }
 
-#timetable, #classroom {
+#timetable {
 	float: left;
 	width: 600px;
+	padding: 0px 10px;
+}
+
+#classroom {
+	float: left;
 	padding: 0px 10px;
 }
 
@@ -28,10 +33,18 @@
 	text-align: center;
 }
 
-#table-body, #classroom-body {
+#table-body {
 	clear: both;
 	border: 1px solid;
 	position: relative;
+}
+
+#classroom-body {
+	clear: both;
+	border: 1px solid;
+	position: relative;
+	//overflow-y: scroll;
+	overflow: hidden;
 }
 
 #rowheaders {
@@ -48,18 +61,6 @@
 	text-align: right;
 }
 
-#table-grid, #classroom-grid{
+#table-grid {
 	background-color: lightblue;
-	//position: absolute;
-	//top: 0;
-	//left: 60px;
-}
-
-#example {
-	background-color: yellow;
-	position: absolute;
-	width: 90px; // fixed value
-	height: 88px; // 2 hours ( 44*2 )
-	top: 44px; // time: 9:00~ ( 44*1 )
-	left: 240px; // day: wed ( 60 + 90*3 )
 }

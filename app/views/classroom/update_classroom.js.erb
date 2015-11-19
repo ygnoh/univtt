@@ -1,4 +1,26 @@
-$('#classroom').empty();
-<% @classrooms.each do |c| %>
-	$('#classroom').append(" <%= c.classroom_name %> ");
+$('#classroom-grid').empty();
+$('#colheaders').empty();
+$('#rowheaders').empty();
+
+<% @classrooms.each_with_index do |c,i| %>
+	$('#colheaders').append("<div class='colhead'"
+		+ "<span><%= c.classroom_name %></span>"
+		+ "</div>");
+	<% c.lecturetimes.where("day = ? and (
+		starttime between ? and  ? or endtime between ? and ?)", 
+		@day, @starttime, @endtime, @starttime, @endtime).each_with_index do |l| %>
+		$('#classroom-grid').append("<div class='" + "<%= l.lecture_id %>" + "'"
+			+ " style='position: absolute; width: 90px;"
+			+ " height: " + <%= (l.endtime - l.starttime)*0.44 %> + "px;"
+			+ " top: " + <%= (l.starttime - @starttime/100*100)*0.44 %> + "px;"
+			+ " left: " + <%= (60 + i*90) %> + "px;"
+			+ " background-color: lightblue;'>" + "<%= l.lecture.lecture_name %>" 
+			+ "</div>");
+	<% end %>
+<% end %>
+
+<% for i in @starttime/100..@endtime/100 %>
+	$('#rowheaders').append("<div class='rowhead'"
+		+ "<span><%= i*100 %></span>"
+		+ "</div>");
 <% end %>

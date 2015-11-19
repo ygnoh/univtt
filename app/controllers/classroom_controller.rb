@@ -5,7 +5,7 @@ class ClassroomController < ApplicationController
   end
 
 	def update_classroom 
-		@starttime = 0
+		@starttime = 700
 		@endtime = 2400
 		@classrooms = []
 		@building_id = params[:building_id].to_i
