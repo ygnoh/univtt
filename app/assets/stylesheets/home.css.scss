@@ -43,8 +43,8 @@
 	clear: both;
 	border: 1px solid;
 	position: relative;
-	//overflow-y: scroll;
-	overflow: hidden;
+	overflow-x: scroll;
+	overflow-y: hidden;
 }
 
 #rowheaders {
