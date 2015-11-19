@@ -1,6 +1,21 @@
 Rails.application.routes.draw do
 
-	get '/' => 'home#index'
+  devise_for :users
+
+	root 'home#index'
+	
+  get 'timetable/index'
+  get 'timetable/new'
+  get 'timetable/create'
+  get 'timetable/edit'
+  get 'timetable/update'
+	get 'timetable/destroy'
+
+	get 'timetable/update_departments'
+	get 'timetable/update_lectures_by_department'
+	get 'timetable/update_lectures_by_classification'
+	get 'timetable/update_classifications'
+	get 'timetable/update_timetable'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,68 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.left-field {
+	width: 200px;
+	float: left;
+}
+
+#lecture-container {
+	float: left;
+}
+
+#timetable {
+	float: left;
+	width: 600px;
+	padding: 0px 10px;
+}
+
+#table-wrap {
+}
+
+#colheaders {
+	padding-left: 60px;
+}
+
+#colheaders .colhead {
+	float: left;
+	width: 90px;
+	text-align: center;
+}
+
+#table-body {
+	clear: both;
+	border: 1px solid;
+	position: relative;
+}
+
+#rowheaders {
+	width: 60px;
+	//border: 1px solid;
+	background-color: lightgreen;
+}
+
+#rowheaders .rowhead {
+	border-bottom: 1px solid;
+	box-sizing: border-box; // For ignoring border size
+	height: 44px;
+	font-size: 14px;
+	text-align: right;
+}
+
+#table-grid {
+	background-color: lightblue;
+	//position: absolute;
+	//top: 0;
+	//left: 60px;
+}
+
+#example {
+	background-color: yellow;
+	position: absolute;
+	width: 90px; // fixed value
+	height: 88px; // 2 hours ( 44*2 )
+	top: 44px; // time: 9:00~ ( 44*1 )
+	left: 240px; // day: wed ( 60 + 90*3 )
+}
