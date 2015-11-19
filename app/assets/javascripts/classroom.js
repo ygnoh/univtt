@@ -1,4 +1,10 @@
 function searchClassroom() {
+	if ( ($('#start_time').val() > $('#end_time').val()) ||
+		($('#start_time').val() == '' && $('#end_time').val() != '') ||
+		($('#start_time').val() != '' && $('#end_time').val() == '') ){
+		alert("시간이 잘못 지정되었어요.");
+		return false;
+	};
 	var DATA = { building_id: $('#building_select').val() };
 	if ($('#now').prop('checked')) {
 		DATA["now"] = true;
