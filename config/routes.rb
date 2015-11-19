@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'recommend/index'
-
-  get 'recommend/new'
-
-  get 'recommend/create'
-
-  get 'recommend/edit'
-
-  get 'recommend/update'
-
-  get 'recommend/destroy'
-
   devise_for :users
 
 	root 'home#index'
@@ -37,6 +25,13 @@ Rails.application.routes.draw do
   get 'classroom/edit'
   get 'classroom/update'
   get 'classroom/destroy'
+
+  get 'recommend/index'
+  get 'recommend/new'
+  get 'recommend/create'
+  get 'recommend/edit'
+  get 'recommend/update'
+  get 'recommend/destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
