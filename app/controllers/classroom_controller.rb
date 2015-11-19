@@ -39,10 +39,8 @@ class ClassroomController < ApplicationController
 				next
 			end
 			if timeboxLength == 1
-				if ( timebox.first[0]/100*60+timebox.first[0]%100 
-						- (@starttime/100*60+@starttime%100) >= duration ) ||
-					( @endtime/100*60+@endtime%100
-						- (timebox.first[1]/100*60+timebox.first[1]%100) >= duration )
+				if ( timebox.first[0]/100*60+timebox.first[0]%100 - (@starttime/100*60+@starttime%100) >= duration ) ||
+					( @endtime/100*60+@endtime%100 - (timebox.first[1]/100*60+timebox.first[1]%100) >= duration )
 					@classrooms << c
 				end
 				next
@@ -78,10 +76,8 @@ class ClassroomController < ApplicationController
 			startIndex = indexbox.min
 			endIndex = indexbox.max
 			
-			if ( timebox[startIndex][0]/100*60+timebox[startIndex][0]%100
-					- (@starttime/100*60+@starttime%100) >= duration ) ||
-				( @endtime/100*60+@endtime%100
-					- (timebox[endIndex][1]/100*60+timebox[endIndex][1]%100) >= duration )
+			if ( timebox[startIndex][0]/100*60+timebox[startIndex][0]%100 - (@starttime/100*60+@starttime%100) >= duration ) ||
+				( @endtime/100*60+@endtime%100 - (timebox[endIndex][1]/100*60+timebox[endIndex][1]%100) >= duration )
 				@classrooms << c
 				next
 			end
