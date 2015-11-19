@@ -1,3 +1,13 @@
+$(document).on('ready page:load', function() {
+	$('#school_select').change( function() {
+		$.ajax({
+			url: window.location.origin + '/classroom/update_building',
+			dataType: 'script',
+			data: $('#school_select').serialize()
+		});
+	})
+})
+
 function searchClassroom() {
 	if ( ($('#start_time').val() > $('#end_time').val()) ||
 		($('#start_time').val() == '' && $('#end_time').val() != '') ||

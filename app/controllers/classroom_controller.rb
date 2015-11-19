@@ -1,7 +1,6 @@
 class ClassroomController < ApplicationController
   def index
 		@schools = School.all
-		@buildings = Building.all
   end
 
 	def update_classroom 
@@ -88,6 +87,18 @@ class ClassroomController < ApplicationController
 					break
 				end
 			end
+		end
+
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def update_building
+		if params[:school].to_i == 0
+			@buildings = School.find_by(school_name: params[:school]).buildings
+		else
+			@buildings = School.find(params[:school]).buildings
 		end
 
 		respond_to do |format|

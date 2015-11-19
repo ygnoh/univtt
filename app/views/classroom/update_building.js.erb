@@ -1,0 +1,3 @@
+$('#building_select').html("<%=
+	j(options_for_select(@buildings.collect{ |b| [b.building_name, b.id] }, nil))
+%>")

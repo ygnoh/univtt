@@ -7,7 +7,7 @@
 				<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
 			</div>
 			<div>
-				<%= select_tag :building, options_for_select(@buildings.collect{ |b| [b.building_name, b.id] }, nil), { id: "building_select" } %>
+				<%= select_tag :building, nil, { id: "building_select" } %>
 			</div>
 			<div>
 				<label for="start_time">시간오후</label><br>
