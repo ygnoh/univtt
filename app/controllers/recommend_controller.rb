@@ -1,5 +1,6 @@
 class RecommendController < ApplicationController
   def index
+		@schools = School.all
   end
 
   def new
