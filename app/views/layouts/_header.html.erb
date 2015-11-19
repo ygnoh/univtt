@@ -1,6 +1,7 @@
 <ul>
 	<li><%= link_to "home", "/" %></li>
 	<li><%= link_to "시간표 생성하기", "/timetable/new" %></li>
+	<li><%= link_to "빈강의실 찾기", "/classroom/index" %></li>
 	<% if !current_user %>
 		<li><%= link_to "로그인", "/users/sign_in" %></li>
 		<li><%= link_to "회원가입", "/users/sign_up" %></li>

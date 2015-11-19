@@ -18,7 +18,9 @@
 	padding: 0px 10px;
 }
 
-#table-wrap {
+#classroom {
+	float: left;
+	padding: 0px 10px;
 }
 
 #colheaders {
@@ -37,6 +39,14 @@
 	position: relative;
 }
 
+#classroom-body {
+	clear: both;
+	border: 1px solid;
+	position: relative;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
 #rowheaders {
 	width: 60px;
 	//border: 1px solid;
@@ -53,16 +63,4 @@
 
 #table-grid {
 	background-color: lightblue;
-	//position: absolute;
-	//top: 0;
-	//left: 60px;
-}
-
-#example {
-	background-color: yellow;
-	position: absolute;
-	width: 90px; // fixed value
-	height: 88px; // 2 hours ( 44*2 )
-	top: 44px; // time: 9:00~ ( 44*1 )
-	left: 240px; // day: wed ( 60 + 90*3 )
 }

@@ -86,8 +86,7 @@ class TimetableController < ApplicationController
 
 		@times = []
 		lecture_time.each do |t|
-			@times << [t.starttime/100 * 100 + t.starttime%100 * 100/60,
-				t.endtime/100 * 100 + t.endtime%100 * 100/60]
+			@times << [t.starttime/100 * 100 + t.starttime%100 * 100/60, t.endtime/100 * 100 + t.endtime%100 * 100/60]
 		end
 		
 		respond_to do |format|
