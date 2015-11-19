@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  get 'recommend/index'
+
+  get 'recommend/new'
+
+  get 'recommend/create'
+
+  get 'recommend/edit'
+
+  get 'recommend/update'
+
+  get 'recommend/destroy'
+
   devise_for :users
 
 	root 'home#index'
