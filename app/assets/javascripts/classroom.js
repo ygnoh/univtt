@@ -9,12 +9,17 @@ $(document).on('ready page:load', function() {
 })
 
 function searchClassroom() {
+	if ($('#school_select').val() == 10000) {
+		alert("천천히 학교부터 선택해주세요!");
+		return false;
+	};
 	if ( ($('#start_time').val() > $('#end_time').val()) ||
 		($('#start_time').val() == '' && $('#end_time').val() != '') ||
 		($('#start_time').val() != '' && $('#end_time').val() == '') ){
 		alert("시간이 잘못 지정되었어요.");
 		return false;
 	};
+
 	var DATA = { building_id: $('#building_select').val() };
 	if ($('#now').prop('checked')) {
 		DATA["now"] = true;
