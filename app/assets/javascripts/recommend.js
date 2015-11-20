@@ -29,4 +29,16 @@ $(document).on('ready page:load', function() {
 		$('.' + lecture_id).remove();
 		$('#' + lecture_id).css('background-color','');
 	});
+
+	$('#btn-recommend').on('click', function(e) {
+		if (wishbox.length == 0) {
+			alert("강의를 먼저 선택해주세요.");
+			e.preventDefault();
+		} else {
+			if (confirm("해당 강의들로 추천해드릴까요?")) {
+			} else {
+				e.preventDefault();
+			}
+		}
+	});
 });
