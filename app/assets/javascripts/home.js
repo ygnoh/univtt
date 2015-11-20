@@ -89,7 +89,7 @@ $(document).on('ready page:load', function() {
 	});
 
 	// Make timetable contents
-	$("#lecture-container-body").on('click', '.lecture_select', function() {
+	$(".timetable #lecture-container-body").on('click', '.lecture_select', function() {
 		// Check if lectures has been clicked
 		if ($(this).data('checked') == '0') {
 			$.ajax({

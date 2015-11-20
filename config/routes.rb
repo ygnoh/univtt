@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'classroom/destroy'
 
   get 'recommend/index'
+	get 'recommend/update_wishbox'
   get 'recommend/new'
   get 'recommend/create'
   get 'recommend/edit'

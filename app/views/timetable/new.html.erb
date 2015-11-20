@@ -1,6 +1,6 @@
 <h1>Timetable#new</h1>
 
-<div class="left-field">
+<div class="timetable left-field">
 	<div>
 		<div>
 			<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
