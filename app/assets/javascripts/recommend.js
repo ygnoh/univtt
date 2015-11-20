@@ -4,13 +4,17 @@ $(document).on('ready page:load', function() {
 	// Make wishbox contents
 	$(".recommend #lecture-container-body").on('click', '.lecture_select', function() {
 		if ($(this).data('checked') == '0') {
-			$.ajax({
-				url: window.location.origin + '/recommend/update_wishbox',
-				dataType: "script",
-				data: {
-					lecture_id: $(this).prop('id')
-				}
-			});
+			if (wishbox.length >= 15) {
+				alert("강의는 최대 15개까지만 담을 수 있어요.");
+			} else {
+				$.ajax({
+					url: window.location.origin + '/recommend/update_wishbox',
+					dataType: "script",
+					data: {
+						lecture_id: $(this).prop('id')
+					}
+				});
+			}
 		} else {
 			wishbox.splice(jQuery.inArray($(this).prop('id'),wishbox),1);
 			$('#wishbox-hidden').val(wishbox);
