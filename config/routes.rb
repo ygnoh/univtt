@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get 'recommend/index'
 	get 'recommend/update_wishbox'
-  get 'recommend/new'
+  post 'recommend/result'
   get 'recommend/create'
   get 'recommend/edit'
   get 'recommend/update'

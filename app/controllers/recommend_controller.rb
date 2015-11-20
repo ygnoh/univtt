@@ -3,7 +3,8 @@ class RecommendController < ApplicationController
 		@schools = School.all
   end
 
-  def new
+  def result
+		@lectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
   end
 
   def create

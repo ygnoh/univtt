@@ -13,6 +13,7 @@ $(document).on('ready page:load', function() {
 			});
 		} else {
 			wishbox.splice(jQuery.inArray($(this).prop('id'),wishbox),1);
+			$('#wishbox-hidden').val(wishbox);
 
 			$(this).data('checked','0');
 			$(this).css('background-color','');
@@ -24,6 +25,7 @@ $(document).on('ready page:load', function() {
 		var lecture_id = parseInt($(this).parent().prop('class'))	;
 
 		wishbox.splice(jQuery.inArray(lecture_id,wishbox), 1);
+		$('#wishbox-hidden').val(wishbox);
 		
 		$('#' + lecture_id).data('checked','0');
 		$('.' + lecture_id).remove();
