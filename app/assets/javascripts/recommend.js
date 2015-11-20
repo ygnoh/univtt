@@ -19,4 +19,14 @@ $(document).on('ready page:load', function() {
 			$('.'+$(this).prop('id')).remove();
 		}
 	});
+
+	$('#wishlist').on('click', '.xbtn', function() {
+		var lecture_id = parseInt($(this).parent().prop('class'))	;
+
+		wishbox.splice(jQuery.inArray(lecture_id,wishbox), 1);
+		
+		$('#' + lecture_id).data('checked','0');
+		$('.' + lecture_id).remove();
+		$('#' + lecture_id).css('background-color','');
+	});
 });

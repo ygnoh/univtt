@@ -1,6 +1,6 @@
 wishbox.push(<%= @lecture.id.to_i %>);
 $('#' + '<%= @lecture.id %>').data('checked','1');
 $('#wishlist').append("<li class='<%= @lecture.id %>'>"
-	+ "<%= @lecture.lecture_name %></li>");
+	+ "<%= @lecture.lecture_name %>  <span class='xbtn'>✖</span></li>");
 
 $('#' + '<%= @lecture.id %>').css('background-color', 'lightgreen');
