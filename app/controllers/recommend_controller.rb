@@ -56,15 +56,19 @@ class RecommendController < ApplicationController
 			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
 		end
 
-		#@result = result
 		@result_times = []
 		result.each do |rslt|
 			@result_times << [] # [[ ]]
 			rslt.each do |r|
-				lecturename = Lecture.find(r).lecture_name
 				@result_times.last << [] # [ [[ ]] ]
-				Lecturetime.where(lecture_id: r).each do |l|
-					@result_times.last.last << [l.day, l.starttime, l.endtime, lecturename] # [[ [[ "here" ]] ]]
+				lecturename = Lecture.find(r).lecture_name
+				foo = Lecturetime.where(lecture_id: r)
+				if foo.empty? # if 'r' has no lecturetime
+					@result_times.last.last << [lecturename] # just insert its lecturename
+				else
+					foo.each do |l|
+						@result_times.last.last << [l.day, l.starttime/100*100+l.starttime%100*100/60, l.endtime/100*100+l.endtime%100*100/60, lecturename] # [[ [[ "here" ]] ]]
+					end
 				end
 			end
 		end
