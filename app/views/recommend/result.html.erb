@@ -1,4 +1,32 @@
 <h1>Recommend#result</h1>
-<% @result.each do |r| %>
-	<p><%= r %></p>
+<% @result.each_with_index do |r,i| %>
+	<div id="timetable">
+		<div id="table-wrap">
+			<div id="colheaders">
+				<% for day in ["월","화","수","목","금","토"] %>
+					<div class="colhead">
+						<span><%= day %></span>
+					</div>
+				<% end %>
+			</div>
+			<div id="table-body">
+				<div id="rowheaders">
+					<% for i in 8..11 %>
+						<div class="rowhead">
+							<span>오전 <%= i %>시</span>
+						</div>
+					<% end %>
+					<div class="rowhead">
+						<span>오후 12시</span>
+					</div>
+					<% for i in 1..9 %>
+						<div class="rowhead">
+							<span>오후 <%= i %>시</span>
+						</div>
+					<% end %>
+				</div>
+				<div id="table-grid" class="recommend_<%= i %>"></div>
+			</div>
+		</div>
+	</div>
 <% end %>
