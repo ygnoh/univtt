@@ -50,7 +50,8 @@ class RecommendController < ApplicationController
 			lectures.each do |l|
 				result += recommend([l],lectures,overlapChecker)
 			end
-			result.uniq!.each do |r|
+			result.uniq!
+			result.each do |r|
 				r.sort!
 			end
 			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
