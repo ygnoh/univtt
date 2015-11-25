@@ -1,2 +1,7 @@
 <h1>Recommend#result</h1>
-<p><%= @lectures %></p>
+<% @result.each do |r| %>
+	<p><%= r %></p>
+<% end %>
+
+<br><br>
+<p><%= @checker %></p>

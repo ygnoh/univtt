@@ -7,7 +7,21 @@ class RecommendController < ApplicationController
 		lectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
-		for i in 0..(lectures.length-1-1) # length <=2 인 경우 따로해야 함
+		if lectures.length == 1
+			@result = [lectures] and return
+		end
+		if lectures.length == 2
+			Lecturetime.where(lecture_id: lectures[0]).each do |l0|
+				Lecturetime.where(lecture_id: lectures[1]).each do |l1|
+					if l0.day == l1.day && ( (l0.starttime < l1.starttime && l1.starttime < l0.endtime) || (l0.starttime < l1.endtime && l1.endtime < l0.endtime) || (l1.starttime < l0.starttime && l0.starttime < l1.endtime) || (l1.starttime < l0.endtime && l0.endtime < l1.endtime) || (l0.starttime == l1.starttime && l0.endtime == l1.endtime) )
+						@result = [ [lectures[0]], [lectures[1]] ] and return
+					end
+				end
+			end
+			@result = [ [lectures[0], lectures[1]] ] and return
+		end
+
+		for i in 0..(lectures.length-1-1)
 			Lecturetime.where(lecture_id: lectures[i]).each do |li|
 				for j in (i+1)..(lectures.length-1)
 					if overlapChecker[lectures[i]].include? lectures[j]
@@ -27,8 +41,32 @@ class RecommendController < ApplicationController
 				end
 			end
 		end
+
+		@result = []
+		lectures.each do |l|
+			@result += recommend([l],lectures,overlapChecker)
+		end
+		@result.sort!.uniq!.each do |r|
+			r.sort!
+		end
+		@result.uniq!
+		@checker = overlapChecker
   end
 
+	def recommend(mustVal, array, checker)
+		result = []
+		args = array-[mustVal.last]-checker[mustVal.last]
+		if args == []
+			result << mustVal
+		else
+			args.each do |a|
+				result += [mustVal] + recommend(mustVal+[a],args,checker)
+			end
+		end
+
+		return result
+	end
+	
   def create
   end
 
