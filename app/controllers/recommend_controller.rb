@@ -8,21 +8,21 @@ class RecommendController < ApplicationController
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
 		if lectures.length == 1
-			@result = [lectures]
+			result = [lectures]
 		elsif lectures.length == 2
-			done = false # for checking if @result exists in length=2
+			done = false # for checking if result exists in length=2
 			Lecturetime.where(lecture_id: lectures[0]).each do |l0|
 				if !done
 					Lecturetime.where(lecture_id: lectures[1]).each do |l1|
 						if l0.day == l1.day && ( (l0.starttime < l1.starttime && l1.starttime < l0.endtime) || (l0.starttime < l1.endtime && l1.endtime < l0.endtime) || (l1.starttime < l0.starttime && l0.starttime < l1.endtime) || (l1.starttime < l0.endtime && l0.endtime < l1.endtime) || (l0.starttime == l1.starttime && l0.endtime == l1.endtime) )
-							@result = [ [lectures[0]], [lectures[1]] ]
+							result = [ [lectures[0]], [lectures[1]] ]
 							done = true
 						end
 					end
 				end
 			end
 			if !done
-				@result = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
+				result = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
 			end
 		else
 			for i in 0..(lectures.length-1-1)
@@ -46,15 +46,27 @@ class RecommendController < ApplicationController
 				end
 			end
 
-			@result = []
+			result = []
 			lectures.each do |l|
-				@result += recommend([l],lectures,overlapChecker)
+				result += recommend([l],lectures,overlapChecker)
 			end
-			@result.uniq!.each do |r|
+			result.uniq!.each do |r|
 				r.sort!
 			end
-			@result = @result.uniq.sort { |x,y| y.length <=> x.length }
-			#@checker = overlapChecker
+			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
+		end
+
+		#@result = result
+		@result_times = []
+		result.each do |rslt|
+			@result_times << [] # [[ ]]
+			rslt.each do |r|
+				lecturename = Lecture.find(r).lecture_name
+				@result_times.last << [] # [ [[ ]] ]
+				Lecturetime.where(lecture_id: r).each do |l|
+					@result_times.last.last << [l.day, l.starttime, l.endtime, lecturename] # [[ [[ "here" ]] ]]
+				end
+			end
 		end
   end
 
