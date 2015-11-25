@@ -46,11 +46,11 @@ class RecommendController < ApplicationController
 		lectures.each do |l|
 			@result += recommend([l],lectures,overlapChecker)
 		end
-		@result.sort!.uniq!.each do |r|
+		@result.uniq!.each do |r|
 			r.sort!
 		end
-		@result.uniq!
-		@checker = overlapChecker
+		@result = @result.uniq.sort { |x,y| y.length <=> x.length }
+		#@checker = overlapChecker
   end
 
 	def recommend(mustVal, array, checker)
