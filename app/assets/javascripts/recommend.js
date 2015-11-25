@@ -16,7 +16,7 @@ $(document).on('ready page:load', function() {
 				});
 			}
 		} else {
-			wishbox.splice(jQuery.inArray($(this).prop('id'),wishbox),1);
+			wishbox.splice(jQuery.inArray(parseInt($(this).prop('id')),wishbox),1);
 			$('#wishbox-hidden').val(wishbox);
 
 			$(this).data('checked','0');
