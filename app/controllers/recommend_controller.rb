@@ -22,7 +22,7 @@ class RecommendController < ApplicationController
 				end
 			end
 			if !done
-				@result = [ [lectures[0], lectures[1]] ]
+				@result = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
 			end
 		else
 			for i in 0..(lectures.length-1-1)
