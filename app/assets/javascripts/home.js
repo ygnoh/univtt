@@ -162,3 +162,9 @@ function findArrayIndex(target, saver) {
 	// return target's position formed like [[saverPosition,targetDay],...]
 	return result;
 }
+
+function getRandColor(){
+	var colors = ['DeepSkyBlue','DodgerBlue','HotPink','LightPink','MistyRose','NavajoWhite','PaleVioletRed','Plum','SlateBlue'];
+	var rand = Math.floor(Math.random()*(colors.length));
+	return colors[rand]
+}
