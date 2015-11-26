@@ -17,6 +17,15 @@ Rails.application.routes.draw do
 	get 'timetable/update_classifications'
 	get 'timetable/update_timetable'
 
+  get 'classroom/index'
+	get 'classroom/update_classroom'
+	get 'classroom/update_building'
+  get 'classroom/new'
+  get 'classroom/create'
+  get 'classroom/edit'
+  get 'classroom/update'
+  get 'classroom/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
