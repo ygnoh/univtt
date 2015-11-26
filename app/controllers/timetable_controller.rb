@@ -7,7 +7,17 @@ class TimetableController < ApplicationController
   end
 
   def create
-		lectures = params[:lectures].split(',').map(&:to_i) # convert string to array
+		savett = Savetimetable.new
+		savett.user_id = current_user.id
+		savett.lectures = params[:lectures].split(',').map(&:to_i) # convert string to array
+		
+		if savett.save
+			flash[:alert] = "성공적으로 저장하였습니다."
+		else
+			flash[:alert] = "저장에 실패하였습니다."
+		end
+
+		redirect_to :back
   end
 
   def edit

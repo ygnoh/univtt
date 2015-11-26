@@ -45,8 +45,10 @@
 			<div id="table-grid"></div>
 		</div>
 	</div>
-	<%= form_tag '/timetable/create' do %>
-		<%= hidden_field_tag 'lectures', '', id: 'timetable-hidden' %>
-		<%= submit_tag "저장", id: "btn-save" %>
+	<% if user_signed_in? %>
+		<%= form_tag '/timetable/create' do %>
+			<%= hidden_field_tag 'lectures', '', id: 'timetable-hidden' %>
+			<%= submit_tag "저장", id: "btn-save" %>
+		<% end %>
 	<% end %>
 </div>
