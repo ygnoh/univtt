@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 	
   get 'timetable/index'
   get 'timetable/new'
-  get 'timetable/create'
+  post 'timetable/create'
   get 'timetable/edit'
   get 'timetable/update'
 	get 'timetable/destroy'

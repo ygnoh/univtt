@@ -111,6 +111,7 @@ $(document).on('ready page:load', function() {
 			lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
 			daySaver.splice(lectureIndex,1);
 			timeSaver.splice(lectureIndex,1);
+			$('#timetable-hidden').val(lectureSaver);
 
 			$(this).data('checked','0');
 			$(this).css('background-color','');
@@ -128,6 +129,7 @@ function removeOnTimetable() {
 	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
 	daySaver.splice(lectureIndex,1);
 	timeSaver.splice(lectureIndex,1);
+	$('#timetable-hidden').val(lectureSaver);
 
 	$('#' + lecture_id).data('checked','0');
 	$('.' + lecture_id).remove();

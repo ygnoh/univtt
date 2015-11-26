@@ -7,6 +7,7 @@ class TimetableController < ApplicationController
   end
 
   def create
+		lectures = params[:lectures].split(',').map(&:to_i) # convert string to array
   end
 
   def edit

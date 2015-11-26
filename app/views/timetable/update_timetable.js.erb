@@ -6,6 +6,7 @@ if ( checkOverlap(days,times) ) {
 	daySaver.push(days);
 	timeSaver.push(times);
 	$('#' + '<%= @lecture.id %>').data('checked','1');
+	$('#timetable-hidden').val(lectureSaver);
 
 	for ( x in days ) {
 		$('#table-grid').append("<div class='" + "<%= @lecture.id %>" + "'"
