@@ -4,6 +4,12 @@ var daySaver = [];
 var timeSaver = [];
 
 $(document).on('ready page:load', function() {
+	// Clear all global variables for avoiding unexpected errors
+	lectureSaver = [];
+	daySaver = [];
+	timeSaver = [];
+	wishbox = [];
+
 	$("#school_select").change( function() {
 		// Update department by school
 		$.ajax({
