@@ -130,6 +130,13 @@ $(document).on('ready page:load', function() {
 			}
 		}
 	});
+
+	$('#btn-delete').on('click', function(e) {
+		if (confirm("해당 시간표를 삭제합니다.")) {
+		} else {
+			e.preventDefault();
+		}
+	});
 });
 
 // When click for removing lectures on the timetable sheet

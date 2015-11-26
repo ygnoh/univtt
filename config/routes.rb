@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'timetable/show/:user_id' => 'timetable#show'
   get 'timetable/edit'
   get 'timetable/update'
-	get 'timetable/destroy'
+	post 'timetable/destroy/:tt_id' => 'timetable#destroy'
 
 	get 'timetable/update_departments'
 	get 'timetable/update_lectures_by_department'

@@ -28,6 +28,19 @@ class TimetableController < ApplicationController
   end
 
   def destroy
+		tt = Savetimetable.find(params[:tt_id])
+		tt.active = false
+		if tt.user_id != current_user.id
+			flash[:error] = "해당 권한이 없습니다."
+		else
+			if tt.save
+				flash[:success] = "삭제하였습니다."
+			else
+				flash[:error] = "삭제에 실패하였습니다."
+			end
+		end
+
+		redirect_to :back
   end
 
 
