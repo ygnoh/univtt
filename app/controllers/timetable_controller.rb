@@ -1,7 +1,4 @@
 class TimetableController < ApplicationController
-  def index
-  end
-
   def new
 		@schools = School.all
   end
@@ -19,6 +16,9 @@ class TimetableController < ApplicationController
 
 		redirect_to :back
   end
+
+	def show
+	end
 
   def edit
   end

@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 
 	root 'home#index'
 	
-  get 'timetable/index'
   get 'timetable/new'
   post 'timetable/create'
+  get 'timetable/show'
   get 'timetable/edit'
   get 'timetable/update'
 	get 'timetable/destroy'
