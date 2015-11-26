@@ -4,6 +4,12 @@ var daySaver = [];
 var timeSaver = [];
 
 $(document).on('ready page:load', function() {
+	// Clear all global variables for avoiding unexpected errors
+	lectureSaver = [];
+	daySaver = [];
+	timeSaver = [];
+	wishbox = [];
+
 	$("#school_select").change( function() {
 		// Update department by school
 		$.ajax({
@@ -89,7 +95,7 @@ $(document).on('ready page:load', function() {
 	});
 
 	// Make timetable contents
-	$("#lecture-container-body").on('click', '.lecture_select', function() {
+	$(".timetable #lecture-container-body").on('click', '.lecture_select', function() {
 		// Check if lectures has been clicked
 		if ($(this).data('checked') == '0') {
 			$.ajax({
@@ -161,4 +167,10 @@ function findArrayIndex(target, saver) {
 	} 
 	// return target's position formed like [[saverPosition,targetDay],...]
 	return result;
+}
+
+function getRandColor(){
+	var colors = ['DeepSkyBlue','DodgerBlue','HotPink','LightPink','MistyRose','NavajoWhite','PaleVioletRed','Plum','SlateBlue'];
+	var rand = Math.floor(Math.random()*(colors.length));
+	return colors[rand]
 }

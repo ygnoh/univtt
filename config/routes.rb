@@ -26,6 +26,14 @@ Rails.application.routes.draw do
   get 'classroom/update'
   get 'classroom/destroy'
 
+  get 'recommend/index'
+	get 'recommend/update_wishbox'
+  post 'recommend/result'
+  get 'recommend/create'
+  get 'recommend/edit'
+  get 'recommend/update'
+  get 'recommend/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
