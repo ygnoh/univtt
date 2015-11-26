@@ -3,7 +3,7 @@
 <div>
 	<% @ttlist.each do |tt| %>
 		<%= form_tag "/timetable/destroy/#{tt.id}" do %>
-			<%= tt.lectures %>
+			<a href="/timetable/show_timetable/<%= tt.id %>"><%= tt.id %></a>
 			<%= submit_tag '삭제', id: 'btn-delete' %>
 		<% end %>
 	<% end %>

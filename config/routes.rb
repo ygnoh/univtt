@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'timetable/new'
   post 'timetable/create'
   get 'timetable/show/:user_id' => 'timetable#show'
+  get 'timetable/show_timetable/:tt_id' => 'timetable#show_timetable'
   get 'timetable/edit'
   get 'timetable/update'
 	post 'timetable/destroy/:tt_id' => 'timetable#destroy'

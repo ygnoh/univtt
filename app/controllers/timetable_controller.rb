@@ -21,6 +21,22 @@ class TimetableController < ApplicationController
 		@ttlist = Savetimetable.where(user_id: params[:user_id])
 	end
 
+	def show_timetable
+		@result = []
+		Savetimetable.find(params[:tt_id]).lectures.each do |l|
+			@result << [] # [ [ ] ]
+			lecturename = Lecture.find(l).lecture_name
+			foo = Lecturetime.where(lecture_id: l)
+			if foo.empty?
+				@result.last << [lecturename]
+			else
+				foo.each do |t|
+					@result.last << [t.day, t.starttime/100*100+t.starttime%100*100/60, t.endtime/100*100+t.endtime%100*100/60, lecturename]
+				end
+			end
+		end
+	end
+
   def edit
   end
 
