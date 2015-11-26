@@ -118,6 +118,18 @@ $(document).on('ready page:load', function() {
 			$('.'+$(this).prop('id')).remove();
 		}
 	});
+	
+	$('#btn-save').on('click', function(e) {
+		if (lectureSaver.length == 0) {
+			alert("강의를 먼저 선택해주세요.");
+			e.preventDefault();
+		} else {
+			if (confirm("저장할까요?")) {
+			} else {
+				e.preventDefault();
+			}
+		}
+	});
 });
 
 // When click for removing lectures on the timetable sheet
