@@ -1,2 +1,5 @@
 <h1>Timetable#show</h1>
-<p>Find me in app/views/timetable/show.html.erb</p>
+
+<% @ttlist.each do |tt| %>
+	<p><%= tt.lectures %></p>
+<% end %>
