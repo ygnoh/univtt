@@ -119,7 +119,7 @@ $(document).on('ready page:load', function() {
 		}
 	});
 	
-	$('#btn-save').on('click', function(e) {
+	$("#btn-save").on('click', function(e) {
 		if (lectureSaver.length == 0) {
 			alert("강의를 먼저 선택해주세요.");
 			e.preventDefault();

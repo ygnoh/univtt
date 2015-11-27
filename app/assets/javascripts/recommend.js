@@ -47,4 +47,11 @@ $(document).on('ready page:load', function() {
 			}
 		}
 	});
+
+	$("#btn-save-recommend").on('click', function(e) {
+		if (confirm("저장할까요?")) {
+		} else {
+			e.preventDefault();
+		}
+	});
 });

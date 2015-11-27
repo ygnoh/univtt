@@ -28,13 +28,23 @@
 				<div id="table-grid" class="recommend_<%= index %>"></div>
 			</div>
 		</div>
+		<% if user_signed_in? %>
+			<div>
+				<%= form_tag '/timetable/create' do %>
+					<%= hidden_field_tag 'lectures', '', id: "recommend-hidden-#{index}" %>
+					<%= submit_tag "저장", id: "btn-save-recommend" %>
+				<% end %>
+			</div>
+		<% end %>
 	</div>
 <% end %>
 
 <script>
 	$(document).on('ready page:load', function() {
-		<% @result_times.each_with_index do |t,t_index| %>
-			<% t.each do |r| %>
+		<% @result_times.zip(@result).each_with_index do |t,t_index| %>
+			// t[0] : @result_times, t[1] : @result
+			$("#recommend-hidden-" + <%= t_index %>).val(<%= t[1] %>);
+			<% t[0].each do |r| %>
 				<% if r[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)
 					$('.recommend_<%=t_index%>').append("<p>"
 						+ "<%= raw r[0][0] %>" + "</p>"); // just print lecture_name

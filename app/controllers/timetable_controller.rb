@@ -14,7 +14,7 @@ class TimetableController < ApplicationController
 			flash[:error] = "저장에 실패하였습니다."
 		end
 
-		redirect_to :back
+		redirect_to "/timetable/show/#{current_user.id}"
   end
 
 	def show
