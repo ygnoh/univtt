@@ -40,9 +40,10 @@
 						+ "<%= raw r[0][0] %>" + "</p>"); // just print lecture_name
 					<% next %>
 				<% end %>
+				var colors = getRandColor();
 				<% r.each do |final_result| %>
 					$('.recommend_<%=t_index%>').append("<div"
-						+ " style='background-color: "+getRandColor()+"; position: absolute; width: 90px;"
+						+ " style='background-color: "+colors+"; position: absolute; width: 90px;"
 						+ " height: " + <%= (final_result[2]-final_result[1])*0.44 %> + "px;"
 						+ " top: " + <%= (final_result[1]-800)*0.44 %> + "px;"
 						+ " left: " + <%= 60+(final_result[0]-1)*90 %> + "px;'>"
