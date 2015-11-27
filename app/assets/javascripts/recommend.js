@@ -57,7 +57,7 @@ $(document).on('ready page:load', function() {
 
 	$('#recommend-option').on('click', function() {
 		if ($(this).is(':checked')) {
-			$('#option-container-body').css("display", "inline");
+			$('#option-container-body').css("display", "block");
 		} else {
 			$('#option-container-body').css("display", "none");
 		}

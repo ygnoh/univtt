@@ -4,10 +4,26 @@ class RecommendController < ApplicationController
   end
 
   def result
-		lectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
+		tempLectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
+		dayRestrict = params[:day_restrict].to_i
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
-		if lectures.length == 1
+		lectures = tempLectures
+		if dayRestrict != -1
+			tempLectures.each do |l|
+				Lecturetime.where(lecture_id: l).each do |t|
+					if t.day == dayRestrict
+						lectures -= [l]
+						next
+					end
+				end
+			end
+		end
+
+		if lectures.length == 0 # lectures can be empty array by restrictions
+			flash[:alert] = "가능한 시간표가 없어요."
+			return redirect_to :back
+		elsif lectures.length == 1
 			result = [lectures]
 		elsif lectures.length == 2
 			done = false # for checking if result exists in length=2
