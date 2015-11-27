@@ -111,10 +111,30 @@ $(document).on('ready page:load', function() {
 			lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
 			daySaver.splice(lectureIndex,1);
 			timeSaver.splice(lectureIndex,1);
+			$('#timetable-hidden').val(lectureSaver);
 
 			$(this).data('checked','0');
 			$(this).css('background-color','');
 			$('.'+$(this).prop('id')).remove();
+		}
+	});
+	
+	$("#btn-save").on('click', function(e) {
+		if (lectureSaver.length == 0) {
+			alert("강의를 먼저 선택해주세요.");
+			e.preventDefault();
+		} else {
+			if (confirm("저장할까요?")) {
+			} else {
+				e.preventDefault();
+			}
+		}
+	});
+
+	$('#btn-delete').on('click', function(e) {
+		if (confirm("해당 시간표를 삭제합니다.")) {
+		} else {
+			e.preventDefault();
 		}
 	});
 });
@@ -128,6 +148,7 @@ function removeOnTimetable() {
 	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
 	daySaver.splice(lectureIndex,1);
 	timeSaver.splice(lectureIndex,1);
+	$('#timetable-hidden').val(lectureSaver);
 
 	$('#' + lecture_id).data('checked','0');
 	$('.' + lecture_id).remove();

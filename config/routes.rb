@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
 	root 'home#index'
 	
-  get 'timetable/index'
   get 'timetable/new'
-  get 'timetable/create'
+  post 'timetable/create'
+  get 'timetable/show/:user_id' => 'timetable#show'
+  get 'timetable/show_timetable/:tt_id' => 'timetable#show_timetable'
   get 'timetable/edit'
   get 'timetable/update'
-	get 'timetable/destroy'
+	post 'timetable/destroy/:tt_id' => 'timetable#destroy'
 
 	get 'timetable/update_departments'
 	get 'timetable/update_lectures_by_department'

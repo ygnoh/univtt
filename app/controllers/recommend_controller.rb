@@ -57,6 +57,7 @@ class RecommendController < ApplicationController
 			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
 		end
 
+		@result = result # for saving recommended timetable
 		@result_times = []
 		result.each do |rslt|
 			@result_times << [] # [[ ]]
