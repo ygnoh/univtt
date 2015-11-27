@@ -54,4 +54,12 @@ $(document).on('ready page:load', function() {
 			e.preventDefault();
 		}
 	});
+
+	$('#recommend-option').on('click', function() {
+		if ($(this).is(':checked')) {
+			$('#option-container-body').css("display", "inline");
+		} else {
+			$('#option-container-body').css("display", "none");
+		}
+	});
 });
