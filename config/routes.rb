@@ -51,6 +51,11 @@ Rails.application.routes.draw do
 	get 'department/edit/:id' => 'department#edit'
 	delete 'department/destroy/:id' => 'department#destroy'
 
+	get 'building' => 'building#index'
+	get 'building/show/:id' => 'building#show'
+	get 'building/edit/:id' => 'building#edit'
+	delete 'building/destroy/:id' => 'building#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

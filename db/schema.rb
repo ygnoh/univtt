@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128211302) do
+ActiveRecord::Schema.define(version: 20151128211303) do
 
   create_table "buildings", force: :cascade do |t|
     t.integer  "school_id"
     t.string   "building_name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "active",        default: true
   end
 
   add_index "buildings", ["school_id"], name: "index_buildings_on_school_id"
