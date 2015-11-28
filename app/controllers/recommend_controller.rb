@@ -101,6 +101,10 @@ class RecommendController < ApplicationController
 					end
 				end
 			end
+			if result.length == 0
+				flash[:alert] = "가능한 시간표가 없어요."
+				return redirect_to :back
+			end
 		end
 
 		@result = result # for saving recommended timetable
