@@ -44,3 +44,6 @@ group :development, :test do
 end
 
 gem 'devise'
+
+# for facebook login
+gem 'omniauth-facebook'
