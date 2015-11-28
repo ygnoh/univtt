@@ -1,13 +1,41 @@
 class TimetableController < ApplicationController
-  def index
-  end
-
   def new
 		@schools = School.all
   end
 
   def create
+		savett = Savetimetable.new
+		savett.user_id = current_user.id
+		savett.lectures = params[:lectures].split(',').map(&:to_i) # convert string to array
+		
+		if savett.save
+			flash[:success] = "성공적으로 저장하였습니다."
+		else
+			flash[:error] = "저장에 실패하였습니다."
+		end
+
+		redirect_to "/timetable/show/#{current_user.id}"
   end
+
+	def show
+		@ttlist = Savetimetable.where(user_id: params[:user_id])
+	end
+
+	def show_timetable
+		@result = []
+		Savetimetable.find(params[:tt_id]).lectures.each do |l|
+			@result << [] # [ [ ] ]
+			lecturename = Lecture.find(l).lecture_name
+			foo = Lecturetime.where(lecture_id: l)
+			if foo.empty?
+				@result.last << [lecturename]
+			else
+				foo.each do |t|
+					@result.last << [t.day, t.starttime/100*100+t.starttime%100*100/60, t.endtime/100*100+t.endtime%100*100/60, lecturename]
+				end
+			end
+		end
+	end
 
   def edit
   end
@@ -16,6 +44,19 @@ class TimetableController < ApplicationController
   end
 
   def destroy
+		tt = Savetimetable.find(params[:tt_id])
+		tt.active = false
+		if tt.user_id != current_user.id
+			flash[:error] = "해당 권한이 없습니다."
+		else
+			if tt.save
+				flash[:success] = "삭제하였습니다."
+			else
+				flash[:error] = "삭제에 실패하였습니다."
+			end
+		end
+
+		redirect_to :back
   end
 
 

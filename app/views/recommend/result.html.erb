@@ -1,0 +1,65 @@
+<h1>Recommend#result</h1>
+<% @result_times.each_with_index do |result,index| %>
+	<div id="timetable">
+		<div id="table-wrap">
+			<div id="colheaders">
+				<% for day in ["월","화","수","목","금","토"] %>
+					<div class="colhead">
+						<span><%= day %></span>
+					</div>
+				<% end %>
+			</div>
+			<div id="table-body">
+				<div id="rowheaders">
+					<% for i in 8..11 %>
+						<div class="rowhead">
+							<span>오전 <%= i %>시</span>
+						</div>
+					<% end %>
+					<div class="rowhead">
+						<span>오후 12시</span>
+					</div>
+					<% for i in 1..9 %>
+						<div class="rowhead">
+							<span>오후 <%= i %>시</span>
+						</div>
+					<% end %>
+				</div>
+				<div id="table-grid" class="recommend_<%= index %>"></div>
+			</div>
+		</div>
+		<% if user_signed_in? %>
+			<div>
+				<%= form_tag '/timetable/create' do %>
+					<%= hidden_field_tag 'lectures', '', id: "recommend-hidden-#{index}" %>
+					<%= submit_tag "저장", id: "btn-save-recommend" %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+
+<script>
+	$(document).on('ready page:load', function() {
+		<% @result_times.zip(@result).each_with_index do |t,t_index| %>
+			// t[0] : @result_times, t[1] : @result
+			$("#recommend-hidden-" + <%= t_index %>).val(<%= t[1] %>);
+			<% t[0].each do |r| %>
+				<% if r[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)
+					$('.recommend_<%=t_index%>').append("<p>"
+						+ "<%= raw r[0][0] %>" + "</p>"); // just print lecture_name
+					<% next %>
+				<% end %>
+				var colors = getRandColor();
+				<% r.each do |final_result| %>
+					$('.recommend_<%=t_index%>').append("<div"
+						+ " style='background-color: "+colors+"; position: absolute; width: 90px;"
+						+ " height: " + <%= (final_result[2]-final_result[1])*0.44 %> + "px;"
+						+ " top: " + <%= (final_result[1]-800)*0.44 %> + "px;"
+						+ " left: " + <%= 60+(final_result[0]-1)*90 %> + "px;'>"
+						+ "<%= raw final_result[3] %>" + "</div>");
+				<% end %>
+			<% end %>
+		<% end %>
+	})
+</script>

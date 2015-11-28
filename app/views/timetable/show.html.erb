@@ -1,0 +1,10 @@
+<h1>Timetable#show</h1>
+
+<div>
+	<% @ttlist.each do |tt| %>
+		<%= form_tag "/timetable/destroy/#{tt.id}" do %>
+			<a href="/timetable/show_timetable/<%= tt.id %>"><%= tt.id %></a>
+			<%= submit_tag '삭제', id: 'btn-delete' %>
+		<% end %>
+	<% end %>
+</div>

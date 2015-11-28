@@ -1,0 +1,32 @@
+<h1>Recommend#index</h1>
+
+<div class="recommend left-field">
+	<div>
+		<div>
+			<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
+		</div>
+		<div>
+			<%= select_tag :department, nil, { id: "department_select" } %>
+		</div>
+	</div>
+	<div id="classification-container">
+		<ul id="classification-container-body"></ul>
+	</div>
+	<div id="lecture-container">
+		<ul id="lecture-container-body"></ul>
+	</div>
+</div>
+
+<div id="wishbox">
+	<div id="wishbox-wrap">
+		<div id="wishbox-body">
+			<ul id="wishlist"></ul>
+		</div>
+		<div>
+			<%= form_tag '/recommend/result' do %>
+				<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
+				<%= submit_tag "추천받기", id: "btn-recommend" %>
+			<% end %>
+		</div>
+	</div>
+</div>

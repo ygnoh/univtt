@@ -1,6 +1,6 @@
 <h1>Timetable#new</h1>
 
-<div class="left-field">
+<div class="timetable left-field">
 	<div>
 		<div>
 			<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
@@ -45,4 +45,12 @@
 			<div id="table-grid"></div>
 		</div>
 	</div>
+	<% if user_signed_in? %>
+		<div>
+			<%= form_tag '/timetable/create' do %>
+				<%= hidden_field_tag 'lectures', '', id: 'timetable-hidden' %>
+				<%= submit_tag "저장", id: "btn-save" %>
+			<% end %>
+		</div>
+	<% end %>
 </div>

@@ -1,13 +1,12 @@
 var days = <%= @days %>;
 var times = <%= @times %>;
-var colors = ['blue', 'yellow', 'green', 'red'];
-var rand = Math.floor(Math.random()*colors.length);
 
 if ( checkOverlap(days,times) ) {
 	lectureSaver.push(<%= @lecture.id.to_i %>);
 	daySaver.push(days);
 	timeSaver.push(times);
 	$('#' + '<%= @lecture.id %>').data('checked','1');
+	$('#timetable-hidden').val(lectureSaver);
 
 	for ( x in days ) {
 		$('#table-grid').append("<div class='" + "<%= @lecture.id %>" + "'"
@@ -19,6 +18,7 @@ if ( checkOverlap(days,times) ) {
 			+ "</div>");
 	}
 
-	$('.' + "<%= @lecture.id %>").css('background-color', colors[rand]);
-	$('#' + "<%= @lecture.id %>").css('background-color', colors[rand]);
+	var colors = getRandColor();
+	$('.' + "<%= @lecture.id %>").css('background-color', colors);
+	$('#' + "<%= @lecture.id %>").css('background-color', colors);
 }

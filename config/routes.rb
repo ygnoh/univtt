@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
 	root 'home#index'
 	
-  get 'timetable/index'
   get 'timetable/new'
-  get 'timetable/create'
+  post 'timetable/create'
+  get 'timetable/show/:user_id' => 'timetable#show'
+  get 'timetable/show_timetable/:tt_id' => 'timetable#show_timetable'
   get 'timetable/edit'
   get 'timetable/update'
-	get 'timetable/destroy'
+	post 'timetable/destroy/:tt_id' => 'timetable#destroy'
 
 	get 'timetable/update_departments'
 	get 'timetable/update_lectures_by_department'
@@ -25,6 +26,14 @@ Rails.application.routes.draw do
   get 'classroom/edit'
   get 'classroom/update'
   get 'classroom/destroy'
+
+  get 'recommend/index'
+	get 'recommend/update_wishbox'
+  post 'recommend/result'
+  get 'recommend/create'
+  get 'recommend/edit'
+  get 'recommend/update'
+  get 'recommend/destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
