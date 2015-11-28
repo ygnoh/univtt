@@ -6,9 +6,12 @@ class RecommendController < ApplicationController
   def result
 		tempLectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
 		dayRestrict = params[:day_restrict].to_i
+		gradeRestrict = params[:grade_restrict].to_i
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
 		lectures = tempLectures
+
+		# day restrict
 		if dayRestrict != -1
 			tempLectures.each do |l|
 				Lecturetime.where(lecture_id: l).each do |t|
@@ -24,21 +27,21 @@ class RecommendController < ApplicationController
 			flash[:alert] = "가능한 시간표가 없어요."
 			return redirect_to :back
 		elsif lectures.length == 1
-			result = [lectures]
+			tempResult = [lectures]
 		elsif lectures.length == 2
-			done = false # for checking if result exists in length=2
+			done = false # for checking if tempResult exists in length=2
 			Lecturetime.where(lecture_id: lectures[0]).each do |l0|
 				if !done
 					Lecturetime.where(lecture_id: lectures[1]).each do |l1|
 						if l0.day == l1.day && ( (l0.starttime < l1.starttime && l1.starttime < l0.endtime) || (l0.starttime < l1.endtime && l1.endtime < l0.endtime) || (l1.starttime < l0.starttime && l0.starttime < l1.endtime) || (l1.starttime < l0.endtime && l0.endtime < l1.endtime) || (l0.starttime == l1.starttime && l0.endtime == l1.endtime) )
-							result = [ [lectures[0]], [lectures[1]] ]
+							tempResult = [ [lectures[0]], [lectures[1]] ]
 							done = true
 						end
 					end
 				end
 			end
 			if !done
-				result = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
+				tempResult = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
 			end
 		else
 			for i in 0..(lectures.length-1-1)
@@ -62,15 +65,30 @@ class RecommendController < ApplicationController
 				end
 			end
 
-			result = []
+			tempResult = []
 			lectures.each do |l|
-				result += recommend([l],lectures,overlapChecker)
+				tempResult += recommend([l],lectures,overlapChecker)
 			end
-			result.uniq!
-			result.each do |r|
+			tempResult.uniq!
+			tempResult.each do |r|
 				r.sort!
 			end
-			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
+			tempResult = tempResult.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
+		end
+
+		result = tempResult
+		# grade restrict
+		if gradeRestrict != 0
+			tempResult.each do |rslt|
+				gradeSum = 0
+				rslt.each do |r|
+					gradeSum += Lecture.find(r).grade
+					if gradeSum > gradeRestrict
+						result -= [rslt]
+						break
+					end
+				end
+			end
 		end
 
 		@result = result # for saving recommended timetable
