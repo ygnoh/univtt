@@ -42,6 +42,10 @@ Rails.application.routes.draw do
 	get 'user/edit/:id' => 'user#edit'
 	delete 'user/destroy/:id' => 'user#destroy'
 
+	get 'school' => 'school#index'
+	get 'school/edit/:id' => 'school#edit'
+	delete 'school/destroy/:id' => 'school#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

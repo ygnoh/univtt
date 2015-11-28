@@ -6,4 +6,7 @@ class School < ActiveRecord::Base
 
 	### Validations
 	validates :school_name, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end
