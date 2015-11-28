@@ -6,7 +6,8 @@ class RecommendController < ApplicationController
   def result
 		tempLectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
 		dayRestrict = params[:day_restrict].to_i
-		gradeRestrict = params[:grade_restrict].to_i
+		gradeRestrictOver = params[:grade_restrict_over].to_i
+		gradeRestrictLess = params[:grade_restrict_less].to_i
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
 		lectures = tempLectures
@@ -36,7 +37,7 @@ class RecommendController < ApplicationController
 		end
 
 		if lectures.length == 0 # lectures can be empty array by restrictions
-			flash[:alert] = "가능한 시간표가 없어요."
+			flash[:alert] = "그 조건에는 가능한 시간표가 없어요."
 			return redirect_to :back
 		elsif lectures.length == 1
 			tempResult = [lectures]
@@ -90,21 +91,23 @@ class RecommendController < ApplicationController
 
 		result = tempResult
 		# grade restrict
-		if gradeRestrict != 0
+		if gradeRestrictLess >= gradeRestrictOver
 			tempResult.each do |rslt|
 				gradeSum = 0
 				rslt.each do |r|
-					gradeSum += Lecture.find(r).grade
-					if gradeSum > gradeRestrict
-						result -= [rslt]
-						break
-					end
+					gradeSum += Lecture.find(r).grade # is 'map' better?
+				end
+				if !(gradeRestrictOver <= gradeSum && gradeSum <= gradeRestrictLess)
+					result -= [rslt]
 				end
 			end
 			if result.length == 0
-				flash[:alert] = "가능한 시간표가 없어요."
+				flash[:alert] = "그 조건에는 가능한 시간표가 없어요."
 				return redirect_to :back
 			end
+		else
+			flash[:error] = "학점 범위가 잘못되었습니다."
+			return redirect_to :back
 		end
 
 		@result = result # for saving recommended timetable
