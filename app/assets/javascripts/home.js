@@ -3,12 +3,20 @@ var lectureSaver = [];
 var daySaver = [];
 var timeSaver = [];
 
+// Variables for lecture's information
+var gradeSaver = [];
+var gradeOfLectures = 0;
+var numberOfLectures = 0;
+
 $(document).on('ready page:load', function() {
 	// Clear all global variables for avoiding unexpected errors
 	lectureSaver = [];
 	daySaver = [];
 	timeSaver = [];
 	wishbox = [];
+	gradeSaver = [];
+	gradeOfLectures = 0;
+	numberOfLectures = 0;
 
 	$("#school_select").change( function() {
 		// Update department by school
@@ -113,9 +121,17 @@ $(document).on('ready page:load', function() {
 			timeSaver.splice(lectureIndex,1);
 			$('#timetable-hidden').val(lectureSaver);
 
+			gradeOfLectures -= gradeSaver[lectureIndex];
+			numberOfLectures--;
+			gradeSaver.splice(lectureIndex,1);
+
 			$(this).data('checked','0');
 			$(this).css('background-color','');
 			$('.'+$(this).prop('id')).remove();
+
+			$('#grade-number-default').html("<span style='color: red;'>"
+				+ gradeOfLectures + "</span>학점 / <span style='color: red;'>"
+				+ numberOfLectures + "</span>강의");
 		}
 	});
 	
@@ -150,9 +166,17 @@ function removeOnTimetable() {
 	timeSaver.splice(lectureIndex,1);
 	$('#timetable-hidden').val(lectureSaver);
 
+	gradeOfLectures -= gradeSaver[lectureIndex];
+	numberOfLectures--;
+	gradeSaver.splice(lectureIndex,1);
+
 	$('#' + lecture_id).data('checked','0');
 	$('.' + lecture_id).remove();
 	$('#' + lecture_id).css('background-color','');
+
+	$('#grade-number-default').html("<span style='color: red;'>"
+		+ gradeOfLectures + "</span>학점 / <span style='color: red;'>"
+		+ numberOfLectures + "</span>강의");
 }
 
 // For checking overlap

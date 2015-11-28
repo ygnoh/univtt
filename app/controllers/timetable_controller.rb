@@ -119,6 +119,7 @@ class TimetableController < ApplicationController
 
 	def update_timetable
 		@lecture = Lecture.find(params[:lecture_id])
+		@grade = @lecture.grade
 		lecture_time = @lecture.lecturetimes
 
 		@days = lecture_time.collect{ |x| x[:day] }

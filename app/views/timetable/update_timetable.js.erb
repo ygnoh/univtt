@@ -1,10 +1,15 @@
 var days = <%= @days %>;
 var times = <%= @times %>;
+var grade = <%= @grade %>;
 
 if ( checkOverlap(days,times) ) {
 	lectureSaver.push(<%= @lecture.id.to_i %>);
 	daySaver.push(days);
 	timeSaver.push(times);
+	gradeSaver.push(grade);
+	gradeOfLectures += grade;
+	numberOfLectures++;
+
 	$('#' + '<%= @lecture.id %>').data('checked','1');
 	$('#timetable-hidden').val(lectureSaver);
 
@@ -21,4 +26,8 @@ if ( checkOverlap(days,times) ) {
 	var colors = getRandColor();
 	$('.' + "<%= @lecture.id %>").css('background-color', colors);
 	$('#' + "<%= @lecture.id %>").css('background-color', colors);
+
+	$('#grade-number-default').html("<span style='color: red;'>"
+		+ gradeOfLectures + "</span>학점 / <span style='color: red;'>"
+		+ numberOfLectures + "</span>강의");
 }
