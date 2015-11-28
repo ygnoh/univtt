@@ -11,7 +11,7 @@
 	<% @schools.each do |s| %>
 		<tr>
 			<td><%= s.id %></td>
-			<td><%= s.school_name %></td>
+			<td><%= link_to s.school_name, "/department/show/#{s.id}" %></td>
 			<td><%= link_to "edit", "/school/edit/#{s.id}" %></td>
 			<td><%= link_to "delete", "/school/destroy/#{s.id}", method: :delete %></td>
 		</tr>
