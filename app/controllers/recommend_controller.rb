@@ -89,6 +89,10 @@ class RecommendController < ApplicationController
 			tempResult = tempResult.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
 		end
 
+		# for printing information
+		@grade = []
+		@numb = []
+
 		result = tempResult
 		# grade restrict
 		if gradeRestrictLess >= gradeRestrictOver
@@ -98,7 +102,10 @@ class RecommendController < ApplicationController
 					gradeSum += Lecture.find(r).grade # is 'map' better?
 				end
 				if !(gradeRestrictOver <= gradeSum && gradeSum <= gradeRestrictLess)
-					result -= [rslt]
+					result -= [rslt] # remove
+				else
+					@grade << gradeSum # save total grade for printing information
+					@numb << rslt.length # save number of lectures in this timetable
 				end
 			end
 			if result.length == 0
