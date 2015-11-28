@@ -42,6 +42,10 @@ $(document).on('ready page:load', function() {
 			e.preventDefault();
 		} else {
 			if (confirm("해당 강의들로 추천해드릴까요?")) {
+				if ($('#grade_restrict_over').val() > $('#grade_restrict_less').val()) {
+					alert("학점 범위를 확인해주세요.");
+					e.preventDefault();
+				}
 			} else {
 				e.preventDefault();
 			}
