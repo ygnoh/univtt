@@ -1,6 +1,7 @@
 <h1>Timetable#show_timetable</h1>
 
 <div id="timetable" class="show_timetable">
+	<p id="grade-number-saved"></p>
 	<div id="table-wrap">
 		<div id="colheaders">
 			<% for day in ["월","화","수","목","금","토"] %>
@@ -33,6 +34,9 @@
 <script>
 	$(document).on('ready page:load', function() {
 		$('.show_timetable #table-grid').empty();
+		$('#grade-number-saved').html("<span style='color: red;'>"
+			+ <%= @grade %> + "</span>학점 / <span style='color: red;'>"
+			+ <%= @numb %> + "</span>강의");
 
 		<% @result.each do |result| %>
 			<% if result[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)

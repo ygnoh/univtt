@@ -23,8 +23,12 @@ class TimetableController < ApplicationController
 
 	def show_timetable
 		@result = []
+		@grade = 0
+		@numb = 0
 		Savetimetable.find(params[:tt_id]).lectures.each do |l|
 			@result << [] # [ [ ] ]
+			@grade += Lecture.find(l).grade
+			@numb += 1
 			lecturename = Lecture.find(l).lecture_name
 			foo = Lecturetime.where(lecture_id: l)
 			if foo.empty?
