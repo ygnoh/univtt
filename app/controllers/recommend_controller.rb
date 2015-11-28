@@ -10,7 +10,6 @@ class RecommendController < ApplicationController
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
 		lectures = tempLectures
-
 		# day restrict
 		if dayRestrict != -1
 			tempLectures.each do |l|
@@ -18,6 +17,19 @@ class RecommendController < ApplicationController
 					if t.day == dayRestrict
 						lectures -= [l]
 						next
+					end
+				end
+			end
+		end
+
+		tempLectures = lectures
+		# morning restrict
+		if params.has_key?(:morning_restrict)
+			tempLectures.each do |l|
+				Lecturetime.where(lecture_id: l).each do |t|
+					if t.starttime < 1200 || t.endtime < 1200 # if less than 1200, it is a morning lecture
+						lectures -= [l]
+						break
 					end
 				end
 			end

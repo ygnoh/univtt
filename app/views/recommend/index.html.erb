@@ -16,12 +16,14 @@
 			</div>
 			<div id="option-container">
 				<label for="recommend-option">추가 옵션</label>
-				<input type="checkbox" id="recommend-option" value="asdf" />
+				<input type="checkbox" id="recommend-option" />
 				<div id="option-container-body" style="display: none;">
 					<label for="day_restrict">특정 요일 제외</label>
 					<%= select_tag :day_restrict, options_for_select([["없음",-1],["월",1],["화",2],["수",3],["목",4],["금",5]]) %><br>
 					<label for="grade_restrict">학점 선택</label>
 					<%= number_field_tag :grade_restrict, 0, min: 0, max: 18 %><span>학점 이하</span><br>
+					<label for="morning_restrict">오전수업제외</label>
+					<%= check_box_tag :morning_restrict, 1 %><br>
 				</div>
 			</div>
 			<div id="lecture-container">
