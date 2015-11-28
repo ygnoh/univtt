@@ -35,6 +35,13 @@ Rails.application.routes.draw do
   get 'recommend/update'
   get 'recommend/destroy'
 
+	# For admin
+	get 'admin' => 'admin#index'
+
+  get 'user' => 'user#index'
+	get 'user/edit/:id' => 'user#edit'
+	delete 'user/destroy/:id' => 'user#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
