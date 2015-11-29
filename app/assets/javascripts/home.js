@@ -110,7 +110,8 @@ $(document).on('ready page:load', function() {
 				url: window.location.origin + '/timetable/update_timetable',
 				dataType: "script",
 				data: {
-					lecture_id: $(this).prop('id')
+					lecture_id: $(this).prop('id'),
+					evnt: 'click'
 				}
 			});
 		} else {
@@ -154,8 +155,23 @@ $(document).on('ready page:load', function() {
 		}
 	});
 
-	$('.timetable').on('mouseover', '.lecture_select', function(e) {
-		alert("!");
+	// mouseover event
+	$('.timetable').on('mouseenter mouseleave', '.lecture_select', function(e) {
+		if (e.type == 'mouseenter'){
+			if ($(this).data('checked') == '0') {
+				$.ajax({
+					url: window.location.origin + '/timetable/update_timetable',
+					dataType: "script",
+					data: {
+						lecture_id: $(this).prop('id'),
+						evnt: e.type
+					}
+				});
+			}
+		} else {
+			$('.overlap_message').remove();
+			$('.lecture_preview').remove();
+		}
 	});
 });
 
@@ -195,7 +211,7 @@ function checkOverlap(dayValue,timeValue) {
 		if ( ( from < timeValueFrom && timeValueFrom < to ) // crossing
 			|| ( from < timeValueTo && timeValueTo < to ) // crossing
 			|| ( timeValueFrom <= from && to <= timeValueTo ) ) { // including
-			alert("'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
+			$('#table-body').append("<div class='overlap_message'>'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
 			return false; 
 		}
 	}

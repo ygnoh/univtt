@@ -122,6 +122,7 @@ class TimetableController < ApplicationController
 	end
 
 	def update_timetable
+		@event = params[:evnt]
 		@lecture = Lecture.find(params[:lecture_id])
 		@grade = @lecture.grade
 		lecture_time = @lecture.lecturetimes
