@@ -219,3 +219,20 @@ function getRandColor(){
 	var rand = Math.floor(Math.random()*(colors.length));
 	return colors[rand]
 }
+
+// need to be a different way
+function resetAll(){
+	lectureSaver = [];
+	daySaver = [];
+	timeSaver = [];
+	wishbox = [];
+	gradeSaver = [];
+	gradeOfLectures = 0;
+	numberOfLectures = 0;
+	$('.lecture_select').data('checked','0')
+		.css('background-color', '');
+	$('#table-grid').empty();
+	$('#grade-number-default').html('<span style="color: red;">0</span>학점 / <span style="color: red;">0</span>강의</p>');
+	$('#wishlist').empty();
+	$('#wishbox-hidden').val(wishbox);
+}
