@@ -25,7 +25,8 @@ class TimetableController < ApplicationController
 		@result = []
 		@grade = 0
 		@numb = 0
-		Savetimetable.find(params[:tt_id]).lectures.each do |l|
+		@ttid = params[:tt_id].to_i
+		Savetimetable.find(@ttid).lectures.each do |l|
 			@result << [] # [ [ ] ]
 			@grade += Lecture.find(l).grade
 			@numb += 1
@@ -60,7 +61,7 @@ class TimetableController < ApplicationController
 			end
 		end
 
-		redirect_to :back
+		redirect_to "/timetable/show/#{tt.user_id}"
   end
 
 
