@@ -236,3 +236,7 @@ function resetAll(){
 	$('#wishlist').empty();
 	$('#wishbox-hidden').val(wishbox);
 }
+
+function shareLink(){
+	prompt("아래 url을 복사하여 이용하세요", window.location.href);
+}
