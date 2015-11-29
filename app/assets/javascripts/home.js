@@ -158,7 +158,7 @@ $(document).on('ready page:load', function() {
 // When click for removing lectures on the timetable sheet
 function removeOnTimetable() {
 	//////////////////////////// is this the best way?
-	var lecture_id = parseInt($(event.currentTarget).prop('class'));
+	var lecture_id = parseInt($(event.currentTarget).prop('class').split(' ')[0]);
 	var lectureIndex = jQuery.inArray(lecture_id,lectureSaver);
 
 	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]

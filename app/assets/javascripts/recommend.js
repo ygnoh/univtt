@@ -26,7 +26,7 @@ $(document).on('ready page:load', function() {
 	});
 
 	$('#wishlist').on('click', '.xbtn', function() {
-		var lecture_id = parseInt($(this).parent().prop('class'))	;
+		var lecture_id = parseInt($(this).parent().prop('class').split(' ')[0]);
 
 		wishbox.splice(jQuery.inArray(lecture_id,wishbox), 1);
 		$('#wishbox-hidden').val(wishbox);
