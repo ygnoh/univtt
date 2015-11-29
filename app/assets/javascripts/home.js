@@ -153,6 +153,10 @@ $(document).on('ready page:load', function() {
 			e.preventDefault();
 		}
 	});
+
+	$('.timetable').on('mouseover', '.lecture_select', function(e) {
+		alert("!");
+	});
 });
 
 // When click for removing lectures on the timetable sheet
