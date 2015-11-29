@@ -4,25 +4,57 @@ class RecommendController < ApplicationController
   end
 
   def result
-		lectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
+		tempLectures = params[:lecture_id].split(',').map(&:to_i) # convert string to array
+		dayRestrict = params[:day_restrict].to_i
+		gradeRestrictOver = params[:grade_restrict_over].to_i
+		gradeRestrictLess = params[:grade_restrict_less].to_i
 		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
 
-		if lectures.length == 1
-			result = [lectures]
+		lectures = tempLectures
+		# day restrict
+		if dayRestrict != -1
+			tempLectures.each do |l|
+				Lecturetime.where(lecture_id: l).each do |t|
+					if t.day == dayRestrict
+						lectures -= [l]
+						next
+					end
+				end
+			end
+		end
+
+		tempLectures = lectures
+		# morning restrict
+		if params.has_key?(:morning_restrict)
+			tempLectures.each do |l|
+				Lecturetime.where(lecture_id: l).each do |t|
+					if t.starttime < 1200 || t.endtime < 1200 # if less than 1200, it is a morning lecture
+						lectures -= [l]
+						break
+					end
+				end
+			end
+		end
+
+		if lectures.length == 0 # lectures can be empty array by restrictions
+			flash[:alert] = "그 조건에는 가능한 시간표가 없어요."
+			return redirect_to :back
+		elsif lectures.length == 1
+			tempResult = [lectures]
 		elsif lectures.length == 2
-			done = false # for checking if result exists in length=2
+			done = false # for checking if tempResult exists in length=2
 			Lecturetime.where(lecture_id: lectures[0]).each do |l0|
 				if !done
 					Lecturetime.where(lecture_id: lectures[1]).each do |l1|
 						if l0.day == l1.day && ( (l0.starttime < l1.starttime && l1.starttime < l0.endtime) || (l0.starttime < l1.endtime && l1.endtime < l0.endtime) || (l1.starttime < l0.starttime && l0.starttime < l1.endtime) || (l1.starttime < l0.endtime && l0.endtime < l1.endtime) || (l0.starttime == l1.starttime && l0.endtime == l1.endtime) )
-							result = [ [lectures[0]], [lectures[1]] ]
+							tempResult = [ [lectures[0]], [lectures[1]] ]
 							done = true
 						end
 					end
 				end
 			end
 			if !done
-				result = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
+				tempResult = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
 			end
 		else
 			for i in 0..(lectures.length-1-1)
@@ -46,15 +78,43 @@ class RecommendController < ApplicationController
 				end
 			end
 
-			result = []
+			tempResult = []
 			lectures.each do |l|
-				result += recommend([l],lectures,overlapChecker)
+				tempResult += recommend([l],lectures,overlapChecker)
 			end
-			result.uniq!
-			result.each do |r|
+			tempResult.uniq!
+			tempResult.each do |r|
 				r.sort!
 			end
-			result = result.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
+			tempResult = tempResult.uniq.sort { |x,y| y.length <=> x.length } # sort by length (desc)
+		end
+
+		# for printing information
+		@grade = []
+		@numb = []
+
+		result = tempResult
+		# grade restrict
+		if gradeRestrictLess >= gradeRestrictOver
+			tempResult.each do |rslt|
+				gradeSum = 0
+				rslt.each do |r|
+					gradeSum += Lecture.find(r).grade # is 'map' better?
+				end
+				if !(gradeRestrictOver <= gradeSum && gradeSum <= gradeRestrictLess)
+					result -= [rslt] # remove
+				else
+					@grade << gradeSum # save total grade for printing information
+					@numb << rslt.length # save number of lectures in this timetable
+				end
+			end
+			if result.length == 0
+				flash[:alert] = "그 조건에는 가능한 시간표가 없어요."
+				return redirect_to :back
+			end
+		else
+			flash[:error] = "학점 범위가 잘못되었습니다."
+			return redirect_to :back
 		end
 
 		@result = result # for saving recommended timetable
