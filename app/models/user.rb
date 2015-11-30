@@ -6,4 +6,7 @@ class User < ActiveRecord::Base
 	
 	### Associations
 	has_many :savetimetables
+
+	### Scopes
+	default_scope { where(active: true) }
 end
