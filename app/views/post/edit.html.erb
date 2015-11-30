@@ -1,0 +1,14 @@
+<h3>글 수정하기</h3>
+    <%= form_tag '/post/update' do %>
+    <div>
+        <p>제목: <%= text_field_tag 'title',@post.title,placeholder: "제목을 입력하세요." %></p>
+    </div>
+    <div >
+        <p>내용: <%= text_area_tag 'content', @post.title, placeholder: "내용을 입력하세요." %></p>
+    </div>
+    <div >
+        <%= submit_tag '수정하기' %>
+    </div>
+    <% end %>
+    
+<%= link_to '뒤로가기', '/post/index' %> 
