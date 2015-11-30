@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 	get 'post/new'
 	post 'post/create'
 	post 'post/update'
-	post 'post/pcomment'
+	post 'post/createpcomment'
 	
   get 'timetable/new'
   post 'timetable/create'

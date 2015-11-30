@@ -13,7 +13,7 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td align="left"><a href="/post/show/<%= post.id %>"><%= post.title %></a></td>
+        <td align="left" Margin-left = "10px"><a href="/post/show/<%= post.id %>"><%= post.title %></a></td>
         <td align="center"><%= post.user.email %></td>
         <td align="center"><%= post.view_count %></td>
         <td><a href="/post/edit/<%= post.id %>">수정하기</a></td>

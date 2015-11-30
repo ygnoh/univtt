@@ -33,9 +33,11 @@ class PostController < ApplicationController
     post.title = params[:title]
     post.content = params[:content]
      if post.save
-        redirect_to "/post/show/#{post.id}"
+      flash[:success] = "작성 되었습니다."
+      redirect_to "/post/show/#{post.id}"
      else
-       redirect_to "/post/index"
+      flash[:error] = "작성에 실패하였습니다."
+      redirect_to "/post/index"
      end
   end
   
@@ -44,7 +46,7 @@ class PostController < ApplicationController
     post.title = params[:title]
     post.content = params[:content]   
     if post.save
-      flash[:success] = "수정되었습니다."
+      flash[:success] = "수정 되었습니다."
       redirect_to "/post/show/#{post.id}"
     else
       flash[:error] = "수정에 실패하였습니다."
@@ -59,11 +61,25 @@ class PostController < ApplicationController
         redirect_to "/post/index"
      else
        post.destroy
-       flash[:success] = "삭제되었습니다."
+       flash[:success] = "삭제 되었습니다."
        redirect_to "/post/index"
      end
   end
-
+  
+  def createpcomment
+    comment = Pcomment.new
+    comment.user_id = current_user.id
+    comment.post_id = params[:post_id]
+    comment.content = params[:pcomment]
+    if comment.save
+      flash[:success] = "작성 되었습니다."
+      redirect_to "/post/show/#{comment.post.id}"
+    else
+      flash[:error] = "작성에 실패하였습니다."
+      redirect_to "/post/show/#{comment.post.id}"
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -74,4 +90,6 @@ class PostController < ApplicationController
     def post_params
       params.re g quire(:post).permit(:title, :content, :user_id)
     end
+    
+
 end

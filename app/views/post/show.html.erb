@@ -17,19 +17,20 @@
 
 <% @post.pcomments.each do |comment| %>
     <p>
-        <b>작성자:</b>
-        <%= comment.user.email %>
-    </p>
-    <p>
+
         <b>내용:</b>
         <%= comment.content %>
+        <b>작성자:</b>
+        <%= comment.user.email %>
     </p>
 <% end %>
 
 <%= form_tag '/post/createpcomment' do %>
+    <%= hidden_field_tag 'post_id', @post.id %>
     <div>
-        <p>댓글: <%= text_field_tag 'pcomment',nil,placeholder: "내용을 입력하세요." %></p>
+        <p>댓글: <%= text_field_tag 'pcomment',nil,placeholder: "내용을 입력하세요." %><%= submit_tag '작성하기' %></p>
     </div>
  <% end %>
+ 
 <a href="/post/edit/<%= @post.id %>">수정하기</a>
 <a href="/post/index/">뒤로가기</a>
