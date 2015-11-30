@@ -3,6 +3,7 @@
 	<li><%= link_to "시간표 생성하기", "/timetable/new" %></li>
 	<li><%= link_to "시간표 추천", "/recommend/index" %></li>
 	<li><%= link_to "빈강의실 찾기", "/classroom/index" %></li>
+	<li><%= link_to "게시판", "/posts/index" %></li>
 	<% if !user_signed_in? %>
 		<li><%= link_to "로그인", "/users/sign_in" %></li>
 		<li><%= link_to "회원가입", "/users/sign_up" %></li>

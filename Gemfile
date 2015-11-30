@@ -44,3 +44,6 @@ group :development, :test do
 end
 
 gem 'devise'
+
+# board
+gem 'kaminari'

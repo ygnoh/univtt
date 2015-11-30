@@ -4,6 +4,14 @@ Rails.application.routes.draw do
 
 	root 'home#index'
 	
+	get 'posts/index'
+	get 'posts/show/:post_id' => 'posts#show'
+	get 'posts/edit/:post_id' => 'posts#edit'
+	get 'posts/destroy/:post_id' => 'posts#destroy'
+	get 'posts/new'
+	post 'posts/create'
+	post 'posts/update'
+	
   get 'timetable/new'
   post 'timetable/create'
   get 'timetable/show/:user_id' => 'timetable#show'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126195815) do
+ActiveRecord::Schema.define(version: 20151130162906) do
 
   create_table "buildings", force: :cascade do |t|
     t.integer  "school_id"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 20151126195815) do
 
   add_index "departments", ["school_id"], name: "index_departments_on_school_id"
 
+  create_table "lcomments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "lecture_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lcomments", ["lecture_id"], name: "index_lcomments_on_lecture_id"
+  add_index "lcomments", ["user_id"], name: "index_lcomments_on_user_id"
+
   create_table "lectures", force: :cascade do |t|
     t.integer  "department_id"
     t.integer  "professor_id"
@@ -84,6 +95,29 @@ ActiveRecord::Schema.define(version: 20151126195815) do
 
   add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id"
   add_index "lecturetimes", ["lecture_id"], name: "index_lecturetimes_on_lecture_id"
+
+  create_table "pcomments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pcomments", ["post_id"], name: "index_pcomments_on_post_id"
+  add_index "pcomments", ["user_id"], name: "index_pcomments_on_user_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "view_count", default: 0
+    t.boolean  "active",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "professors", force: :cascade do |t|
     t.integer  "department_id"

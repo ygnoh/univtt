@@ -5,7 +5,7 @@ class Lecture < ActiveRecord::Base
 	belongs_to :classification
 
 	has_many :lecturetimes
-
+	has_many :lcomments
 	### Validations
 	validates :department, presence: true
 	validates :classification, presence: true

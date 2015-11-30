@@ -5,5 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 	
 	### Associations
+	has_many :posts, dependent: :destroy
+	has_many :pcomments
+	has_many :lcomments
 	has_many :savetimetables
 end
