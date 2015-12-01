@@ -80,6 +80,18 @@ class PostController < ApplicationController
     end
   end
   
+  def deletepcomment
+    comment = Pcomment.find(params[:pcomment_id])
+     if comment.user!=current_user
+        flash[:error] = "삭제 권한이 없습니다."
+        redirect_to "/post/show/#{comment.post.id}"
+     else
+       comment.destroy
+       flash[:success] = "삭제 되었습니다."
+        redirect_to "/post/show/#{comment.post.id}"
+     end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

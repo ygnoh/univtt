@@ -22,6 +22,7 @@
         <%= comment.content %>
         <b>작성자:</b>
         <%= comment.user.email %>
+        <a href="/post/deletepcomment/<%= comment.id %>">삭제하기</a>
     </p>
 <% end %>
 

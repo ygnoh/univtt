@@ -80,8 +80,10 @@ class TimetableController < ApplicationController
 	def update_classifications
 		if params[:school].to_i == 0
 			@classifications = School.find_by(school_name: params[:school]).classifications
+			@lectures = Department.page(params[:page]).per(3)
 		else
 			@classifications = School.find(params[:school]).classifications
+			@lectures = Department.page(params[:page]).per(3)
 		end
 
 		respond_to do |format|
@@ -92,11 +94,14 @@ class TimetableController < ApplicationController
 	def update_lectures_by_department
 		if params[:department].to_i == 0
 			@lectures = Department.find_by(department_name: params[:department]).lectures
+			#@lectures = Department.find_by(department_name: params[:department]).lectures.page(params[:page]).per(3)
 		else
 			@lectures = Department.find(params[:department]).lectures
+			#@lectures = Department.find(params[:department]).lectures.page(params[:page]).per(3)
 		end
-
+		
 		respond_to do |format|
+			#format.html { paginate @lectures }
 			format.json { render :json => @lectures.to_json }
 		end
 	end
@@ -106,6 +111,7 @@ class TimetableController < ApplicationController
 			@lectures = []
 			Classification.where(id: params['classification'].values).each do |c|
 				@lectures += c.lectures
+				#@lectures += c.lectures.page(params[:page]).per(3)
 			end
 		else
 			foo = Department.find(params[:department]).lectures
@@ -114,9 +120,11 @@ class TimetableController < ApplicationController
 				bar += c.lectures
 			end
 			@lectures = foo & bar
+			#@lectures = foo & bar.page(params[:page]).per(3)
 		end
-
+		
 		respond_to do |format|
+			#format.html { @lectures = @lectures.page(params[:page]).per(3) }
 			format.json { render :json => @lectures.to_json }
 		end
 	end

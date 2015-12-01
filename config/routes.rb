@@ -3,11 +3,15 @@ Rails.application.routes.draw do
   devise_for :users
 
 	root 'home#index'
-	
+  get 'home/lcommentshow/:lecture_id' => 'home#lcommentshow'
+  get 'home/createlcomment/:lecture_id' => 'home#createlcomment'
+  post 'home/deletelcomment'
+  
 	get 'post/index'
 	get 'post/show/:post_id' => 'post#show'
 	get 'post/edit/:post_id' => 'post#edit'
 	get 'post/destroy/:post_id' => 'post#destroy'
+	get 'post/deletepcomment/:pcomment_id' => 'post#deletepcomment'
 	get 'post/new'
 	post 'post/create'
 	post 'post/update'
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
 	get 'timetable/update_lectures_by_classification'
 	get 'timetable/update_classifications'
 	get 'timetable/update_timetable'
-
+	
   get 'classroom/index'
 	get 'classroom/update_classroom'
 	get 'classroom/update_building'

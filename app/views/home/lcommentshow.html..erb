@@ -1,0 +1,16 @@
+<% @lecture.lcomments.each do |comment| %>
+    <p>
+        <b>내용:</b>
+        <%= comment.content %>
+        <b>작성자:</b>
+        <%= comment.user.email %>
+        <a href="/home/deletelcomment/<%= comment.id %>">삭제하기</a>
+    </p>
+<% end %>
+
+<%= form_tag '/home/createlcomment' do %>
+    <%= hidden_field_tag 'lecture_id', @lecture.id %>
+    <div>
+        <p>의견: <%= text_field_tag 'lcomment',nil,placeholder: "내용을 입력하세요." %><%= submit_tag '작성하기' %></p>
+    </div>
+ <% end %>

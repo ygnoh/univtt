@@ -63,9 +63,12 @@ $(document).on('ready page:load', function() {
 					str += '<li class="lecture_select" id="' + data[i].id + '"' 
 						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>' 
+						+ '<a href="/home/lcommentshow/'+data[i].id+'">의견</a>'
 						+ '</li>';
 				}
 				$('#lecture-container-body').html(str);
+				//$('#lecture-container-body').html('<%= escape_javascript render(@lectures) %>');
+				//$('#paginator').html('<%= escape_javascript(paginate(@lectures, :remote => true).to_s) %>');
 			}
 		});
 	});
@@ -95,13 +98,22 @@ $(document).on('ready page:load', function() {
 					str += '<li class="lecture_select" id="' + data[i].id + '"'
 						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>'
+						+ '<a href="/home/lcommentshow/'+data[i].id+'">의견</a>'
 						+ '</li>';
 				}
 				$('#lecture-container-body').html(str);
+				//$('#lecture-container-body').html('<%= escape_javascript render(@lectures) %>');
+				//$('#paginator').html('<%= escape_javascript(paginate(@lectures, :remote => true).to_s) %>');
 			}
 		});
 	});
 
+
+//$('div#lecture-container').html('<%= escape_javascript render(@lectures) %>');
+
+	
+	
+	
 	// Make timetable contents
 	$(".timetable #lecture-container-body").on('click', '.lecture_select', function() {
 		// Check if lectures has been clicked
