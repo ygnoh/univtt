@@ -204,6 +204,15 @@ a {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
-	background-color: #556270;
-	opacity: 0.9;
+	background: rgba(0,0,0,0.8);
+	//opacity: 0.9;
+}
+
+.home-image {
+	width: 100%;
+}
+
+.home-image > div > img {
+	max-width: 1440px;
+	width: 100%;
 }
