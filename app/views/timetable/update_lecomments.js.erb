@@ -1,0 +1,3 @@
+$("#lcommentshow_select").html("<%=
+	j(options_for_select(@comments.collect{ |d| [d.content, d.id] }, nil))
+%>")

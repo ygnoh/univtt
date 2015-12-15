@@ -15,6 +15,11 @@
 	<div id="lecture-container">
 		<ul id="lecture-container-body"></ul>
 	</div>
+	<div id="paginator">
+		<% if !@lectures.nil? %>
+			<%= paginate @lectures, :remote => true %>
+		<% end %>
+	</div>
 </div>
 <div id="timetable">
 	<p id="grade-number-default"><span style="color: red;">0</span>학점 / <span style="color: red;">0</span>강의</p>
@@ -53,4 +58,14 @@
 			<% end %>
 		</div>
 	<% end %>
+</div>
+<div id="chat_container">
+	<div id="chat_list_container" class="chat-window">
+		<div class="chat-head-container">
+        기업별 채팅
+      	</div>
+      	<div class="chat-body-container">
+  			<ul id="chat-container-body"></ul>
+  		</div>
+	</div>
 </div>

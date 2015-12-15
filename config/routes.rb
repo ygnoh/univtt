@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   devise_for :users
 
 	root 'home#index'
-  get 'home/lcommentshow/:lecture_id' => 'home#lcommentshow'
-  get 'home/createlcomment/:lecture_id' => 'home#createlcomment'
-  post 'home/deletelcomment'
+	
+  get 'lcomment/lcommentshow/:lecture_id' => 'lcomment#lcommentshow'
+  get 'lcomment/deletelcomment/:lcomment_id' => 'lcomment#deletelcomment'
+  post 'lcomment/createlcomment'
   
 	get 'post/index'
 	get 'post/show/:post_id' => 'post#show'

@@ -42,7 +42,7 @@ class PostController < ApplicationController
   end
   
   def update
-    post = Post.find(params[:id])
+    post = Post.find(params[:post_id])
     post.title = params[:title]
     post.content = params[:content]   
     if post.save

@@ -1,29 +1,45 @@
 <h1>게시판</h1>
-
-<table>
-  <thead>
+<div id="bd" class ="bd hover_effect small_lst_btn">
+<table id="bd_lst" class ="bd_lst bd_tb" border="1" cellspacing="0">
+ <!-- <colgroup>
+    <col width="80">
+    <col>
+    <col width="110">
+    <col width="100">
+    <col width="80">
+  </colgroup> -->
+  <thead class="bg_f_f9">
     <tr>
-        <th width = "300px">제목</th>
-        <th width = "10px">글쓴이</th>
-        <th width = "50px">조회수</th>
-        <th colspan="2"></th>
+        <th scope="col" class="no">번호</th>
+        <th scope="col" class="title">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">날짜</th>
+        <th scope="col" class="m_no">조회 수</th>
+        <!--<th scope = "col">날짜</th>-->
     </tr>
   </thead>
-
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td align="left" Margin-left = "10px"><a href="/post/show/<%= post.id %>"><%= post.title %></a></td>
-        <td align="center"><%= post.user.email %></td>
-        <td align="center"><%= post.view_count %></td>
-        <td><a href="/post/edit/<%= post.id %>">수정하기</a></td>
-        <td><a href="/post/destroy/<%= post.id %>">삭제하기</a></td>
+        <td class ="no"><%= post.id%></td>
+        <td class = "title"><a href="/post/show/<%= post.id %>"><%= post.title %> </a><span class="replyNum"><%= post.pcomments.count%></span></td>
+        <td class = "author"><%= post.user.email %></td>
+        <td class = "time"><%= post.created_at %></td>
+        <td class = "m_no"><%= post.view_count %></td>
+         <!-- <td><a href="/post/edit/<%= post.id %>">수정하기</a></td>
+        <td><a href="/post/destroy/<%= post.id %>">삭제하기</a></td>  -->
       </tr> 
     <% end %>
   </tbody>
- 
 </table>
+<div class = "btm_mn clear">
+  <div class=fr>
+    <a class="btn_img" href="/post/new">새 글</a>
+  </div>
+  
+</div>
+<div class = "bd_pg clear">
    <%= paginate @posts %>
+</div>
 <br>
-
-<%= link_to '새 글 작성하기', '/post/new' %>
+</div>

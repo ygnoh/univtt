@@ -46,6 +46,8 @@ $(document).on('ready page:load', function() {
 						+ '</li>';
 					}
 				$('#classification-container-body').html(str);
+				
+
 			}
 		});
 	});
@@ -63,12 +65,15 @@ $(document).on('ready page:load', function() {
 					str += '<li class="lecture_select" id="' + data[i].id + '"' 
 						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>' 
-						+ '<a href="/home/lcommentshow/'+data[i].id+'">의견</a>'
-						+ '</li>';
+						+ '</li>'
+						+ '<input type="checkbox" value=' + data[i].id 
+						+ ' name="lcommentshow[' + data[i].id + ']"'
+						+ ' id="lcommentshow' + data[i].id 
+						+ '" class="lcommentshow_select"/>';
 				}
 				$('#lecture-container-body').html(str);
+				//$('#paginator').html('<%= escape_javascript(paginate(@'+data+', :remote => true).to_s) %>');
 				//$('#lecture-container-body').html('<%= escape_javascript render(@lectures) %>');
-				//$('#paginator').html('<%= escape_javascript(paginate(@lectures, :remote => true).to_s) %>');
 			}
 		});
 	});
@@ -98,12 +103,35 @@ $(document).on('ready page:load', function() {
 					str += '<li class="lecture_select" id="' + data[i].id + '"'
 						+ 'data-checked="0">'
 						+ '<span>' + data[i].lecture_name+'</span>'
-						+ '<a href="/home/lcommentshow/'+data[i].id+'">의견</a>'
-						+ '</li>';
+						+ '</li>'
+						+ '<input type="checkbox" value=' + data[i].lcomments 
+						+ ' name="lcommentshow[' + data[i].id + ']"'
+						+ ' id="lcommentshow' + data[i].id 
+						+ '" class="lcommentshow_select"/>';
 				}
 				$('#lecture-container-body').html(str);
 				//$('#lecture-container-body').html('<%= escape_javascript render(@lectures) %>');
 				//$('#paginator').html('<%= escape_javascript(paginate(@lectures, :remote => true).to_s) %>');
+			}
+		});
+	});
+
+	$("#chat-container-body").on('change', '.lcommentshow_select', function() {
+		$('#chat-container-body').empty();
+		$.ajax({
+			url: window.location.origin + '/timetable/update_lectures_by_lcomments',
+			dataType: "json",
+			data: $("#lcommentshow_select").serialize(),
+			success: function(data){
+				var str = '';
+				for(var i = 0; i < data.length; i++) {
+					str += '<li class="lecture_select" id="' + data[i].id + '"' 
+						+ 'data-checked="0">'
+						+ '<b>내용:</b>'
+						+ '<span>' + data[i].content+'</span>' 
+						+ '</li>'
+				}
+				$('#chat-container-body').html(str);
 			}
 		});
 	});

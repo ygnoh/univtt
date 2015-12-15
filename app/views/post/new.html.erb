@@ -1,14 +1,28 @@
-<h3>글 작성하기</h3>
-    <%= form_tag '/post/create' do %>
-    <div>
-        <p>제목: <%= text_field_tag 'title', nil,placeholder: "제목을 입력하세요." %></p>
+<div id ="bd" class = "bd">
+    <div class="bd_wrt bd_wrt_main clear">
+        <%= form_tag '/post/create' do %>
+        <table class="bd_wrt_hd bd_tb">
+        <tbody>
+            <tr>
+            <td>
+        </td>
+        <td width="100%" style="padding-right:12px">
+        <span class="itx_wrp">
+            <%= text_field_tag 'title', nil, class: 'itx',placeholder: "제목을 입력하세요." %>
+        </span>
+        <div class="get_editor">
+            <div class="xpress-editor ">
+                <div id="smart_content">
+                <div id="xe-editor-container-2" class="input_area xpress_xeditor_editing_area_container" style="height: 300px;">
+                <%= text_area_tag 'content', nil, class: 'input_syntax ',placeholder: "내용을 입력하세요." %>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="regist">
+        <%= submit_tag '작성하기', class: 'btn blue'  %>
+        <button type="button" onclick="history.back()" class="btn cancle">돌아가기</button>
+        </div>
+        <% end %> 
     </div>
-    <div >
-        <p>내용: <%= text_area_tag 'content', nil, placeholder: "내용을 입력하세요." %></p>
-    </div>
-    <div >
-        <%= submit_tag '작성하기' %>
-    </div>
-    <% end %>
-    
-<%= link_to '뒤로가기', '/post/index' %> 
+</div>

@@ -1,6 +1,7 @@
 class TimetableController < ApplicationController
   def new
 		@schools = School.all
+		#@lectures = Lecture.all.page(params[:page])
   end
 
   def create
@@ -94,24 +95,39 @@ class TimetableController < ApplicationController
 	def update_lectures_by_department
 		if params[:department].to_i == 0
 			@lectures = Department.find_by(department_name: params[:department]).lectures
-			#@lectures = Department.find_by(department_name: params[:department]).lectures.page(params[:page]).per(3)
+			#@lectures = Department.find_by(department_name: params[:department]).lectures.page(params[:page]).per(10)
 		else
 			@lectures = Department.find(params[:department]).lectures
-			#@lectures = Department.find(params[:department]).lectures.page(params[:page]).per(3)
+			#@lectures = Department.find(params[:department]).lectures.page(params[:page]).per(10)
 		end
 		
 		respond_to do |format|
-			#format.html { paginate @lectures }
+			format.html { @lectures = @lectures.page(params[:page]).per(10) }
 			format.json { render :json => @lectures.to_json }
 		end
 	end
-
+	
+	def update_lectures_by_comments
+		if params[:comment].to_i == 0
+			@comments = lecture.find_by(lecture_name: params[:lecture]).comments
+			#@lectures = Department.find_by(department_name: params[:department]).lectures.page(params[:page]).per(10)
+		else
+			@comments = lecture.find(params[:lecture]).comments
+			#@lectures = Department.find(params[:department]).lectures.page(params[:page]).per(10)
+		end
+		
+		respond_to do |format|
+			format.html { @comments = @comments.page(params[:page]).per(10) }
+			format.json { render :json => @comments.to_json }
+		end
+	end
+	
 	def update_lectures_by_classification
 		if params[:department].to_i % 10**8 == 0
 			@lectures = []
 			Classification.where(id: params['classification'].values).each do |c|
 				@lectures += c.lectures
-				#@lectures += c.lectures.page(params[:page]).per(3)
+				#@lectures += c.lectures.page(params[:page]).per(10)
 			end
 		else
 			foo = Department.find(params[:department]).lectures
@@ -120,11 +136,11 @@ class TimetableController < ApplicationController
 				bar += c.lectures
 			end
 			@lectures = foo & bar
-			#@lectures = foo & bar.page(params[:page]).per(3)
+			#@lectures = (foo & bar).page(params[:page]).per(10)
 		end
 		
 		respond_to do |format|
-			#format.html { @lectures = @lectures.page(params[:page]).per(3) }
+			format.html { @lectures = @lectures.page(params[:page]).per(10) }
 			format.json { render :json => @lectures.to_json }
 		end
 	end

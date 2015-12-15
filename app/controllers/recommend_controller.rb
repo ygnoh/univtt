@@ -134,7 +134,6 @@ class RecommendController < ApplicationController
 				end
 			end
 		end
-		 #@result_times = rslt.page(params[:page]).per(3)
   end
 
 	def recommend(mustVal, array, checker)
