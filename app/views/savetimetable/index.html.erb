@@ -1,0 +1,21 @@
+<h1>Savetimetable#index</h1>
+<%= link_to "Go to admin page", '/admin' %>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>user_id</th>
+		<th>lectures</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @savetts.each do |s| %>
+		<tr>
+			<td><%= s.id %></td>
+			<td><%= s.user_id %></td>
+			<td><%= link_to "show", "/timetable/show_timetable/#{s.id}" %></td>
+			<td><%= link_to "edit", "/savetimetable/edit/#{s.id}" %></td>
+			<td><%= link_to "delete", "/savetimetable/destroy/#{s.id}", method: :delete %></td>
+		</tr>
+	<% end %>
+</table>

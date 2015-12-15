@@ -11,8 +11,12 @@
 				<li class="btn-home"><%= link_to "회원가입", "/users/sign_up" %></li>
 				<li class="btn-home"><%= link_to "로그인", "/users/sign_in" %></li>
 			<% else %>
+				<% if current_user.admin? %>
+					<li class="btn-home"><%= link_to "ADMIN", "/admin" %></li>
+				<% end %>
 				<li class="btn-home"><%= link_to "나의시간표", "/timetable/show/#{current_user.id}" %></li>
 				<li class="btn-home"><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
+				<li class="btn-home"><%= current_user.username %></li>
 			<% end %>
 		</div>
 	</ul>
