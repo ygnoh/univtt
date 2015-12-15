@@ -46,12 +46,13 @@
 			<div id="table-grid"></div>
 		</div>
 	</div>
-	<% if user_signed_in? %>
-		<div>
+	<div>
+		<% if user_signed_in? %>
 			<%= form_tag '/timetable/create' do %>
 				<%= hidden_field_tag 'lectures', '', id: 'timetable-hidden' %>
 				<%= submit_tag "저장", id: "btn-save" %>
 			<% end %>
-		</div>
-	<% end %>
+		<% end %>
+		<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
+	</div>
 </div>

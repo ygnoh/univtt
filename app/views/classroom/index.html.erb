@@ -10,8 +10,9 @@
 				<%= select_tag :building, nil, { id: "building_select" } %>
 			</div>
 			<div>
-				<label for="start_time">시간오후</label><br>
-				<%= select_tag :day, options_for_select([["오늘", -1], ["월", 1], ["화", 2], ["수", 3], ["목", 4], ["금", 5], ["토", 6], ["일", 0]]), { id: "day_select" } %>
+				<label for="day_select">요일</label>
+				<%= select_tag :day, options_for_select([["오늘", -1], ["월", 1], ["화", 2], ["수", 3], ["목", 4], ["금", 5], ["토", 6], ["일", 0]]), { id: "day_select" } %><br>
+				<label for="start_time">시간</label>
 				<%= time_field_tag "start_time" %> ~ 
 				<%= time_field_tag "end_time" %>
 				<label for="now">바로 지금!</label>

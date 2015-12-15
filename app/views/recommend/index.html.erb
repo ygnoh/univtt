@@ -38,7 +38,10 @@
 					<ul id="wishlist"></ul>
 				</div>
 				<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
-				<%= submit_tag "추천받기", id: "btn-recommend" %>
+				<div>
+					<%= submit_tag "추천받기", id: "btn-recommend" %>
+					<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
+				</div>
 			</div>
 		</div>
 	<% end %>
