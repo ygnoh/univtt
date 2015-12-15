@@ -138,7 +138,7 @@ a {
 	padding-top: 18px;
 	font-size: 24px;
 	font-weight: 700;
-	color: #A7DBD8;
+	color: #556270;
 }
 
 .btn-home {
@@ -146,12 +146,12 @@ a {
 	padding-top: 23px;
 	font-size: 14px;
 	color: #FA6900;
-	font-weight: 600;
+	font-weight: 700;
 }
 
 .btn-home > a {
 	padding: 5px 10px;
-	border: 1.8px solid #FA6900;
+	border: 2px solid #FA6900;
 	border-radius: 4px;
 }
 
@@ -169,4 +169,41 @@ a {
 
 .nav-right > li {
 	float: left;
+}
+
+// home
+.home-container {
+	text-align: center;
+	width: 100%;
+	background-image: url("/images/intro.png");
+	background-size: cover;
+	background-position: center;
+	height: calc(85vh - 60px);
+	min-height: 300px;
+	font-weight: 700;
+	position: relative;
+}
+
+.head-copy {
+	font-size: 34px;
+	padding-top: 80px;
+	padding-bottom: 30px;
+}
+
+.body-copy {
+	font-size: 4em;
+}
+
+.tt-count {
+	margin-top: 80px;
+	font-size: 20px;
+}
+
+.home_bottom {
+	height: 80px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background-color: #556270;
+	opacity: 0.9;
 }
