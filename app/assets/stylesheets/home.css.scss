@@ -216,3 +216,31 @@ a {
 	max-width: 1440px;
 	width: 100%;
 }
+
+// footer
+.footer {
+	background-color: #fff;
+	text-align: center;
+	padding: 50px 0;
+}
+
+.socials {
+	margin-bottom: 25px;
+}
+
+.about {
+	margin-bottom: 10px;
+}
+
+.socials > a > img {
+	height: 44px;
+	width: 44px;
+	border-radius: 50%;
+	filter: gray;
+	-webkit-filter: grayscale(100%);
+}
+
+.socials > a > img:hover {
+	filter: none;
+	-webkit-filter: grayscale(0%);
+}
