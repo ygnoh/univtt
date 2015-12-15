@@ -1,4 +1,4 @@
-<h2>Sign up</h2>
+<h2>회원가입</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -9,25 +9,25 @@
   </div>
 	
   <div class="field">
-    <%= f.label :username %><br />
+    <%= f.label :username, "유저명" %><br />
     <%= f.text_field :username %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password, "비밀번호" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %> 자이상)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "비밀번호 확인" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "회원가입" %>
   </div>
 <% end %>
 
