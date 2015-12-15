@@ -3,7 +3,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Nanum Gothic', sans-serif !important;
 }
 
 body {
@@ -143,8 +143,8 @@ li {
 }
 
 a {
-	text-decoration: none;
-	color: inherit; // remove default a tag font color
+	text-decoration: none !important;
+	color: inherit !important; // remove default a tag font color
 }
 
 .nav-top {
