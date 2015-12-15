@@ -16,7 +16,7 @@
 				<% end %>
 				<li class="btn-home"><%= link_to "나의시간표", "/timetable/show/#{current_user.id}" %></li>
 				<li class="btn-home"><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
-				<li class="btn-home"><%= current_user.username %></li>
+				<li class="username"><%= link_to current_user.username, "/users/edit" %></li>
 			<% end %>
 		</div>
 	</ul>
