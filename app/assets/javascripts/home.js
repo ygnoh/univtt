@@ -110,7 +110,8 @@ $(document).on('ready page:load', function() {
 				url: window.location.origin + '/timetable/update_timetable',
 				dataType: "script",
 				data: {
-					lecture_id: $(this).prop('id')
+					lecture_id: $(this).prop('id'),
+					evnt: 'click'
 				}
 			});
 		} else {
@@ -153,12 +154,31 @@ $(document).on('ready page:load', function() {
 			e.preventDefault();
 		}
 	});
+
+	// mouseover event
+	$('.timetable').on('mouseenter mouseleave', '.lecture_select', function(e) {
+		if (e.type == 'mouseenter'){
+			if ($(this).data('checked') == '0') {
+				$.ajax({
+					url: window.location.origin + '/timetable/update_timetable',
+					dataType: "script",
+					data: {
+						lecture_id: $(this).prop('id'),
+						evnt: e.type
+					}
+				});
+			}
+		} else {
+			$('.overlap_message').remove();
+			$('.lecture_preview').remove();
+		}
+	});
 });
 
 // When click for removing lectures on the timetable sheet
 function removeOnTimetable() {
 	//////////////////////////// is this the best way?
-	var lecture_id = parseInt($(event.currentTarget).prop('class'));
+	var lecture_id = parseInt($(event.currentTarget).prop('class').split(' ')[0]);
 	var lectureIndex = jQuery.inArray(lecture_id,lectureSaver);
 
 	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
@@ -191,7 +211,7 @@ function checkOverlap(dayValue,timeValue) {
 		if ( ( from < timeValueFrom && timeValueFrom < to ) // crossing
 			|| ( from < timeValueTo && timeValueTo < to ) // crossing
 			|| ( timeValueFrom <= from && to <= timeValueTo ) ) { // including
-			alert("'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
+			$('#table-body').append("<div class='overlap_message'>'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
 			return false; 
 		}
 	}
