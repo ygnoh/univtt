@@ -1,6 +1,13 @@
+@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+
 * {
 	margin: 0;
 	padding: 0;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+body {
+	padding-top: 60px;
 }
 
 .left-field {
@@ -128,4 +135,137 @@
 	text-align: center;
 	background-color: red;
 	opacity: 0.7;
+}
+
+// navbar
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit; // remove default a tag font color
+}
+
+.nav-top {
+	height: 60px;
+	width: 100%;
+	padding: 0 20px;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+
+#logo {
+	margin-right: 20px;
+	padding-top: 18px;
+	font-size: 24px;
+	font-weight: 700;
+	color: #556270;
+}
+
+.btn-home {
+	margin-right: 10px;
+	padding-top: 23px;
+	font-size: 14px;
+	color: #FA6900;
+	font-weight: 700;
+}
+
+.btn-home > a {
+	padding: 5px 10px;
+	border: 2px solid #FA6900;
+	border-radius: 4px;
+}
+
+.nav-left {
+	float: left;
+}
+
+.nav-left > li {
+	float: left;
+}
+
+.nav-right {
+	float: right;
+}
+
+.nav-right > li {
+	float: left;
+}
+
+// home
+.home-container {
+	text-align: center;
+	width: 100%;
+	background-image: url("/images/intro.png");
+	background-size: cover;
+	background-position: center;
+	height: calc(85vh - 60px);
+	min-height: 300px;
+	font-weight: 700;
+	position: relative;
+}
+
+.head-copy {
+	font-size: 34px;
+	padding-top: 80px;
+	padding-bottom: 30px;
+}
+
+.body-copy {
+	font-size: 4em;
+}
+
+.tt-count {
+	margin-top: 80px;
+	font-size: 20px;
+}
+
+.home_bottom {
+	height: 80px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background: rgba(0,0,0,0.8);
+	//opacity: 0.9;
+}
+
+.home-image {
+	width: 100%;
+}
+
+.home-image > div > img {
+	max-width: 1440px;
+	width: 100%;
+}
+
+// footer
+.footer {
+	background-color: #fff;
+	text-align: center;
+	padding: 50px 0;
+}
+
+.socials {
+	margin-bottom: 25px;
+}
+
+.about {
+	margin-bottom: 10px;
+}
+
+.socials > a > img {
+	height: 44px;
+	width: 44px;
+	border-radius: 50%;
+	filter: gray;
+	-webkit-filter: grayscale(100%);
+}
+
+.socials > a > img:hover {
+	filter: none;
+	-webkit-filter: grayscale(0%);
 }

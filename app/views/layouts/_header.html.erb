@@ -1,13 +1,19 @@
-<ul>
-	<li><%= link_to "home", "/" %></li>
-	<li><%= link_to "시간표 생성하기", "/timetable/new" %></li>
-	<li><%= link_to "시간표 추천", "/recommend/index" %></li>
-	<li><%= link_to "빈강의실 찾기", "/classroom/index" %></li>
-	<% if !user_signed_in? %>
-		<li><%= link_to "로그인", "/users/sign_in" %></li>
-		<li><%= link_to "회원가입", "/users/sign_up" %></li>
-	<% else %>
-		<li><%= link_to "나의시간표", "/timetable/show/#{current_user.id}" %></li>
-		<li><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
-	<% end %>
-</ul>
+<div class="nav-top">
+	<ul>
+		<div class="nav-left">
+			<li id="logo"><%= link_to "Univ TT", "/" %></li>
+			<li class="btn-home"><%= link_to "시간표 생성", "/timetable/new" %></li>
+			<li class="btn-home"><%= link_to "시간표 추천", "/recommend/index" %></li>
+			<li class="btn-home"><%= link_to "빈강의실 검색", "/classroom/index" %></li>
+		</div>
+		<div class="nav-right">
+			<% if !user_signed_in? %>
+				<li class="btn-home"><%= link_to "회원가입", "/users/sign_up" %></li>
+				<li class="btn-home"><%= link_to "로그인", "/users/sign_in" %></li>
+			<% else %>
+				<li class="btn-home"><%= link_to "나의시간표", "/timetable/show/#{current_user.id}" %></li>
+				<li class="btn-home"><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
+			<% end %>
+		</div>
+	</ul>
+</div>
