@@ -1,0 +1,19 @@
+<h1>Department#index</h1>
+<%= link_to "Go to admin page", '/admin' %>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @departments.each do |d| %>
+		<tr>
+			<td><%= d.id %></td>
+			<td><%= d.department_name %></td>
+			<td><%= link_to "edit", "/department/edit/#{d.id}" %></td>
+			<td><%= link_to "delete", "/department/destroy/#{d.id}", method: :delete %></td>
+		</tr>
+	<% end %>
+</table>

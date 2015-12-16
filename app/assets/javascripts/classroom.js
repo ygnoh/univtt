@@ -6,6 +6,14 @@ $(document).on('ready page:load', function() {
 			data: $('#school_select').serialize()
 		});
 	})
+	
+	$('#now').on('click', function() {
+		if ( $(this).is(':checked') ) {
+			$('#day_select, #start_time, #end_time').prop('disabled', true);
+		} else {
+			$('#day_select, #start_time, #end_time').prop('disabled', false);
+		}
+	})
 })
 
 function searchClassroom() {

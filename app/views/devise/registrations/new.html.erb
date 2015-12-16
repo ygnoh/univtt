@@ -8,34 +8,25 @@
 		</div>
 		<div class="modal-body">
 			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-			<%= devise_error_messages! %>
-
-			<div class="field">
-				<%= f.label :email %>
-				<br />
-				<%= f.email_field :email, autofocus: true,:class=>"form-control" %>
-			</div>
-
-			<div class="field">
-				<%= f.label :password %>
-				<% if @minimum_password_length %>
-				<em>(<%= @minimum_password_length %> characters minimum)</em>
-				<% end %>
-				<br />
-				<%= f.password_field :password, autocomplete: "off",:class=>"form-control" %>
-			</div>
-
-			<div class="field">
-				<%= f.label :password_confirmation %>
-				<br />
-				<%= f.password_field :password_confirmation, autocomplete: "off",:class=>"form-control" %>
-			</div>
-			<div>
-				&nbsp
-			</div>
-			<div class="actions">
-				<%= f.submit "Sign up",:class=>"btn btn-lg btn-primary btn-block" %>
-			</div>
+				<%= devise_error_messages! %>
+				<div class="field">
+					<%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "이매일*" %>
+				</div>
+				<div class="field">
+					<%= f.text_field :username, placeholder: "유저명" %>
+				</div>
+				<div class="field">
+					<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "비밀번호*(8자 이상)" %>
+				</div>
+				<div class="field">
+					<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "비밀번호 확인*" %>
+				</div>
+				<div>
+					&nbsp
+				</div>
+				<div class="actions">
+					<%= f.submit "회원가입", class: "btn btn-lg btn-primary btn-block" %>
+				</div>
 			<% end %>
 		</div>
 		<div class="modal-footer">
@@ -45,30 +36,3 @@
 		</div>
 	</div>
 </div>
-
-<!--
-
-<div class="container">
-<form class="form-signin">
-<h2 class="form-signin-heading">회원 가입</h2>
-</br>
-<label for="inputEmail" class="sr-only">Email address</label>
-<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-</br>
-<label for="inputPassword" class="sr-only">Password</label>
-<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-</br>
-<label for="inputPassword" class="sr-only">Password</label>
-<input type="password" id="inputPassword" class="form-control" placeholder="Confirm Password" required>
-</br>
-<button class="btn btn-lg btn-primary btn-block" type="submit">
-회원가입
-</button>
-</form>
-<%= render "devise/shared/links" %>
-</div>
-
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
--->
-
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>

@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 <h2>Change your password</h2>
+=======
+<h2>비밀번호 변경</h2>
+>>>>>>> presentation
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field">
+<<<<<<< HEAD
     <%= f.label :password, "New password" %><br />
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -19,6 +24,17 @@
 
   <div class="actions">
     <%= f.submit "Change my password" %>
+=======
+    <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "새 비밀번호(8자 이상)*" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인*" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "비밀번호 변경" %>
+>>>>>>> presentation
   </div>
 <% end %>
 

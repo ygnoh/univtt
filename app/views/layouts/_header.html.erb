@@ -1,45 +1,23 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">UNIV T.T</a>
+<div class="nav-top">
+	<ul>
+		<div class="nav-left">
+			<li id="logo"><%= link_to "Univ TT", "/" %></li>
+			<li class="btn-home"><%= link_to "시간표 생성", "/timetable/new" %></li>
+			<li class="btn-home"><%= link_to "시간표 추천", "/recommend/index" %></li>
+			<li class="btn-home"><%= link_to "빈강의실 검색", "/classroom/index" %></li>
 		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li>
-					<%= button_to "시간표 생성하기", "/timetable/new", method: :get, class: "btn btn-warning btn-home" %>
-				</li>
-				<li>
-					<%= button_to "시간표 추천", "/recommend/index", method: :get, class: "btn btn-warning btn-home" %>
-				</li>
-				<li>
-					<%= button_to "빈강의실 찾기", "/classroom/index", method: :get, class: "btn btn-warning btn-home" %>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<% if !user_signed_in? %>
-				<li>
-					<button class="btn btn-warning btn-home" data-toggle="modal" href="/users/sign_in" data-target="#myModal">로그인</button>
-				</li>
-				<li>
-					<button class="btn btn-warning btn-home" data-toggle="modal" href="/users/sign_up" data-target="#myModal">회원가입</button>
-				</li>
-
-				<% else %>
-				<li>
-					<%= button_to "나의시간표", "/timetable/show/#{current_user.id}", method: :get, class: "btn btn-warning btn-home" %>
-				</li>
-				<li>
-					<%= button_to "로그아웃", "/users/sign_out", method: :delete, class: "btn btn-warning btn-home" %>
-				</li>
+		<div class="nav-right">
+			<% if !user_signed_in? %>
+				<li class="btn-home"><%= link_to "회원가입", "/users/sign_up", data: { toggle: "modal", target: "#myModal" } %></li>
+				<li class="btn-home"><%= link_to "로그인", "/users/sign_in",  data: { toggle: "modal", target: "#myModal" } %></li>
+			<% else %>
+				<% if current_user.admin? %>
+					<li class="btn-home"><%= link_to "ADMIN", "/admin" %></li>
 				<% end %>
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div>
-</nav>
-<p id="home-navbar-blank"></p>
+				<li class="btn-home"><%= link_to "나의시간표", "/timetable/show/#{current_user.id}" %></li>
+				<li class="btn-home"><%= link_to "로그아웃", "/users/sign_out", method: :delete %></li>
+				<li class="username"><%= link_to current_user.username, "/users/edit" %></li>
+			<% end %>
+		</div>
+	</ul>
+</div>

@@ -7,87 +7,60 @@
 <div class="container">
 	<!-- this div is for form tag -->
 	<%= form_tag '/recommend/result' do %>
-	<div class="recommend left-field">
-		<div class ="form-groups">
+		<div class="recommend left-field">
+			<div class ="form-groups">
+				<div class = "form-group">
+					<p>학교</p><br>
+					<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select", class: "form-control" } %>
+				</div>
+				<div class = "form-group">
+					<p>학과</p><br>
+					<%= select_tag :department, nil, { id: "department_select", class: "form-control" } %>
+				</div>
+				<div class = "form-group">
+					<p>구분</p><br>
+					<div id="classification-container">
+						<ul id="classification-container-body"></ul>
+					</div>
+				</div>
+				<div id="option-container">
+					<label for="recommend-option">추가 옵션</label>
+					<input type="checkbox" id="recommend-option" />
+					<div id="option-container-body" style="display: none;">
+						<label for="day_restrict">*특정 요일 제외</label>
+						<%= select_tag :day_restrict, options_for_select([["없음",-1],["월",1],["화",2],["수",3],["목",4],["금",5]]) %>
+						<br>
+						<label for="grade_restrict_over">*학점 선택</label>
+						<br>
+						<%= number_field_tag :grade_restrict_over, 0, min: 0, max: 21 %><span>학점 이상</span>
+						<br>
+						<%= number_field_tag :grade_restrict_less, 30, min: 0, max: 30 %><span>학점 이하</span>
+						<br>
+						<label for="morning_restrict">*오전수업제외</label>
+						<%= check_box_tag :morning_restrict, 1 %>
+						<br>
+					</div>
+				</div>
+			</div><!--form end-->
 			<div class = "form-group">
-				<p>
-					학교
-				</p>
-				<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select", class: "form-control" } %>
-			</div>
-			<div class = "form-group">
-				<p>
-					학과
-				</p>
-				<%= select_tag :department, nil, { id: "department_select", class: "form-control" } %>
-			</div>
-			<div class = "form-group">
-				<p>
-					구분
-				</p>
-				<div id="classification-container">
-					<ul id="classification-container-body"></ul>
+				<p class = "menu-line">과목</p><br>
+				<div id="lecture-container">
+					<ul id="lecture-container-body"></ul>
 				</div>
 			</div>
-			<div id="option-container">
-				<label for="recommend-option">추가 옵션</label>
-				<input type="checkbox" id="recommend-option" />
-				<div id="option-container-body" style="display: none;">
-					<label for="day_restrict">*특정 요일 제외</label>
-					<%= select_tag :day_restrict, options_for_select([["없음",-1],["월",1],["화",2],["수",3],["목",4],["금",5]]) %>
-					<br>
-					<label for="grade_restrict_over">*학점 선택</label>
-					<br>
-					<%= number_field_tag :grade_restrict_over, 0, min: 0, max: 21 %><span>학점 이상</span>
-					<br>
-					<%= number_field_tag :grade_restrict_less, 30, min: 0, max: 30 %><span>학점 이하</span>
-					<br>
-					<label for="morning_restrict">*오전수업제외</label>
-					<%= check_box_tag :morning_restrict, 1 %>
-					<br>
-				</div>
-			</div>
-		</div><!--form end-->
-		<div class = "form-group">
-			<p class = "menu-line">
-				과목
-			</p>
-			<div id="lecture-container">
-				<ul id="lecture-container-body"></ul>
+		</div><!-- left-field end-->
+			<div id="wishbox">
+				<div id="wishbox-wrap">
+					<div id="wishbox-body">
+						<ul id="wishlist"></ul>
+					</div>
+					<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
+					<div>
+						<%= submit_tag "추천받기", id: "btn-recommend" class: "btn btn-info" %>
+						<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
+					</div>
+				<button type="submit" id="btn-recommend" class="btn btn-info" data-toggle="modal" href="/recommend/result.html" data-target="#recommend-modal">추천받기</button>
 			</div>
 		</div>
-	</div><!-- left-field end-->
-
-	<div id="wishbox">
-		<div id="wishbox-wrap">
-			<div id="wishbox-body">
-				<ul id="wishlist"></ul>
-			</div>
-			<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
-			<!--
-			<%= submit_tag "추천받기", id: "btn-recommend", class:"btn btn-info"  %>
-			-->
-			<button type="submit" id="btn-recommend" class="btn btn-info" data-toggle="modal" href="/recommend/result.html" data-target="#recommend-modal">추천받기</button>
-		</div>
-	</div>
 	<% end %>
 </div>
-
-<div class="modal" id="#recommend-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title">시간표</h4>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
