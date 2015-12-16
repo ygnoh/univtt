@@ -62,6 +62,7 @@ $(document).on('ready page:load', function() {
 				var lects = data[0];
 				var lecttimes = data[1];
 				var classifi = data[2];
+				var profs = data[3];
 				var week = ["일","월","화","수","목","금","토"];
 
 				for(var i = 0; i < lects.length; i++) {
@@ -69,7 +70,7 @@ $(document).on('ready page:load', function() {
 						+ 'data-checked="0">'
 						+ '<span class="lecture_top">'
 						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
-						+ lects[i].lecture_name + " (" + "홍길동" + ")" + '</span><br>'
+						+ lects[i].lecture_name + " (" + profs[i] + ")" + '</span><br>'
 						+ '<span class="lecture_bottom">'
 						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
 						+ classifi[i] + " / ";
@@ -111,6 +112,7 @@ $(document).on('ready page:load', function() {
 				var lects = data[0];
 				var lecttimes = data[1];
 				var classifi = data[2];
+				var profs = data[3];
 				var week = ["일","월","화","수","목","금","토"];
 
 				for(var i = 0; i < lects.length; i++) {
@@ -118,7 +120,7 @@ $(document).on('ready page:load', function() {
 						+ 'data-checked="0">'
 						+ '<span class="lecture_top">'
 						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
-						+ lects[i].lecture_name + " (" + "홍길동" + ")" + '</span><br>'
+						+ lects[i].lecture_name + " (" + profs[i] + ")" + '</span><br>'
 						+ '<span class="lecture_bottom">'
 						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
 						+ classifi[i] + " / ";
