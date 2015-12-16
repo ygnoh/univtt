@@ -49,17 +49,16 @@
 				</div>
 			</div>
 		</div><!-- left-field end-->
-			<div id="wishbox">
-				<div id="wishbox-wrap">
-					<div id="wishbox-body">
-						<ul id="wishlist"></ul>
-					</div>
-					<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
-					<div>
-						<%= submit_tag "추천받기", id: "btn-recommend" class: "btn btn-info" %>
-						<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
-					</div>
-				<button type="submit" id="btn-recommend" class="btn btn-info" data-toggle="modal" href="/recommend/result.html" data-target="#recommend-modal">추천받기</button>
+		<div id="wishbox">
+			<div id="wishbox-wrap">
+				<div id="wishbox-body">
+					<ul id="wishlist"></ul>
+				</div>
+				<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
+				<div>
+					<%= submit_tag "추천받기", id: "btn-recommend", class: "btn btn-info" %>
+					<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
+				</div>
 			</div>
 		</div>
 	<% end %>
