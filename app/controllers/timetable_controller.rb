@@ -97,8 +97,17 @@ class TimetableController < ApplicationController
 			@lectures = Department.find(params[:department]).lectures
 		end
 
+		@lecturetimes = []
+
+		@lectures.each do |l|
+			@lecturetimes << []
+			l.lecturetimes.each do |t|
+				@lecturetimes.last << t
+			end
+		end
+
 		respond_to do |format|
-			format.json { render :json => @lectures.to_json }
+			format.json { render :json => [@lectures,@lecturetimes].to_json }
 		end
 	end
 
@@ -117,8 +126,17 @@ class TimetableController < ApplicationController
 			@lectures = foo & bar
 		end
 
+		@lecturetimes = []
+
+		@lectures.each do |l|
+			@lecturetimes << []
+			l.lecturetimes.each do |t|
+				@lecturetimes.last << t
+			end
+		end
+
 		respond_to do |format|
-			format.json { render :json => @lectures.to_json }
+			format.json { render :json => [@lectures,@lecturetimes].to_json }
 		end
 	end
 

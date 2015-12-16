@@ -59,11 +59,27 @@ $(document).on('ready page:load', function() {
 			data: $("#department_select").serialize(),
 			success: function(data){
 				var str = '';
-				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '"' 
+				var lects = data[0];
+				var lecttimes = data[1];
+				var week = ["일","월","화","수","목","금","토"];
+
+				for(var i = 0; i < lects.length; i++) {
+					str += '<li class="lecture_select" id="' + lects[i].id + '"' 
 						+ 'data-checked="0">'
-						+ '<span>' + data[i].lecture_name+'</span>' 
-						+ '</li>';
+						+ '<span class="lecture_top">'
+						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
+						+ lects[i].lecture_name + " (" + "홍길동" + ")" + '</span><br>'
+						+ '<span class="lecture_bottom">'
+						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
+						+ "교양(일반) / ";
+					for(var j = 0; j < lecttimes[i].length; j++) {
+						str += week[lecttimes[i][j].day] + "" + lecttimes[i][j].starttime
+							+ "~" + lecttimes[i][j].endtime;
+						if ( j < lecttimes[i].length-1 ) {
+							str += ",";
+						}
+					}
+					str += '</span>' + '</li>';
 				}
 				$('#lecture-container-body').html(str);
 			}
@@ -91,11 +107,27 @@ $(document).on('ready page:load', function() {
 			data: DATA,
 			success: function(data){
 				var str = '';
-				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '"'
+				var lects = data[0];
+				var lecttimes = data[1];
+				var week = ["일","월","화","수","목","금","토"];
+
+				for(var i = 0; i < lects.length; i++) {
+					str += '<li class="lecture_select" id="' + lects[i].id + '"' 
 						+ 'data-checked="0">'
-						+ '<span>' + data[i].lecture_name+'</span>'
-						+ '</li>';
+						+ '<span class="lecture_top">'
+						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
+						+ lects[i].lecture_name + " (" + "홍길동" + ")" + '</span><br>'
+						+ '<span class="lecture_bottom">'
+						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
+						+ "교양(일반) / ";
+					for(var j = 0; j < lecttimes[i].length; j++) {
+						str += week[lecttimes[i][j].day] + "" + lecttimes[i][j].starttime
+							+ "~" + lecttimes[i][j].endtime;
+						if ( j < lecttimes[i].length-1 ) {
+							str += ",";
+						}
+					}
+					str += '</span>' + '</li>';
 				}
 				$('#lecture-container-body').html(str);
 			}
