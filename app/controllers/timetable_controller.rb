@@ -98,8 +98,10 @@ class TimetableController < ApplicationController
 		end
 
 		@lecturetimes = []
+		@classifications = []
 
 		@lectures.each do |l|
+			@classifications << l.classification.classification_name
 			@lecturetimes << []
 			l.lecturetimes.each do |t|
 				@lecturetimes.last << t
@@ -107,7 +109,7 @@ class TimetableController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render :json => [@lectures,@lecturetimes].to_json }
+			format.json { render :json => [@lectures,@lecturetimes,@classifications].to_json }
 		end
 	end
 
@@ -127,8 +129,10 @@ class TimetableController < ApplicationController
 		end
 
 		@lecturetimes = []
+		@classifications = []
 
 		@lectures.each do |l|
+			@classifications << l.classification.classification_name
 			@lecturetimes << []
 			l.lecturetimes.each do |t|
 				@lecturetimes.last << t
@@ -136,7 +140,7 @@ class TimetableController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render :json => [@lectures,@lecturetimes].to_json }
+			format.json { render :json => [@lectures,@lecturetimes,@classifications].to_json }
 		end
 	end
 
