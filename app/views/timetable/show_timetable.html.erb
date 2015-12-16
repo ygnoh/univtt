@@ -1,59 +1,108 @@
-<h1>Timetable#show_timetable</h1>
 
-<div id="timetable" class="show_timetable">
-	<p id="grade-number-saved"></p>
-	<div id="table-wrap">
-		<div id="colheaders">
-			<% for day in ["월","화","수","목","금","토"] %>
-				<div class="colhead">
-					<span><%= day %></span>
-				</div>
-			<% end %>
+<div class="modal-dialog">
+	<div class="show-content modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+			</button>
+			<h4 class="modal-title">시간표</h4>
 		</div>
-		<div id="table-body">
-			<div id="rowheaders">
-				<% for i in 8..11 %>
-					<div class="rowhead">
-						<span>오전 <%= i %>시</span>
+		<!-- /modal-header -->
+		<div class="show-body modal-body">
+			<div id="timetable" class="show_timetable">
+				<p id="grade-number-saved"></p>
+				<div id="table-wrap">
+					<div id="colheaders">
+						<% for day in ["월","화","수","목","금","토"] %>
+						<div class="time-colhead">
+							<span><%= day %></span>
+						</div>
+						<% end %>
 					</div>
-				<% end %>
-				<div class="rowhead">
-					<span>오후 12시</span>
+					<div id="table-body">
+						<div id="rowheaders">
+							<% for i in 8..11 %>
+							<div class="rowhead">
+								<span class = "timetable_time">오전 <%= i %>시</span>
+							</div>
+							<% end %>
+							<div class="rowhead">
+								<span class = "timetable_time">오후 12시</span>
+							</div>
+							<% for i in 1..9 %>
+							<div class="rowhead">
+								<span class = "timetable_time">오후 <%= i %>시</span>
+							</div>
+							<% end %>
+						</div>
+						<div id="table-grid"></div>
+					</div>
 				</div>
-				<% for i in 1..9 %>
-					<div class="rowhead">
-						<span>오후 <%= i %>시</span>
-					</div>
-				<% end %>
 			</div>
-			<div id="table-grid"></div>
 		</div>
+		<!-- /modal-body -->
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">
+				Close
+			</button>
+		</div>
+		<!-- /modal-footer -->
 	</div>
+	<!-- /modal-content -->
 </div>
+<!-- /modal-dialog -->
+
+<!--
+<div class="container">
+<div id="timetable" class="show_timetable">
+<p id="grade-number-saved"></p>
+<div id="table-wrap">
+<div id="colheaders">
+<% for day in ["월","화","수","목","금","토"] %>
+<div class="time-colhead">
+<span><%= day %></span>
+</div>
+<% end %>
+</div>
+<div id="table-body">
+<div id="rowheaders">
+<% for i in 8..11 %>
+<div class="rowhead">
+<span class = "timetable_time">오전 <%= i %>시</span>
+</div>
+<% end %>
+<div class="rowhead">
+<span class = "timetable_time">오후 12시</span>
+</div>
+<% for i in 1..9 %>
+<div class="rowhead">
+<span class = "timetable_time">오후 <%= i %>시</span>
+</div>
+<% end %>
+</div>
+<div id="table-grid"></div>
+</div>
+</div>
+</div>
+</div>
+
+-->
 
 <script>
 	$(document).on('ready page:load', function() {
-		$('.show_timetable #table-grid').empty();
-		$('#grade-number-saved').html("<span style='color: red;'>"
-			+ <%= @grade %> + "</span>학점 / <span style='color: red;'>"
-			+ <%= @numb %> + "</span>강의");
+$('.show_timetable #table-grid').empty();
+$('#grade-number-saved').html("<span style='color: red;'>"
++ <%= @grade %> + "</span>학점 / <span style='color: red;'>"
++ <%= @numb %>
+	+"</span>강의");
 
-		<% @result.each do |result| %>
-			<% if result[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)
-				$('.show_timetable #table-grid').append("<p>"
-					+ "<%= raw result[0][0] %>" + "</p>"); // just print lecture_name
-				<% next %>
-			<% end %>
-
-			var colors = getRandColor();
-			<% result.each do |r| %>
-				$('.show_timetable #table-grid').append("<div"
-					+ " style='background-color: "+colors+"; position: absolute; width: 90px;"
-					+ " height: " + <%= (r[2]-r[1])*0.44 %> + "px;"
-					+ " top: " + <%= (r[1]-800)*0.44 %> + "px;"
-					+ " left: " + <%= 60+(r[0]-1)*90 %> + "px;'>"
-					+ "<%= raw r[3] %>" + "</div>");
-			<% end %>
-		<% end %>
-	})
-</script>
+<% @result.each do |result| %><% if result[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)
+$('.show_timetable #table-grid').append("<p>"
++ "<%= raw result[0][0] %>" + "</p>"); // just print lecture_name
+<% next %><% end %>var colors = getRandColor();<% result.each do |r| %>
+	$('.show_timetable #table-grid').append("<div"
++ " style='background-color: "+colors+"; position: absolute; width: 90px;"
++ " height: " + <%= (r[2]-r[1])*0.44 %> + "px;"
++ " top: " + <%= (r[1]-800)*0.44 %> + "px;"
++ " left: " + <%= 60+(r[0]-1)*90 %> + "px;'>"
++ "<%= raw r[3] %>" + "</div>");<% end %><% end %>})</script>

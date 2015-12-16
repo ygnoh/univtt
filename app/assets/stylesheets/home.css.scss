@@ -2,22 +2,88 @@
 	margin: 0;
 	padding: 0;
 }
-
-.left-field {
-	width: 200px;
-	float: left;
+ul {
+   list-style:none;
+}
+//showtable
+.show-color{
+  color: #fff;
+ background-color: #FA6900;
+ 
+ 
+}
+.show-content{
+  width:660px;
+}
+.show-body{
+  height:740px;
+  //width700px;
+}
+.show-list{
+  width:130px;
+}
+//timetable
+.time-colhead
+{
+  float: left;
+  //display:inline-block;
+  height:20px;
+  width: 90px;
+  text-align: center;
+}
+//menu
+.form-groups{
+  border:1px solid #eee;
+  border-radius: 4px;
+  padding:10px 10px 10px 10px;
 }
 
+.lecture_select{
+  border-bottom: 1px solid #ddd;
+}
+#classification-container{
+  height:100px;
+  overflow-y:scroll;
+}
+.left-field {  
+	width: 35%;
+	float: right;
+}
+.menu-line{
+  border-bottom: 5px solid #e0ecf4;
+  padding: 5px;
+}
 #lecture-container {
 	float: left;
 }
-
-#timetable {
+.new-timetable{
+  float:none;
+  position: fixed;
+}
+#timetable {  
 	float: left;
-	width: 600px;
+	width: 620px;
 	padding: 0px 10px;
 }
+.timetable_time {
+  font-size:13px;
+}
 
+//Classroom
+.form-field{
+  width:50%;
+  border:1px solid #eee;
+  padding:10px 10px 10px 10px;
+  float:left;
+}
+.map-image{
+  float:left;
+  width:50%;
+  height:350px;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-image:URL('map.jpg');
+}
 #classroom {
 	float: left;
 	padding: 0px 10px;
@@ -25,20 +91,24 @@
 
 #colheaders {
 	padding-left: 60px;
+	width:1200px;
+	overflow-x: hidden;
+	white-space:nowrap;
 }
 
 #colheaders .colhead {
-	float: left;
-	width: 90px;
+	//float: left;
+	display:inline-block;
+  height:20px;
+  width: 90px;
 	text-align: center;
 }
-
 #table-body {
 	clear: both;
 	border: 1px solid;
 	position: relative;
+  background-image:URL('background.png');
 }
-
 #classroom-body {
 	clear: both;
 	border: 1px solid;
@@ -49,8 +119,9 @@
 
 #rowheaders {
 	width: 60px;
-	//border: 1px solid;
-	background-color: lightgreen;
+  //position:absolute;
+  //border: 1px solid;
+  background-color: #E0E4CC;  
 }
 
 #rowheaders .rowhead {
@@ -60,22 +131,27 @@
 	font-size: 14px;
 	text-align: right;
 }
-
 #table-grid {
 	background-color: lightblue;
 }
-
-
 // recommend
+.result-modal-body{
+  height:700px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.result-table{
+  height:850px;
+}
 #wishbox-wrap {
 	float: left;
 }
-
 #wishlist {
 	height: 400px;
-	width: 300px;
+	width: 400px;
+	border:1px solid black;
+  border-radius: 5px;
 	//background-color: lightblue;
-	border: 1px solid;
 }
 
 .xbtn {
@@ -106,4 +182,38 @@
 	color: #8a6d3b;
 	background-color: #fcf8e3;
 	border-color: #faebcc;
+}
+
+
+// home
+.home-show {
+  width: 100%;    
+}
+
+#home-intro {
+  width: 100%;
+  background-image: image-url("intro.png");
+}
+
+#home-text-top {
+  height: 300px;
+}
+
+#home-text {
+    text-align: center;
+    font-size: 80px;
+}
+
+#home-text-bottom {
+  height: 300px;
+}
+
+.btn-home {
+  margin-top: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#home-navbar-blank {
+  margin-top: 50px;
 }

@@ -215,7 +215,8 @@ function findArrayIndex(target, saver) {
 }
 
 function getRandColor(){
-	var colors = ['DeepSkyBlue','DodgerBlue','HotPink','LightPink','MistyRose','NavajoWhite','PaleVioletRed','Plum','SlateBlue'];
+	var colors = ['#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900'];
+	//var colors = ['DeepSkyBlue','DodgerBlue','HotPink','LightPink','MistyRose','NavajoWhite','PaleVioletRed','Plum','SlateBlue'];
 	var rand = Math.floor(Math.random()*(colors.length));
 	return colors[rand]
 }

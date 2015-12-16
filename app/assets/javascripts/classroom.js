@@ -39,3 +39,16 @@ function searchClassroom() {
 	});
 	return false;
 }
+
+
+//scroll 동시이동
+$(document).ready(function(){
+    $('#classroom-body').bind("scroll", function(){
+        $('#colheaders').scrollTop($(this).scrollTop());
+        $('#colheaders').scrollLeft($(this).scrollLeft());
+    });
+    $('#colheaders').bind("scroll", function(){
+        $('#classroom-body').scrollTop($(this).scrollTop());
+        $('#classroom-body').scrollLeft($(this).scrollLeft());
+    });
+});

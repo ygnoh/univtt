@@ -1,10 +1,47 @@
-<h1>Timetable#show</h1>
-
 <div>
-	<% @ttlist.each do |tt| %>
-		<%= form_tag "/timetable/destroy/#{tt.id}" do %>
-			<a href="/timetable/show_timetable/<%= tt.id %>"><%= tt.id %></a>
-			<%= submit_tag '삭제', id: 'btn-delete' %>
-		<% end %>
-	<% end %>
+	&nbsp
 </div>
+<div>
+	&nbsp
+</div>
+<div class="container">
+	<% @ttlist.each do |tt| %>
+	<%= form_tag "/timetable/destroy/#{tt.id}" do %>
+	<div class="form-groups show-list">
+		<a data-toggle="modal" class="btn btn-info" href="/timetable/show_timetable/<%= tt.id %>" data-target="#time-modal"><%= tt.id %></a>
+		<!--
+		<a href="/timetable/show_timetable/<%= tt.id %>" data-toggle="modal" data-target="#time-modal"><%= tt.id %></a>
+		-->
+		<%= submit_tag '삭제', id: 'btn-delete', class:"show-color btn" %>
+	</div>
+
+	<% end %>
+	<% end %>
+
+</div>
+
+<div class="modal" id="time-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title">시간표</h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+				<button type="button" class="btn btn-primary">
+					Save changes
+				</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+

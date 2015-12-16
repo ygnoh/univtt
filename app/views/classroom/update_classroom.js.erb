@@ -3,9 +3,12 @@ $('#colheaders').empty();
 $('#rowheaders').empty();
 
 <% @classrooms.each_with_index do |c,i| %>
-	$('#colheaders').append("<div class='colhead'"
+	$('#colheaders').append("<div class='colhead'>"
 		+ "<span><%= c.classroom_name %></span>"
 		+ "</div>");
+		
+		
+		
 	<% c.lecturetimes.where("day = ? and (
 		starttime between ? and  ? or endtime between ? and ?)", 
 		@day, @starttime, @endtime, @starttime, @endtime).each_with_index do |l| %>
@@ -20,7 +23,7 @@ $('#rowheaders').empty();
 <% end %>
 
 <% for i in @starttime/100..@endtime/100 %>
-	$('#rowheaders').append("<div class='rowhead'"
+	$('#rowheaders').append("<div class='rowhead'>"
 		+ "<span><%= i*100 %></span>"
 		+ "</div>");
 <% end %>
