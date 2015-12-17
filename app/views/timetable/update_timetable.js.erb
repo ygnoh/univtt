@@ -2,32 +2,46 @@ var days = <%= @days %>;
 var times = <%= @times %>;
 var grade = <%= @grade %>;
 
-if ( checkOverlap(days,times) ) {
-	lectureSaver.push(<%= @lecture.id.to_i %>);
-	daySaver.push(days);
-	timeSaver.push(times);
-	gradeSaver.push(grade);
-	gradeOfLectures += grade;
-	numberOfLectures++;
-
-	$('#' + '<%= @lecture.id %>').data('checked','1');
-	$('#timetable-hidden').val(lectureSaver);
-
-	for ( x in days ) {
-		$('#table-grid').append("<div class='" + "<%= @lecture.id %>" + "'"
-			+ " style='position: absolute; width: 90px;"
-			+ " height: " + (times[x][1] - times[x][0]) * 0.44 + "px;"
-			+ " top: " + (times[x][0] - 800) * 0.44 + "px;"
-			+ " left: " + (60 + (days[x]-1) * 90) + "px;'"
-			+ " onclick='removeOnTimetable()'>" + "<%= @lecture.lecture_name %>"
-			+ "</div>");
+if ("<%= @event %>" == "mouseenter") {
+	if ( checkOverlap(days,times) ) {
+		for ( x in days ) {
+			$('#table-grid').append("<div class='lecture_preview'"
+				+ " style='position: absolute; width: 89px;"
+				+ " height: " + ((times[x][1] - times[x][0]) * 0.44 - 1) + "px;"
+				+ " top: " + ((times[x][0] - 800) * 0.44  + 1)+ "px;"
+				+ " left: " + (60 + (days[x]-1) * 90 + 1) + "px;"
+				+ " opacity: 0.5; background-color: #A7DBD8;'>"
+				+ "</div>");
+		}
 	}
+} else {
+	if ( checkOverlap(days,times) ) {
+		lectureSaver.push(<%= @lecture.id.to_i %>);
+		daySaver.push(days);
+		timeSaver.push(times);
+		gradeSaver.push(grade);
+		gradeOfLectures += grade;
+		numberOfLectures++;
 
-	var colors = getRandColor();
-	$('.' + "<%= @lecture.id %>").css('background-color', colors);
-	$('#' + "<%= @lecture.id %>").css('background-color', colors);
+		$('#' + '<%= @lecture.id %>').data('checked','1');
+		$('#timetable-hidden').val(lectureSaver);
 
-	$('#grade-number-default').html("<span style='color: red;'>"
-		+ gradeOfLectures + "</span>학점 / <span style='color: red;'>"
-		+ numberOfLectures + "</span>강의");
+		for ( x in days ) {
+			$('#table-grid').append("<div class='<%= @lecture.id %> lecture_listed'"
+				+ " style='position: absolute; width: 89px;"
+				+ " height: " + ((times[x][1] - times[x][0]) * 0.44 - 1) + "px;"
+				+ " top: " + ((times[x][0] - 800) * 0.44 + 1) + "px;"
+				+ " left: " + (60 + (days[x]-1) * 90 + 1) + "px;'"
+				+ " onclick='removeOnTimetable()'>" + "<%= @lecture.lecture_name %>"
+				+ "</div>");
+		}
+
+		var colors = getRandColor();
+		$('.' + "<%= @lecture.id %>").css('background-color', colors);
+		$('#' + "<%= @lecture.id %>").css('background-color', colors);
+
+		$('#grade-number-default').html("<span style='color: red;'>"
+			+ gradeOfLectures + "</span>학점 / <span style='color: red;'>"
+			+ numberOfLectures + "</span>강의");
+	}
 }

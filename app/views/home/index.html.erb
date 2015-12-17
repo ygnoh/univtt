@@ -1,1 +1,18 @@
-<h1>Home#index</h1>
+<div class="home-container">
+	<div id="home_top">
+		<p class="head-copy">모든 대학생의 고민을 덜어주는 그날까지</p>
+		<h1 class="body-copy"><span style="color: #556270">Univ TT</span></h1>
+	</div>
+	<div id="home_center">
+		<p class="tt-count">지금까지 [ <span style="color: #F38630; font-weight: 700;"><%= @savetts %></span> ] 개의 시간표가 저장되었습니다.</p>
+	</div>
+	<div class="home_bottom"></div>
+</div>
+
+<div class="home-image">
+	<div><img src="/images/show1.png"></div>
+	<div><img src="/images/show2.png"></div>
+	<div><img src="/images/show3.png"></div>
+</div>
+
+<%= render "layouts/footer" %>

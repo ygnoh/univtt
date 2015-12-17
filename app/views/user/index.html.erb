@@ -1,0 +1,21 @@
+<h1>User#index</h1>
+<%= link_to "Go to admin page", '/admin' %>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>email</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @users.each do |u| %>
+		<tr>
+			<td><%= u.id %></td>
+			<td><%= u.username %></td>
+			<td><%= u.email %></td>
+			<td><%= link_to "edit", "/user/edit/#{u.id}" %></td>
+			<td><%= link_to "delete", "/user/destroy/#{u.id}", method: :delete %></td>
+		</tr>
+	<% end %>
+</table>

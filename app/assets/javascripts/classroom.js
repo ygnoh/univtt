@@ -6,6 +6,14 @@ $(document).on('ready page:load', function() {
 			data: $('#school_select').serialize()
 		});
 	})
+	
+	$('#now').on('click', function() {
+		if ( $(this).is(':checked') ) {
+			$('#day_select, #start_time, #end_time').prop('disabled', true);
+		} else {
+			$('#day_select, #start_time, #end_time').prop('disabled', false);
+		}
+	})
 })
 
 function searchClassroom() {
@@ -16,7 +24,7 @@ function searchClassroom() {
 	if ( ($('#start_time').val() > $('#end_time').val()) ||
 		($('#start_time').val() == '' && $('#end_time').val() != '') ||
 		($('#start_time').val() != '' && $('#end_time').val() == '') ){
-		alert("시간이 잘못 지정되었어요.");
+		alert("시간이 잘 못 지정되었어요.");
 		return false;
 	};
 
@@ -32,6 +40,7 @@ function searchClassroom() {
 			}
 		}
 	}
+	$('#classroom').css("display", "block");
 	$.ajax({
 		url: window.location.origin + '/classroom/update_classroom',
 		dataType: "script",

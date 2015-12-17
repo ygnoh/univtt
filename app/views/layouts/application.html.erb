@@ -3,23 +3,32 @@
 <head>
   <title>Timetable</title>
 	<meta charset="utf-8">
-
-	<%# stylesheet_link_tag "stylesheets/home.css.scss", media: "all" %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+ <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ <!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<%= csrf_meta_tags %>
 </head>
 <body>
+	<!-- Modal -->
+	<%= render "layouts/modal" %>
+
 	<!-- Navigator -->
 	<%= render "layouts/header" %>
 
 	<!-- Flash -->
-	<div id="flash" style="width: 100%; position: fixed; top: 0;">
+	<div id="flash" style="width: 100%; position: fixed; top: 0; z-index: 10;">
 		<%= render "layouts/flash" %>
 	</div>
 
 	<%= yield %>
-
+	
 </body>
 </html>

@@ -1,0 +1,19 @@
+<h1><%= @building.building_name %></h1>
+<%= link_to "Go to admin page", '/admin' %>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @classrooms.each do |c| %>
+		<tr>
+			<td><%= c.id %></td>
+			<td><%= c.classroom_name %></td>
+			<td><%= link_to "edit", "/classroom/edit/#{c.id}" %></td>
+			<td><%= link_to "delete", "/classroom/destroy/#{c.id}", method: :delete %></td>
+		</tr>
+	<% end %>
+</table>

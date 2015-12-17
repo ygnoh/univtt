@@ -9,4 +9,7 @@ class User < ActiveRecord::Base
 	has_many :pcomments
 	has_many :lcomments
 	has_many :savetimetables
+
+	### Scopes
+	default_scope { where(active: true) }
 end

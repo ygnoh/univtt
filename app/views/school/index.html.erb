@@ -1,0 +1,19 @@
+<h1>School#index</h1>
+<%= link_to "Go to admin page", '/admin' %>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<% @schools.each do |s| %>
+		<tr>
+			<td><%= s.id %></td>
+			<td><%= link_to s.school_name, "/department/show/#{s.id}" %></td>
+			<td><%= link_to "edit", "/school/edit/#{s.id}" %></td>
+			<td><%= link_to "delete", "/school/destroy/#{s.id}", method: :delete %></td>
+		</tr>
+	<% end %>
+</table>

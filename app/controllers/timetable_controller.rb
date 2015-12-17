@@ -20,13 +20,15 @@ class TimetableController < ApplicationController
 
 	def show
 		@ttlist = Savetimetable.where(user_id: params[:user_id])
+		@username = User.find(params[:user_id]).username
 	end
 
 	def show_timetable
 		@result = []
 		@grade = 0
 		@numb = 0
-		Savetimetable.find(params[:tt_id]).lectures.each do |l|
+		@ttid = params[:tt_id].to_i
+		Savetimetable.find(@ttid).lectures.each do |l|
 			@result << [] # [ [ ] ]
 			@grade += Lecture.find(l).grade
 			@numb += 1
@@ -51,7 +53,7 @@ class TimetableController < ApplicationController
   def destroy
 		tt = Savetimetable.find(params[:tt_id])
 		tt.active = false
-		if tt.user_id != current_user.id
+		if !user_signed_in? || tt.user_id != current_user.id
 			flash[:error] = "해당 권한이 없습니다."
 		else
 			if tt.save
@@ -61,7 +63,7 @@ class TimetableController < ApplicationController
 			end
 		end
 
-		redirect_to :back
+		redirect_to "/timetable/show/#{tt.user_id}"
   end
 
 
@@ -100,10 +102,22 @@ class TimetableController < ApplicationController
 			@lectures = Department.find(params[:department]).lectures
 			#@lectures = Department.find(params[:department]).lectures.page(params[:page]).per(10)
 		end
-		
+
+		@lecturetimes = []
+		@classifications = []
+		@professors = []
+
+		@lectures.each do |l|
+			@classifications << l.classification.classification_name
+			@professors << (l.professor.nil? ? "unknown" : l.professor.professor_name)
+			@lecturetimes << []
+			l.lecturetimes.each do |t|
+				@lecturetimes.last << t
+			end
+		end
+
 		respond_to do |format|
-			format.html { @lectures = @lectures.page(params[:page]).per(10) }
-			format.json { render :json => @lectures.to_json }
+			format.json { render :json => [@lectures,@lecturetimes,@classifications,@professors].to_json }
 		end
 	end
 	
@@ -138,14 +152,27 @@ class TimetableController < ApplicationController
 			@lectures = foo & bar
 			#@lectures = (foo & bar).page(params[:page]).per(10)
 		end
-		
+
+		@lecturetimes = []
+		@classifications = []
+		@professors = []
+
+		@lectures.each do |l|
+			@classifications << l.classification.classification_name
+			@professors << (l.professor.nil? ? "unknown" : l.professor.professor_name)
+			@lecturetimes << []
+			l.lecturetimes.each do |t|
+				@lecturetimes.last << t
+			end
+		end
+
 		respond_to do |format|
-			format.html { @lectures = @lectures.page(params[:page]).per(10) }
-			format.json { render :json => @lectures.to_json }
+			format.json { render :json => [@lectures,@lecturetimes,@classifications,@professors].to_json }
 		end
 	end
 
 	def update_timetable
+		@event = params[:evnt]
 		@lecture = Lecture.find(params[:lecture_id])
 		@grade = @lecture.grade
 		lecture_time = @lecture.lecturetimes

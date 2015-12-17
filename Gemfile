@@ -47,3 +47,6 @@ gem 'devise'
 
 # board
 gem 'kaminari'
+
+# for window
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
