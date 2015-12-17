@@ -1,20 +1,22 @@
-<h2>비밀번호 변경</h2>
+<div style="width: 520px; margin: 0 auto;">
+  <h2 style="text-align: center;">비밀번호 변경</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "새 비밀번호(8자 이상)*" %>
-  </div>
+    <div class="field form-group">
+      <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "새 비밀번호(8자 이상)*", class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인*" %>
-  </div>
+    <div class="field form-group">
+      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인*", class: "form-control" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "비밀번호 변경" %>
-  </div>
-<% end %>
+    <div class="actions form-group">
+      <%= f.submit "비밀번호 변경", class: "btn btn-orange" %>
+    </div>
+  <% end %>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</div>

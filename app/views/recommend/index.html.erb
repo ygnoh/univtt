@@ -1,49 +1,48 @@
-<div>
-	&nbsp
-</div>
-<div>
-	&nbsp
-</div>
 <div class="container">
 	<!-- this div is for form tag -->
 	<%= form_tag '/recommend/result' do %>
 		<div class="recommend left-field">
 			<div class ="form-groups">
 				<div class = "form-group">
-					<p>학교</p><br>
+					<p>학교</p>
 					<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select", class: "form-control" } %>
 				</div>
 				<div class = "form-group">
-					<p>학과</p><br>
+					<p>학과</p>
 					<%= select_tag :department, nil, { id: "department_select", class: "form-control" } %>
 				</div>
 				<div class = "form-group">
-					<p>구분</p><br>
+					<p>구분</p>
 					<div id="classification-container">
 						<ul id="classification-container-body"></ul>
 					</div>
 				</div>
 				<div id="option-container">
-					<label for="recommend-option">추가 옵션</label>
-					<input type="checkbox" id="recommend-option" />
+					<div style="text-align: right;">
+						<label for="recommend-option">추가 옵션</label>
+						<input type="checkbox" id="recommend-option" />
+					</div>
 					<div id="option-container-body" style="display: none;">
-						<label for="day_restrict">*특정 요일 제외</label>
-						<%= select_tag :day_restrict, options_for_select([["없음",-1],["월",1],["화",2],["수",3],["목",4],["금",5]]) %>
-						<br>
-						<label for="grade_restrict_over">*학점 선택</label>
-						<br>
-						<%= number_field_tag :grade_restrict_over, 0, min: 0, max: 21 %><span>학점 이상</span>
-						<br>
-						<%= number_field_tag :grade_restrict_less, 30, min: 0, max: 30 %><span>학점 이하</span>
-						<br>
-						<label for="morning_restrict">*오전수업제외</label>
-						<%= check_box_tag :morning_restrict, 1 %>
-						<br>
+						<div class="form-group">
+							<p style="margin-top: 10px;">* 특정 요일 제외</p>
+							<%= select_tag :day_restrict, options_for_select([["없음",-1],["월",1],["화",2],["수",3],["목",4],["금",5]]), { class: "form-control" } %>
+						</div>
+						<div class="form-group">
+							<p>* 학점 선택</p>
+							<div style="margin-left: 20px;">
+								<%= number_field_tag :grade_restrict_over, 0, min: 0, max: 21 %><span>학점 이상 ~ </span>
+								<%= number_field_tag :grade_restrict_less, 30, min: 0, max: 30 %><span>학점 이하</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<span>* 오전수업제외</span>
+							<%= check_box_tag :morning_restrict, 1 %>
+						</div>
 					</div>
 				</div>
 			</div><!--form end-->
 			<div class = "form-group">
-				<p class = "menu-line">과목</p><br>
+				<p class = "menu-line">과목</p>
 				<div id="lecture-container">
 					<ul id="lecture-container-body"></ul>
 				</div>
@@ -51,13 +50,14 @@
 		</div><!-- left-field end-->
 		<div id="wishbox">
 			<div id="wishbox-wrap">
+				<h4 style="text-align: right; color: #FA6900;">wish box</h4>
 				<div id="wishbox-body">
 					<ul id="wishlist"></ul>
 				</div>
 				<%= hidden_field_tag 'lecture_id', '', id: 'wishbox-hidden' %>
-				<div>
-					<%= submit_tag "추천받기", id: "btn-recommend", class: "btn btn-info" %>
-					<%= button_tag '취소', { type: 'button', onclick: 'resetAll();' } %>
+				<div style="float: right;">
+					<%= submit_tag "추천받기", id: "btn-recommend", class: "btn btn-orange" %>
+					<%= button_tag '취소', { type: 'button', onclick: 'resetAll();', class: "btn btn-orange" } %>
 				</div>
 			</div>
 		</div>

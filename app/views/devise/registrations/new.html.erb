@@ -1,38 +1,25 @@
-<div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<h4 class="modal-title" id="myModalLabel">회원가입</h4>
-		</div>
-		<div class="modal-body">
-			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-				<%= devise_error_messages! %>
-				<div class="field">
-					<%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "이매일*" %>
-				</div>
-				<div class="field">
-					<%= f.text_field :username, placeholder: "유저명" %>
-				</div>
-				<div class="field">
-					<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "비밀번호*(8자 이상)" %>
-				</div>
-				<div class="field">
-					<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "비밀번호 확인*" %>
-				</div>
-				<div>
-					&nbsp
-				</div>
-				<div class="actions">
-					<%= f.submit "회원가입", class: "btn btn-lg btn-primary btn-block" %>
-				</div>
-			<% end %>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">
-				Close
-			</button>
-		</div>
+<div style="width: 520px; margin: 0 auto;">
+	<h2 style="text-align: center;">회원가입</h4>
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			<%= devise_error_messages! %>
+			<div class="field form-group">
+				<%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "email *" %>
+			</div>
+			<div class="field form-group">
+				<%= f.text_field :username, class: "form-control", placeholder: "유저명" %>
+			</div>
+			<div class="field form-group">
+				<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "비밀번호(8자 이상) *" %>
+			</div>
+			<div class="field form-group">
+				<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "비밀번호 확인 *" %>
+			</div>
+			<div>
+				&nbsp
+			</div>
+			<div class="actions">
+				<%= f.submit "환영합니다!", class: "btn btn-orange btn-block" %>
+			</div>
+		<% end %>
 	</div>
 </div>

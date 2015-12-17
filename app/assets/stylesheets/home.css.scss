@@ -15,6 +15,7 @@ ul {
 }
 
 //showtable
+
 .show-color{
   color: #fff;
  background-color: #FA6900;
@@ -25,12 +26,7 @@ ul {
 }
 
 .show-body{
-  height:740px;
-  //width700px;
-}
-
-.show-list{
-  width:130px;
+  height: 570px;
 }
 
 //timetable
@@ -45,19 +41,23 @@ ul {
 
 //menu
 
-.form-groups{
-  border:1px solid #eee;
+.form-groups {
+  border: 1px solid #eee;
   border-radius: 4px;
   padding:10px 10px 10px 10px;
 }
 
-.lecture_select{
+.lecture_select {
   border-bottom: 1px solid #ddd;
 }
 
+.lecture_select:hover {
+	background-color: rgba(167,219,216,0.5);
+}
+
 #classification-container{
-  height:100px;
-  overflow-y:scroll;
+  height: 100px;
+  overflow-y: scroll;
 }
 
 .left-field {  
@@ -68,15 +68,11 @@ ul {
 .menu-line{
   border-bottom: 5px solid #e0ecf4;
   padding: 5px;
+  margin-bottom: 10px;
 }
 
 #lecture-container {
 	float: left;
-}
-
-.new-timetable{
-  float:none;
-  position: fixed;
 }
 
 #timetable {  
@@ -85,44 +81,53 @@ ul {
 	padding: 0px 10px;
 }
 
+.timetable-new {
+	position: fixed;
+}
+
+#timetable-save {
+	float: right;
+}
+
+#btn-save {
+	float: left;
+}
+
+#btn-save-recommend {
+	float: right;
+}
+
 .timetable_time {
-  font-size:13px;
+  font-size: 13px;
 }
 
 //Classroom
 
 .form-field{
-  width:50%;
-  border:1px solid #eee;
-  padding:10px 10px 10px 10px;
-  float:left;
-}
-
-.map-image{
-  float:left;
-  width:50%;
-  height:350px;
-  background-size:contain;
-  background-repeat: no-repeat;
-  background-image:URL('map.jpg');
+  width: 50%;
+  border: 1px solid #eee;
+  padding: 10px 10px 10px 10px;
+  float: left;
 }
 
 #classroom {
-	float: left;
 	padding: 0px 10px;
 }
 
+#classroom > h3 {
+	text-align: center;
+}
+
+#classroom-wrap {
+	float: left;
+}
 #colheaders {
 	padding-left: 60px;
-	width:1200px;
-	overflow-x: hidden;
-	white-space:nowrap;
 }
 
 #colheaders .colhead {
 	//float: left;
 	display:inline-block;
-  height:20px;
   width: 90px;
 	text-align: center;
 }
@@ -131,7 +136,18 @@ ul {
 	clear: both;
 	border: 1px solid;
 	position: relative;
-  background-image:URL('background.png');
+	background-image:URL('background.png');
+	margin-bottom: 10px;
+}
+
+#map {
+	display: inline-block;
+}
+
+#map > img {
+	margin-top: 15px;
+	margin-left: 30px;
+	height: 360px;
 }
 
 #classroom-body {
@@ -157,32 +173,44 @@ ul {
 	text-align: right;
 }
 
-#table-grid {
-	background-color: lightblue;
+#table-body {
+	overflow: hidden;
 }
 
 // recommend
 
 .result-modal-body{
-  height:700px;
+  height: 700px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.result-table{
-  height:850px;
+#result-tables {
+	width: 620px;
+	margin: 0 auto;
+}
+
+#result-tables > h3{
+	text-align: center;
 }
 
 #wishbox-wrap {
 	float: left;
+	padding-left: 80px;
+	padding-top: 50px;
+	position: fixed;
 }
 
 #wishlist {
 	height: 400px;
 	width: 400px;
 	border:1px solid black;
-  border-radius: 5px;
-	//background-color: lightblue;
+	border-radius: 5px;
+	padding: 30px;
+}
+
+#wishlist > li {
+	margin-bottom: 3px;
 }
 
 .xbtn {
@@ -347,6 +375,15 @@ a {
 
 .home-image {
 	width: 100%;
+	text-align: center;
+}
+
+.home-image > div:nth-child(2n) {
+	background-color: #fff;
+}
+
+.home-image > div:nth-child(2n+1) {
+	background-color: #e3e2e0;
 }
 
 .home-image > div > img {
@@ -394,4 +431,39 @@ a {
 
 .lecture_bottom {
 	font-size: 12px;
+}
+
+.container {
+	padding-top: 30px;
+}
+
+.grade-number {
+	text-align: center;
+}
+
+.btn-orange {
+	color: #fff;
+	background-color: #FA6900;	
+}
+
+.btn-orange:hover{
+	color: #fff !important;
+}
+
+.btn-orange:focus{
+	color: #fff !important;
+	outline: 0 !important;
+}
+
+label {
+	margin: 0 3px;
+}
+
+#option-container-body {
+	border-top: 2px solid #e0ecf4;
+}
+
+.modal-title {
+	text-align: center;
+	color: #FA6900;
 }
