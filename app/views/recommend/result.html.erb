@@ -1,43 +1,46 @@
-<% @result_times.each_with_index do |result,index| %>
-<div id="timetable" class="result-table">
-	<p id="grade-number-<%= index %>"></p>
-	<div id="table-wrap">
-		<div id="colheaders">
-		<% for day in ["월","화","수","목","금","토"] %>
-			<div class="time-colhead">
-				<span><%= day %></span>
+<div id="result-tables">
+	<h3>해당 강의들로 추천된 <b style="color: #FA6900;"><%= @result.count %></b>개의 시간표입니다.</h3>
+	<% @result_times.each_with_index do |result,index| %>
+		<div id="timetable">
+			<p id="grade-number-<%= index %>" class="grade-number"></p>
+			<div id="table-wrap">
+				<div id="colheaders">
+					<% for day in ["월","화","수","목","금","토"] %>
+						<div class="time-colhead">
+							<span><%= day %></span>
+						</div>
+					<% end %>
+				</div>
+				<div id="table-body">
+					<div id="rowheaders">
+						<% for i in 8..11 %>
+							<div class="rowhead">
+								<span class = "timetable_time">오전 <%= i %>시</span>
+							</div>
+						<% end %>
+						<div class="rowhead">
+							<span class = "timetable_time">오후 12시</span>
+						</div>
+						<% for i in 1..6 %>
+							<div class="rowhead">
+								<span class = "timetable_time">오후 <%= i %>시</span>
+							</div>
+						<% end %>
+					</div>		
+					<div id="table-grid" class="recommend_<%= index %>"></div>
+				</div>
 			</div>
+			<% if user_signed_in? %>
+				<div>
+					<%= form_tag '/timetable/create' do %>
+						<%= hidden_field_tag 'lectures', '', id: "recommend-hidden-#{index}" %>
+						<%= submit_tag "저장", id: "btn-save-recommend", class:"btn btn-orange" %>
+					<% end %>
+				</div>
 			<% end %>
 		</div>
-		<div id="table-body">
-			<div id="rowheaders">
-				<% for i in 8..11 %>
-				<div class="rowhead">
-					<span class = "timetable_time">오전 <%= i %>시</span>
-				</div>
-				<% end %>
-				<div class="rowhead">
-					<span class = "timetable_time">오후 12시</span>
-				</div>
-				<% for i in 1..9 %>
-				<div class="rowhead">
-					<span class = "timetable_time">오후 <%= i %>시</span>
-				</div>
-				<% end %>
-			</div>		
-			<div id="table-grid" class="recommend_<%= index %>"></div>
-		</div>
-	</div>
-	<% if user_signed_in? %>
-	<div>
-		<%= form_tag '/timetable/create' do %>
-		<%= hidden_field_tag 'lectures', '', id: "recommend-hidden-#{index}" %>
-		<%= submit_tag "저장", id: "btn-save-recommend", class:"btn btn-info"	%>
-		<% end %>
-	</div>
 	<% end %>
 </div>
-<% end %>
 
 <script>
 	$(document).on('ready page:load', function() {
@@ -50,17 +53,17 @@
 			$("#recommend-hidden-" + <%= t_index %>).val(<%= t[1] %>);
 			<% t[0].each do |r| %>
 				<% if r[0].length == 1 %> // if the first of a lecture has no lecturetime (in fact, clearly all parts of the lecture has no lecturetime)
-					$('.recommend_<%=t_index%>').append("<p>"
+					$('.recommend_<%=t_index%>').parent().parent().append("<p style='text-align: center;'>"
 						+ "<%= raw r[0][0] %>" + "</p>"); // just print lecture_name
 					<% next %>
 				<% end %>
 				var colors = getRandColor();
 				<% r.each do |final_result| %>
 					$('.recommend_<%=t_index%>').append("<div"
-						+ " style='background-color: "+colors+"; position: absolute; width: 90px;"
-						+ " height: " + <%= (final_result[2]-final_result[1])*0.44 %> + "px;"
-						+ " top: " + <%= (final_result[1]-800)*0.44 %> + "px;"
-						+ " left: " + <%= 60+(final_result[0]-1)*90 %> + "px;'>"
+						+ " class='lecture_listed' style='background-color: "+colors+"; position: absolute; width: 89px;"
+						+ " height: " + <%= (final_result[2]-final_result[1])*0.44 - 1 %> + "px;"
+						+ " top: " + <%= (final_result[1]-800)*0.44 + 1 %> + "px;"
+						+ " left: " + <%= 60+(final_result[0]-1)*90 + 1 %> + "px;'>"
 						+ "<%= raw final_result[3] %>" + "</div>");
 				<% end %>
 			<% end %>

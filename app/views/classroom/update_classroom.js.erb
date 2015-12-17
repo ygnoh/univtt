@@ -7,12 +7,10 @@ $('#rowheaders').empty();
 		+ "<span><%= c.classroom_name %></span>"
 		+ "</div>");
 		
-		
-		
 	<% c.lecturetimes.where("day = ? and (
 		starttime between ? and  ? or endtime between ? and ?)", 
 		@day, @starttime, @endtime, @starttime, @endtime).each_with_index do |l| %>
-		$('#classroom-grid').append("<div class='" + "<%= l.lecture_id %>" + "'"
+		$('#classroom-grid').append("<div class='lecture_listed " + "<%= l.lecture_id %>" + "'"
 			+ " style='position: absolute; width: 90px;"
 			+ " height: " + <%= (l.endtime - l.starttime)*0.44 %> + "px;"
 			+ " top: " + <%= (l.starttime - @starttime/100*100)*0.44 %> + "px;"

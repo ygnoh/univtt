@@ -6,11 +6,11 @@ if ("<%= @event %>" == "mouseenter") {
 	if ( checkOverlap(days,times) ) {
 		for ( x in days ) {
 			$('#table-grid').append("<div class='lecture_preview'"
-				+ " style='position: absolute; width: 90px;"
-				+ " height: " + (times[x][1] - times[x][0]) * 0.44 + "px;"
-				+ " top: " + (times[x][0] - 800) * 0.44 + "px;"
-				+ " left: " + (60 + (days[x]-1) * 90) + "px;"
-				+ " opacity: 0.5; background-color: yellow;'>"
+				+ " style='position: absolute; width: 89px;"
+				+ " height: " + ((times[x][1] - times[x][0]) * 0.44 - 1) + "px;"
+				+ " top: " + ((times[x][0] - 800) * 0.44  + 1)+ "px;"
+				+ " left: " + (60 + (days[x]-1) * 90 + 1) + "px;"
+				+ " opacity: 0.5; background-color: #A7DBD8;'>"
 				+ "</div>");
 		}
 	}
@@ -28,10 +28,10 @@ if ("<%= @event %>" == "mouseenter") {
 
 		for ( x in days ) {
 			$('#table-grid').append("<div class='<%= @lecture.id %> lecture_listed'"
-				+ " style='position: absolute; width: 90px;"
-				+ " height: " + (times[x][1] - times[x][0]) * 0.44 + "px;"
-				+ " top: " + (times[x][0] - 800) * 0.44 + "px;"
-				+ " left: " + (60 + (days[x]-1) * 90) + "px;'"
+				+ " style='position: absolute; width: 89px;"
+				+ " height: " + ((times[x][1] - times[x][0]) * 0.44 - 1) + "px;"
+				+ " top: " + ((times[x][0] - 800) * 0.44 + 1) + "px;"
+				+ " left: " + (60 + (days[x]-1) * 90 + 1) + "px;'"
 				+ " onclick='removeOnTimetable()'>" + "<%= @lecture.lecture_name %>"
 				+ "</div>");
 		}

@@ -8,8 +8,8 @@
 		</div>
 		<div class="nav-right">
 			<% if !user_signed_in? %>
-				<li class="btn-home"><%= link_to "회원가입", "/users/sign_up", data: { toggle: "modal", target: "#myModal" } %></li>
-				<li class="btn-home"><%= link_to "로그인", "/users/sign_in",  data: { toggle: "modal", target: "#myModal" } %></li>
+				<li class="btn-home"><%= link_to "회원가입", "/users/sign_up" %></li>
+				<li class="btn-home"><%= link_to "로그인", "/users/sign_in" %></li>
 			<% else %>
 				<% if current_user.admin? %>
 					<li class="btn-home"><%= link_to "ADMIN", "/admin" %></li>

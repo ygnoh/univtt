@@ -24,7 +24,7 @@ function searchClassroom() {
 	if ( ($('#start_time').val() > $('#end_time').val()) ||
 		($('#start_time').val() == '' && $('#end_time').val() != '') ||
 		($('#start_time').val() != '' && $('#end_time').val() == '') ){
-		alert("시간이 잘못 지정되었어요.");
+		alert("시간이 잘 못 지정되었어요.");
 		return false;
 	};
 
@@ -40,6 +40,7 @@ function searchClassroom() {
 			}
 		}
 	}
+	$('#classroom').css("display", "block");
 	$.ajax({
 		url: window.location.origin + '/classroom/update_classroom',
 		dataType: "script",
@@ -47,16 +48,3 @@ function searchClassroom() {
 	});
 	return false;
 }
-
-
-//scroll 동시이동
-$(document).ready(function(){
-    $('#classroom-body').bind("scroll", function(){
-        $('#colheaders').scrollTop($(this).scrollTop());
-        $('#colheaders').scrollLeft($(this).scrollLeft());
-    });
-    $('#colheaders').bind("scroll", function(){
-        $('#classroom-body').scrollTop($(this).scrollTop());
-        $('#classroom-body').scrollLeft($(this).scrollLeft());
-    });
-});
