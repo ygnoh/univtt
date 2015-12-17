@@ -2,7 +2,7 @@ class PostController < ApplicationController
         before_action :authenticate_user!, except: [ :index, :show ]
   
   def index
-    @posts = Post.page(params[:page]).per(3)
+    @posts = Post.page(params[:page]).per(10)
   end
 
   def show

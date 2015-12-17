@@ -1,62 +1,64 @@
-<div id="bd" class="bd   hover_effect small_lst_btn1">
-    <div class="rd rd_nav_style2 clear" style="padding:;">
-        <div class="rd_hd clear" style="margin:0 -15px 20px" data-url="http://uruniv.kr/1082456">
-            <div class="board clear " style=";">
-                <div class="top_area ngeb" style=";">
-                    <div class="fr">
-                        <span class="date"><%= @post.user.created_at %></span></div>
-                        <h1 class="np_18px"><%= @post.title %></h1>
+<div class="container">
+    <div id="bd" class="bd   hover_effect small_lst_btn1">
+        <div class="rd rd_nav_style2 clear" style="padding:;">
+            <div class="rd_hd clear" style="margin:0 -15px 20px" data-url="http://uruniv.kr/1082456">
+                <div class="board clear">
+                    <div class="top_area ngeb">
+                        <div class="fr">
+                            <span class="date"><%= @post.user.created_at %></span></div>
+                            <h1 class="np_18px"><%= @post.title %></h1>
+                        </div>
+                        <div class="btm_area">
+                        <div class="side">
+                            <%= @post.user.username %>
+                       </div>
+                        <div class="side fr">
+                        <span>조회 수 <b><%= @post.view_count %></b></span><span>댓글 <b><%= @post.pcomments.count %></b></span></div>
                     </div>
-                    <div class="btm_area">
-                    <div class="side">
-                        <%= @post.user.email %>
-                   </div>
-                    <div class="side fr">
-                    <span>조회 수 <b><%= @post.view_count %></b></span><span>댓글 <b><%= @post.pcomments.count %></b></span></div>
                 </div>
-            </div>
-            <div class="rd_body clear">
-                <div class="xe_content rd_gallery">
-                </div><div class="document_1082456_573048 xe_content"><%= @post.content %></div>
-            </div>
-            <div class="rd_vote">
-                <a class="bg_f_f9 bd_edit" href="/post/edit/<%= @post.id %>" style="border:2px solid #333333;color:#333333;">수정</a>
-                <a class="bg_f_f9 bd_edit" href="/post/destroy/<%= @post.id %>" style="border:2px solid #333333;color:#333333;">삭제</a>
-                <a class="bg_f_f9 bd_edit" href="/post/index" style="border:2px solid #333333;color:#333333;">뒤로</a>
-            </div>
-            <div id="comment" class="fdb_lst_wrp  ">
-                <div id="1081606_comment" class="fdb_lst clear  ">
-                    <div class="cmt_editor">
-                        <label class="cmt_editor_tl fl"><em>✔</em><strong>댓글 쓰기</strong></label>
-                 
-                        <div class="simple_wrt">
-                        	<div class="text">
-                    	        <%= form_tag '/post/createpcomment' do %>
-                                <%= hidden_field_tag 'post_id', @post.id %>
-                                <%= text_field_tag 'pcomment',nil,placeholder: "내용을 입력하세요." %>
-                          
-                            <%= submit_tag '작성하기' %>
-                            <% end %>
+                <div class="rd_body clear">
+                    <div class="xe_content rd_gallery">
+                    </div><div class="document_1082456_573048 xe_content"><%= @post.content %></div>
+                </div>
+                <div class="rd_vote">
+                    <a class="bg_f_f9 bd_edit" href="/post/edit/<%= @post.id %>" style="border:2px solid #333333;color:#333333;">수정</a>
+                    <a class="bg_f_f9 bd_edit" href="/post/destroy/<%= @post.id %>" style="border:2px solid #333333;color:#333333;">삭제</a>
+                    <a class="bg_f_f9 bd_edit" href="/post/index" style="border:2px solid #333333;color:#333333;">뒤로</a>
+                </div>
+                <div id="comment" class="fdb_lst_wrp  ">
+                    <div id="1081606_comment" class="fdb_lst clear  ">
+                        <div class="cmt_editor">
+                            <label class="cmt_editor_tl fl"><em>✔</em><strong>댓글 쓰기</strong></label>
+                     
+                            <div class="simple_wrt">
+                            	<div class="text">
+                        	        <%= form_tag '/post/createpcomment' do %>
+                                    <%= hidden_field_tag 'post_id', @post.id %>
+                                    <%= text_field_tag 'pcomment',nil,placeholder: "내용을 입력하세요." %>
+                              
+                                <%= submit_tag '작성하기' %>
+                                <% end %>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="cmtPosition" aria-live="polite">
-                        <div class="fdb_tag">
-                            <span>Comments</span>
+                        <div id="cmtPosition" aria-live="polite">
+                            <div class="fdb_tag">
+                                <span>Comments</span>
+                            </div>
+                            <% @post.pcomments.each do |comment| %>
+                            <ul class="fdb_lst_ul ">
+                            <li id="comment_1082328" class="fdb_itm clear">
+                            <div class="meta">
+                            <span class="member_343537"><%= comment.user.email %></span><span class="date"><%= comment.created_at %></span>
+                            </div>
+                            <div class="comment_1082328_343537 xe_content"><p><%= comment.content %></p></div>
+                            <div class="fdb_nav img_tx">
+                               <a href="/post/deletepcomment/<%= comment.id %>">삭제</a>
+                            </div>
+                            </li>
+                            </ul>
+                            <% end %>
                         </div>
-                        <% @post.pcomments.each do |comment| %>
-                        <ul class="fdb_lst_ul ">
-                        <li id="comment_1082328" class="fdb_itm clear">
-                        <div class="meta">
-                        <span class="member_343537"><%= comment.user.email %></span><span class="date"><%= comment.created_at %></span>
-                        </div>
-                        <div class="comment_1082328_343537 xe_content"><p><%= comment.content %></p></div>
-                        <div class="fdb_nav img_tx">
-                           <a href="/post/deletepcomment/<%= comment.id %>">삭제</a>
-                        </div>
-                        </li>
-                        </ul>
-                        <% end %>
                     </div>
                 </div>
             </div>
