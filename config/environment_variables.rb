@@ -1,5 +1,3 @@
-raise 'lol I am actually executed'
-
 # RDS
 ENV['RDS_USERNAME'] = 'devunivtt'
 ENV['RDS_PASSWORD'] = 'startup2015'
