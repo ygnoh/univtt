@@ -1,39 +1,41 @@
-<h2>내 정보 수정</h2>
+<div style="width: 520px; margin: 0 auto;">
+  <h2 style="text-align: center;">내 정보 수정</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+    <div class="field form-group">
+      <%= f.email_field :email, autofocus: true, placeholder: "이메일", class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.email_field :email, autofocus: true, placeholder: "이메일" %>
-  </div>
+    <div class="field form-group">
+      <%= f.text_field :username, placeholder: "유저명", class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.text_field :username, placeholder: "유저명" %>
-  </div>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>현재 계정 인증을 기다리고 있습니다: <%= resource.unconfirmed_email %></div>
+    <% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>현재 계정 인증을 기다리고 있습니다: <%= resource.unconfirmed_email %></div>
+    <div class="field form-group">
+      <p>(변경을 원치 않는 경우 비워두세요)</p>
+      <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <p>(적용을 위해서는 현재 비밀번호가 필요합니다)</p>
+      <%= f.password_field :current_password, autocomplete: "off", placeholder: "현재 비밀번호*", class: "form-control" %>
+    </div>
+
+    <div class="actions form-group">
+      <%= f.submit "저장", class: "btn btn-orange btn-block" %>
+    </div>
   <% end %>
 
-  <div class="field">
-    <i>(변경을 원치 않는 경우 비워두세요)</i><br />
-    <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호" %>
+  <div class="form-group">
+    <%= button_to "계정 탈퇴", registration_path(resource_name), data: { confirm: "확실한가요?" }, method: :delete, style: "float: right;" %>
+    <%= link_to "뒤로", :back, style: "float: left;" %>
   </div>
-
-  <div class="field">
-    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인" %>
-  </div>
-
-  <div class="field">
-    <i>(적용을 위해서는 현재 비밀번호가 필요합니다)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", placeholder: "현재 비밀번호*" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "저장" %>
-  </div>
-<% end %>
-
-<p>왜요? <%= button_to "계정 탈퇴", registration_path(resource_name), data: { confirm: "확실한가요?" }, method: :delete %></p>
-
-<%= link_to "뒤로", :back %>
+</div>

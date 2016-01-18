@@ -1,9 +1,7 @@
 <% if flash.any? %>
 	<% flash.each do |type, msg| %>
-		<div class="col-md-4 col-md-offset-4">
-			<div class="alert alert-<%= type %>" role="alert">
-				<%= msg %> <strong style="cursor: pointer;" onclick="closeAlert()">✖</strong>
-			</div>
+		<div class="alert alert-<%= type %>" role="alert">
+			<%= msg %> <strong style="cursor: pointer;" onclick="closeAlert()">✖</strong>
 		</div>
 	<% end %>
 <% end %>

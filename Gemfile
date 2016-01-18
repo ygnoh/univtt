@@ -44,3 +44,4 @@ group :development, :test do
 end
 
 gem 'devise'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
