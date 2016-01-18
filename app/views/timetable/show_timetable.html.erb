@@ -29,6 +29,12 @@
 			<div id="table-grid"></div>
 		</div>
 	</div>
+	<div>
+		<%= form_tag "/timetable/destroy/#{@ttid}" do %>
+			<%= button_tag '공유', { type: 'button', onclick: 'shareLink();'} %>
+			<%= submit_tag '삭제', id: 'btn-delete' %>
+		<% end %>
+	</div>
 </div>
 
 <script>
