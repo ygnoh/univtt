@@ -8,6 +8,12 @@
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -15,7 +21,7 @@
 	<%= render "layouts/header" %>
 
 	<!-- Flash -->
-	<div id="flash" style="width: 100%; position: fixed; top: 0;">
+	<div id="flash" style="width: 100%; position: fixed; top: 0; z-index: 10;">
 		<%= render "layouts/flash" %>
 	</div>
 

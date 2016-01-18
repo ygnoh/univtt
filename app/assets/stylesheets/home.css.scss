@@ -3,7 +3,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Nanum Gothic', sans-serif !important;
 }
 
 body {
@@ -91,6 +91,10 @@ body {
 }
 
 // flash
+.alert {
+	text-align: center;
+}
+
 .alert-alert {
 	color: #31708f;
 	background-color: #d9edf7;
@@ -115,14 +119,36 @@ body {
 	border-color: #faebcc;
 }
 
+// mouseover event
+.lecture_select {
+	cursor: pointer;
+}
+
+.lecture_listed {
+	cursor: pointer;
+}
+
+.lecture_wished {
+	cursor: default;
+}
+
+.overlap_message {
+	position: absolute;
+	width: 100%;
+	top: 40%;
+	text-align: center;
+	background-color: red;
+	opacity: 0.7;
+}
+
 // navbar
 li {
 	list-style: none;
 }
 
 a {
-	text-decoration: none;
-	color: inherit; // remove default a tag font color
+	text-decoration: none !important;
+	color: inherit !important; // remove default a tag font color
 }
 
 .nav-top {
@@ -149,6 +175,14 @@ a {
 	padding-top: 23px;
 	font-size: 14px;
 	color: #FA6900;
+	font-weight: 700;
+}
+
+.username {
+	margin-right: 10px;
+	padding-top: 23px;
+	font-size: 14px;
+	color: #F38630;
 	font-weight: 700;
 }
 
@@ -194,7 +228,7 @@ a {
 }
 
 .body-copy {
-	font-size: 4em;
+	font-size: 6em;
 }
 
 .tt-count {
@@ -207,7 +241,7 @@ a {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.7);
 	//opacity: 0.9;
 }
 
@@ -246,4 +280,18 @@ a {
 .socials > a > img:hover {
 	filter: none;
 	-webkit-filter: grayscale(0%);
+}
+
+// timetable
+.lecture_listed {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.lecture_top {
+	font-size: 13px;
+}
+
+.lecture_bottom {
+	font-size: 12px;
 }

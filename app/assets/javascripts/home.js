@@ -59,11 +59,29 @@ $(document).on('ready page:load', function() {
 			data: $("#department_select").serialize(),
 			success: function(data){
 				var str = '';
-				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '"' 
+				var lects = data[0];
+				var lecttimes = data[1];
+				var classifi = data[2];
+				var profs = data[3];
+				var week = ["일","월","화","수","목","금","토"];
+
+				for(var i = 0; i < lects.length; i++) {
+					str += '<li class="lecture_select" id="' + lects[i].id + '"' 
 						+ 'data-checked="0">'
-						+ '<span>' + data[i].lecture_name+'</span>' 
-						+ '</li>';
+						+ '<span class="lecture_top">'
+						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
+						+ lects[i].lecture_name + " (" + profs[i] + ")" + '</span><br>'
+						+ '<span class="lecture_bottom">'
+						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
+						+ classifi[i] + " / ";
+					for(var j = 0; j < lecttimes[i].length; j++) {
+						str += week[lecttimes[i][j].day] + "" + lecttimes[i][j].starttime
+							+ "~" + lecttimes[i][j].endtime;
+						if ( j < lecttimes[i].length-1 ) {
+							str += ",";
+						}
+					}
+					str += '</span>' + '</li>';
 				}
 				$('#lecture-container-body').html(str);
 			}
@@ -91,11 +109,29 @@ $(document).on('ready page:load', function() {
 			data: DATA,
 			success: function(data){
 				var str = '';
-				for(var i = 0; i < data.length; i++) {
-					str += '<li class="lecture_select" id="' + data[i].id + '"'
+				var lects = data[0];
+				var lecttimes = data[1];
+				var classifi = data[2];
+				var profs = data[3];
+				var week = ["일","월","화","수","목","금","토"];
+
+				for(var i = 0; i < lects.length; i++) {
+					str += '<li class="lecture_select" id="' + lects[i].id + '"' 
 						+ 'data-checked="0">'
-						+ '<span>' + data[i].lecture_name+'</span>'
-						+ '</li>';
+						+ '<span class="lecture_top">'
+						+ lects[i].lecture_number +"-"+ lects[i].lecture_division + " "
+						+ lects[i].lecture_name + " (" + profs[i] + ")" + '</span><br>'
+						+ '<span class="lecture_bottom">'
+						+ lects[i].grade + "학점 / " + lects[i].level + "학년 / "
+						+ classifi[i] + " / ";
+					for(var j = 0; j < lecttimes[i].length; j++) {
+						str += week[lecttimes[i][j].day] + "" + lecttimes[i][j].starttime
+							+ "~" + lecttimes[i][j].endtime;
+						if ( j < lecttimes[i].length-1 ) {
+							str += ",";
+						}
+					}
+					str += '</span>' + '</li>';
 				}
 				$('#lecture-container-body').html(str);
 			}
@@ -110,7 +146,8 @@ $(document).on('ready page:load', function() {
 				url: window.location.origin + '/timetable/update_timetable',
 				dataType: "script",
 				data: {
-					lecture_id: $(this).prop('id')
+					lecture_id: $(this).prop('id'),
+					evnt: 'click'
 				}
 			});
 		} else {
@@ -153,12 +190,31 @@ $(document).on('ready page:load', function() {
 			e.preventDefault();
 		}
 	});
+
+	// mouseover event
+	$('.timetable').on('mouseenter mouseleave', '.lecture_select', function(e) {
+		if (e.type == 'mouseenter'){
+			if ($(this).data('checked') == '0') {
+				$.ajax({
+					url: window.location.origin + '/timetable/update_timetable',
+					dataType: "script",
+					data: {
+						lecture_id: $(this).prop('id'),
+						evnt: e.type
+					}
+				});
+			}
+		} else {
+			$('.overlap_message').remove();
+			$('.lecture_preview').remove();
+		}
+	});
 });
 
 // When click for removing lectures on the timetable sheet
 function removeOnTimetable() {
 	//////////////////////////// is this the best way?
-	var lecture_id = parseInt($(event.currentTarget).prop('class'));
+	var lecture_id = parseInt($(event.currentTarget).prop('class').split(' ')[0]);
 	var lectureIndex = jQuery.inArray(lecture_id,lectureSaver);
 
 	lectureSaver.splice(lectureIndex,1); // remove lectureSaver[lectureIndex]
@@ -191,7 +247,7 @@ function checkOverlap(dayValue,timeValue) {
 		if ( ( from < timeValueFrom && timeValueFrom < to ) // crossing
 			|| ( from < timeValueTo && timeValueTo < to ) // crossing
 			|| ( timeValueFrom <= from && to <= timeValueTo ) ) { // including
-			alert("'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
+			$('#table-body').append("<div class='overlap_message'>'" + $('#'+lectureSaver[ aim[x][0] ]).children().html() + "' 강의랑 시간이 겹쳐요.");
 			return false; 
 		}
 	}
@@ -218,4 +274,25 @@ function getRandColor(){
 	var colors = ['DeepSkyBlue','DodgerBlue','HotPink','LightPink','MistyRose','NavajoWhite','PaleVioletRed','Plum','SlateBlue'];
 	var rand = Math.floor(Math.random()*(colors.length));
 	return colors[rand]
+}
+
+// need to be a different way
+function resetAll(){
+	lectureSaver = [];
+	daySaver = [];
+	timeSaver = [];
+	wishbox = [];
+	gradeSaver = [];
+	gradeOfLectures = 0;
+	numberOfLectures = 0;
+	$('.lecture_select').data('checked','0')
+		.css('background-color', '');
+	$('#table-grid').empty();
+	$('#grade-number-default').html('<span style="color: red;">0</span>학점 / <span style="color: red;">0</span>강의</p>');
+	$('#wishlist').empty();
+	$('#wishbox-hidden').val(wishbox);
+}
+
+function shareLink(){
+	prompt("아래 url을 복사하여 이용하세요", window.location.href);
 }
