@@ -19,6 +19,7 @@ class TimetableController < ApplicationController
 
 	def show
 		@ttlist = Savetimetable.where(user_id: params[:user_id])
+		@username = User.find(params[:user_id]).username
 	end
 
 	def show_timetable

@@ -1,35 +1,43 @@
-<h1>Classroom#index</h1>
-
-<div>
-	<div class="form-field">
-		<%= form_tag '', onsubmit: 'return searchClassroom();' do %>
-			<div>
-				<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" } %>
-			</div>
-			<div>
-				<%= select_tag :building, nil, { id: "building_select" } %>
-			</div>
-			<div>
-				<label for="day_select">요일</label>
-				<%= select_tag :day, options_for_select([["오늘", -1], ["월", 1], ["화", 2], ["수", 3], ["목", 4], ["금", 5], ["토", 6], ["일", 0]]), { id: "day_select" } %><br>
-				<label for="start_time">시간</label>
-				<%= time_field_tag "start_time" %> ~ 
-				<%= time_field_tag "end_time" %>
-				<label for="now">바로 지금!</label>
-				<%= check_box_tag "now" %>
-			</div>
-			<%= submit_tag "검색!" %>
-		<% end %>
+<div class="container">
+	<div>
+		<div class="form-field form-groups">
+			<%= form_tag '', onsubmit: 'return searchClassroom();' do %>
+				<div class="form-group">
+					<p>학교</p>
+					<%= select_tag :school, options_for_select(@schools.collect{ |s| [s.school_name, s.id] }, nil), { id: "school_select" , class: "form-control" } %>
+				</div>
+				<div class="form-group">
+					<p>건물</p>
+					<%= select_tag :building, nil, { id: "building_select" , class: "form-control" } %>
+				</div>
+				<div class="menu-line"></div>
+				<div class="form-group">
+					<p>요일</p>
+					<%= select_tag :day, options_for_select([["오늘", -1], ["월", 1], ["화", 2], ["수", 3], ["목", 4], ["금", 5], ["토", 6], ["일", 0]]), { id: "day_select", class: "form-control" } %>
+				</div>
+				<div class="form-group">
+					<p>시간</p>
+					<%= time_field_tag "start_time" %> ~ 
+					<%= time_field_tag "end_time" %>
+					<label for="now" style="margin-left: 20px;">지금!</label>
+					<%= check_box_tag "now" %>
+				</div>
+				<div style="float: right;">
+					<%= submit_tag "검색", class: "btn btn-orange" %>
+				</div>
+			<% end %>
+		</div>
+		<div id="map"><img src="/images/map.jpg"></div>
 	</div>
-</div>
-
-<h1>해당 시간에 30분이상 비어있는 강의실 목록입니다.</h1>
-<div id="classroom">
-	<div id="classroom-wrap">
-		<div id="colheaders"></div>
-		<div id="classroom-body">
-			<div id="rowheaders"></div>
-			<div id="classroom-grid"></div>
+	<br>
+	<div id="classroom" style="display: none;">
+		<h3>해당 시간에 30분이상 비어있는 강의실 목록입니다.</h3>
+		<div id="classroom-wrap">
+			<div id="colheaders"></div>		
+			<div id="classroom-body">
+				<div id="rowheaders"></div>				
+				<div id="classroom-grid"></div>			
+			</div>
 		</div>
 	</div>
 </div>

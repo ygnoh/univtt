@@ -1,10 +1,11 @@
-<h1>Timetable#show</h1>
-
-<div>
+<div class="container" style="padding: 0 300px;">
+	<h2 style="text-align: center;"><%= @username %>님의 시간표 입니다.</h2>
 	<% @ttlist.each do |tt| %>
-		<%= form_tag "/timetable/destroy/#{tt.id}" do %>
-			<a href="/timetable/show_timetable/<%= tt.id %>"><%= tt.id %></a>
-			<%= submit_tag '삭제', id: 'btn-delete' %>
+		<%= form_tag "/timetable/destroy/#{tt.id}", style: "float: left;" do %>
+			<div class="form-groups">
+				<a href="/timetable/show_timetable/<%= tt.id %>"><%= tt.created_at %></a>
+				<%= submit_tag '삭제', class: "btn btn-orange" %>
+			</div>
 		<% end %>
 	<% end %>
 </div>
