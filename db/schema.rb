@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151128211303) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "buildings", force: :cascade do |t|
     t.integer  "school_id"
     t.string   "building_name"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.boolean  "active",        default: true
   end
 
-  add_index "buildings", ["school_id"], name: "index_buildings_on_school_id"
+  add_index "buildings", ["school_id"], name: "index_buildings_on_school_id", using: :btree
 
   create_table "classifications", force: :cascade do |t|
     t.integer  "school_id"
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "classifications", ["school_id"], name: "index_classifications_on_school_id"
+  add_index "classifications", ["school_id"], name: "index_classifications_on_school_id", using: :btree
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "building_id"
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "classrooms", ["building_id"], name: "index_classrooms_on_building_id"
+  add_index "classrooms", ["building_id"], name: "index_classrooms_on_building_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.integer  "school_id"
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.boolean  "active",          default: true
   end
 
-  add_index "departments", ["school_id"], name: "index_departments_on_school_id"
+  add_index "departments", ["school_id"], name: "index_departments_on_school_id", using: :btree
 
   create_table "lectures", force: :cascade do |t|
     t.integer  "department_id"
@@ -70,9 +73,9 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",                        null: false
   end
 
-  add_index "lectures", ["classification_id"], name: "index_lectures_on_classification_id"
-  add_index "lectures", ["department_id"], name: "index_lectures_on_department_id"
-  add_index "lectures", ["professor_id"], name: "index_lectures_on_professor_id"
+  add_index "lectures", ["classification_id"], name: "index_lectures_on_classification_id", using: :btree
+  add_index "lectures", ["department_id"], name: "index_lectures_on_department_id", using: :btree
+  add_index "lectures", ["professor_id"], name: "index_lectures_on_professor_id", using: :btree
 
   create_table "lecturetimes", force: :cascade do |t|
     t.integer  "lecture_id"
@@ -84,8 +87,8 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id"
-  add_index "lecturetimes", ["lecture_id"], name: "index_lecturetimes_on_lecture_id"
+  add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id", using: :btree
+  add_index "lecturetimes", ["lecture_id"], name: "index_lecturetimes_on_lecture_id", using: :btree
 
   create_table "professors", force: :cascade do |t|
     t.integer  "department_id"
@@ -94,17 +97,17 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "professors", ["department_id"], name: "index_professors_on_department_id"
+  add_index "professors", ["department_id"], name: "index_professors_on_department_id", using: :btree
 
   create_table "savetimetables", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "lectures",   default: "--- []\n"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "lectures",   default: [],                array: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.boolean  "active",     default: true
   end
 
-  add_index "savetimetables", ["user_id"], name: "index_savetimetables_on_user_id"
+  add_index "savetimetables", ["user_id"], name: "index_savetimetables_on_user_id", using: :btree
 
   create_table "schools", force: :cascade do |t|
     t.string   "school_name"
@@ -131,7 +134,18 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.datetime "updated_at",                             null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "buildings", "schools"
+  add_foreign_key "classifications", "schools"
+  add_foreign_key "classrooms", "buildings"
+  add_foreign_key "departments", "schools"
+  add_foreign_key "lectures", "classifications"
+  add_foreign_key "lectures", "departments"
+  add_foreign_key "lectures", "professors"
+  add_foreign_key "lecturetimes", "classrooms"
+  add_foreign_key "lecturetimes", "lectures"
+  add_foreign_key "professors", "departments"
+  add_foreign_key "savetimetables", "users"
 end
