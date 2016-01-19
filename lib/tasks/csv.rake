@@ -35,9 +35,9 @@ namespace :create do
 
 	desc "About professor model"
 	task :professor => :environment do
-		CSV.foreach('db/seed_data/professor_upload.csv', headers: true) do |row|
-			Professor.create(
-				id: row[0],
+		CSV.foreach('db/seed_data/professor_2016_1.csv', headers: true) do |row|
+			foo = Professor.find_or_initialize_by(id: row[0])
+			foo.update_attributes(
 				department_id: row[1],
 				professor_name: row[2]
 			)
@@ -57,9 +57,9 @@ namespace :create do
 
 	desc "About lecture model"
 	task :lecture => :environment do
-		CSV.foreach('db/seed_data/lecture_upload.csv', headers: true) do |row|
-			Lecture.create(
-				id: row[0],
+		CSV.foreach('db/seed_data/lecture_2016_1.csv', headers: true) do |row|
+			foo = Lecture.find_or_initialize_by(id: row[0])
+			foo.update_attributes(
 				department_id: row[1],
 				professor_id: row[2],
 				classification_id: row[3],
@@ -80,7 +80,7 @@ namespace :create do
 
 	desc "About lecturetime model"
 	task :lecturetime => :environment do
-		CSV.foreach('db/seed_data/lecturetime_upload.csv', headers: true) do |row|
+		CSV.foreach('db/seed_data/lecturetime_2016_1.csv', headers: true) do |row|
 			Lecturetime.create(
 				lecture_id: row[0],
 				classroom_id: row[1],
@@ -93,8 +93,9 @@ namespace :create do
 
 	desc "About classroom model"
 	task :classroom => :environment do
-		CSV.foreach('db/seed_data/classroom_upload.csv', headers: true) do |row|
-			Classroom.create(
+		CSV.foreach('db/seed_data/classroom_2016_1.csv', headers: true) do |row|
+			foo = Classroom.find_or_initialize_by(id: row[0])
+			foo.update_attributes(
 				id: row[0],
 				building_id: row[1],
 				classroom_name: row[2]
