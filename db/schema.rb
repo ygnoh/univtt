@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128211303) do
+ActiveRecord::Schema.define(version: 20160120044528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20151128211303) do
   create_table "classifications", force: :cascade do |t|
     t.integer  "school_id"
     t.string   "classification_name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "active",              default: true
   end
 
   add_index "classifications", ["school_id"], name: "index_classifications_on_school_id", using: :btree
@@ -38,8 +39,9 @@ ActiveRecord::Schema.define(version: 20151128211303) do
   create_table "classrooms", force: :cascade do |t|
     t.integer  "building_id"
     t.string   "classroom_name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "active",         default: true
   end
 
   add_index "classrooms", ["building_id"], name: "index_classrooms_on_building_id", using: :btree
@@ -83,8 +85,9 @@ ActiveRecord::Schema.define(version: 20151128211303) do
     t.integer  "day"
     t.integer  "starttime"
     t.integer  "endtime"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "active",       default: true
   end
 
   add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id", using: :btree
@@ -93,8 +96,9 @@ ActiveRecord::Schema.define(version: 20151128211303) do
   create_table "professors", force: :cascade do |t|
     t.integer  "department_id"
     t.string   "professor_name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "active",         default: true
   end
 
   add_index "professors", ["department_id"], name: "index_professors_on_department_id", using: :btree
