@@ -7,4 +7,7 @@ class Classroom < ActiveRecord::Base
 	### Validations
 	validates :building, presence: true
 	validates :classroom_name, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end

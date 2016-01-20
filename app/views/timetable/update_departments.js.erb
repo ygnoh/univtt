@@ -1,3 +1,9 @@
 $("#department_select").html("<%=
 	j(options_for_select(@departments.collect{ |d| [d.department_name, d.id] }, nil))
-%>")
+%>");
+
+<% if @provider.nil? %>
+	$("#provider").empty();
+<% else %>
+	$("#provider").html("<%= @provider.name %>(<%= @provider.group %>)님께서 제공해주셨습니다.");
+<% end %>

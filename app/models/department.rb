@@ -11,4 +11,5 @@ class Department < ActiveRecord::Base
 
 	### Scopes
 	default_scope { where(active: true) }
+	default_scope { order(id: :asc) }
 end

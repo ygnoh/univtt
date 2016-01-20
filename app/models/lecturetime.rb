@@ -9,4 +9,7 @@ class Lecturetime < ActiveRecord::Base
 	validates :day, presence: true, inclusion: { in: 0..6 }
 	validates :starttime, presence: true
 	validates :endtime, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end

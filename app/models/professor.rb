@@ -7,4 +7,7 @@ class Professor < ActiveRecord::Base
 	### Validations
 	validates :department, presence: true
 	validates :professor_name, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end
