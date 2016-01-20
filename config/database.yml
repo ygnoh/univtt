@@ -1,6 +1,6 @@
 default: &default
-  adapter: postgresql
-  enconding: utf-8
+  adapter: mysql2
+  encoding: utf8
   username: <%= ENV['RDS_USERNAME'] %>
   password: <%= ENV['RDS_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
@@ -16,7 +16,6 @@ development:
 test:
   <<: *default
   database: univtt_test
-  pool: 5
 
 production:
   <<: *default
