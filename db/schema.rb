@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20160120051240) do
   create_table "classifications", force: :cascade do |t|
     t.integer  "school_id",           limit: 4
     t.string   "classification_name", limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "active",                          default: true
   end
 
   add_index "classifications", ["school_id"], name: "index_classifications_on_school_id", using: :btree
@@ -35,8 +36,9 @@ ActiveRecord::Schema.define(version: 20160120051240) do
   create_table "classrooms", force: :cascade do |t|
     t.integer  "building_id",    limit: 4
     t.string   "classroom_name", limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "active",                     default: true
   end
 
   add_index "classrooms", ["building_id"], name: "index_classrooms_on_building_id", using: :btree
@@ -80,8 +82,9 @@ ActiveRecord::Schema.define(version: 20160120051240) do
     t.integer  "day",          limit: 4
     t.integer  "starttime",    limit: 4
     t.integer  "endtime",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "active",                 default: true
   end
 
   add_index "lecturetimes", ["classroom_id"], name: "index_lecturetimes_on_classroom_id", using: :btree
@@ -90,21 +93,22 @@ ActiveRecord::Schema.define(version: 20160120051240) do
   create_table "professors", force: :cascade do |t|
     t.integer  "department_id",  limit: 4
     t.string   "professor_name", limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "active",                     default: true
   end
 
   add_index "professors", ["department_id"], name: "index_professors_on_department_id", using: :btree
 
   create_table "providers", force: :cascade do |t|
-    t.integer  "school_id"
-    t.string   "name"
-    t.string   "group"
-    t.integer  "year"
-    t.integer  "semester"
-    t.boolean  "active",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "school_id",  limit: 4
+    t.string   "name",       limit: 255
+    t.string   "group",      limit: 255
+    t.integer  "year",       limit: 4
+    t.integer  "semester",   limit: 4
+    t.boolean  "active",                 default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "providers", ["school_id"], name: "index_providers_on_school_id", using: :btree
