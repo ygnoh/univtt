@@ -1,4 +1,8 @@
 class TimetableController < ApplicationController
+	# global variables for provider
+	$year = 2016
+	$semester = 1
+
   def new
 		@schools = School.all
   end
@@ -73,6 +77,8 @@ class TimetableController < ApplicationController
 		else
 			@departments = School.find(params[:school]).departments
 		end
+
+		@provider = Provider.where(school_id: params[:school], year: $year, semester: $semester).first
 
 		respond_to do |format|
 			format.js
