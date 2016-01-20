@@ -16,4 +16,7 @@ class Lecture < ActiveRecord::Base
 	validates :lecture_number, presence: true
 	validates :lecture_division, presence: true
 	validates :grade, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end

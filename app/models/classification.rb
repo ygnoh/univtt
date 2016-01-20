@@ -7,4 +7,7 @@ class Classification < ActiveRecord::Base
 	### Validations
 	validates :school, presence: true
 	validates :classification_name, presence: true
+
+	### Scopes
+	default_scope { where(active: true) }
 end
