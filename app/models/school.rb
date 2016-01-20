@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
 	has_many :buildings
 	has_many :departments
 	has_many :classifications
+	has_many :providers
 
 	### Validations
 	validates :school_name, presence: true
