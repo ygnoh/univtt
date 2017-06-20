@@ -8,7 +8,7 @@ class RecommendController < ApplicationController
 		dayRestrict = params[:day_restrict].to_i
 		gradeRestrictOver = params[:grade_restrict_over].to_i
 		gradeRestrictLess = params[:grade_restrict_less].to_i
-		overlapChecker = Hash.new{ |hash, key| hash[key] = [] }
+		overlapChecker = Hash.new{ |hash, key| hash[key] = [] } # 서로서로 겹치는 강의들을 담아놓는다
 
 		lectures = tempLectures
 		# day restrict
@@ -56,11 +56,11 @@ class RecommendController < ApplicationController
 			if !done
 				tempResult = [ [lectures[0], lectures[1]], [lectures[0]], [lectures[1]] ]
 			end
-		else
-			for i in 0..(lectures.length-1-1)
-				Lecturetime.where(lecture_id: lectures[i]).each do |li|
+		else # the number of selected lectures >= 3
+			for i in 0..(lectures.length-1-1) # 각각의 강의들에 대해
+				Lecturetime.where(lecture_id: lectures[i]).each do |li| # 각 강의들이 가지고 있는 강의시간들에 대해
 					for j in (i+1)..(lectures.length-1)
-						if overlapChecker[lectures[i]].include? lectures[j]
+						if overlapChecker[lectures[i]].include? lectures[j] # 만약 lectures[j]의 강의시간이 lectures[i]와 겹친다면 건너뛴다
 							next
 						end
 
@@ -68,6 +68,7 @@ class RecommendController < ApplicationController
 							if li.day == lj.day
 								# Check if there exists overlap between li and lj
 								if (lj.starttime < li.starttime && li.starttime < lj.endtime) || (lj.starttime < li.endtime && li.endtime < lj.endtime) || (li.starttime < lj.starttime && lj.starttime < li.endtime) || (li.starttime < lj.endtime && lj.endtime < li.endtime) || (li.starttime == lj.starttime && li.endtime == lj.endtime)
+									# 만약 겹친다면 overlapChecker에 추가
 									overlapChecker[lectures[i]] << lectures[j]
 									overlapChecker[lectures[j]] << lectures[i]
 									break
@@ -80,6 +81,7 @@ class RecommendController < ApplicationController
 
 			tempResult = []
 			lectures.each do |l|
+				# lecture 배열 [l]로 시작하는 시간표를 만든다.
 				tempResult += recommend([l],lectures,overlapChecker)
 			end
 			tempResult.uniq!
@@ -138,8 +140,9 @@ class RecommendController < ApplicationController
 
 	def recommend(mustVal, array, checker)
 		result = []
+		# mustVal.last, mustVal.last와 겹치는 강의 제거
 		args = array-[mustVal.last]-checker[mustVal.last]
-		if args == []
+		if args == [] # 만약 남아있는 강의가 하나도 없다면
 			result << mustVal
 		else
 			args.each do |a|
